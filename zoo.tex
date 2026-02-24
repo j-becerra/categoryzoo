@@ -34,6 +34,16 @@
 
 
 
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\coev}{\mathrm{coev}}
+\newcommand{\ev}{\mathrm{ev}}
+
+
+
+
 
 
 
@@ -1623,6 +1633,221 @@ $$  \mathsf{Lex}(\mathcal{A}, \cat{B}) \simeq \mathcal{A}^{op} \boxtimes \cat{B}
 {\color{red} TO BE FINISHED}
 
 
+
+\subsection{The canonical Hopf algebra in a braided finite tensor category}
+
+
+
+Let $\C$ be a finite tensor category over a field $k$, braided or otherwise. We consider the bifunctor
+\[
+T : \C^{\op} \times \C \longrightarrow \C, \qquad (Y, X) \longmapsto X \otimes Y^*.
+\]
+We wish to form the coend
+\[
+\F \;=\; \int^{X \in \C} X \otimes X^*.
+\]
+This is the universal object equipped with a \emph{dinatural transformation}
+\[
+i_X : X \otimes X^* \longrightarrow \F,
+\]
+meaning that for every morphism $f : X \to Y$ in $\C$, the following diagram commutes:
+\[
+\begin{tikzcd}
+X \otimes X^* \arrow[r, "f \otimes \id_{X^*}"] \arrow[dr, "i_X"'] & Y \otimes X^* \arrow[d] \\
+ & \F \\
+X \otimes Y^* \arrow[r, "\id_X \otimes f^*"'] \arrow[ur, "i_Y"] & X \otimes X^* \arrow[u]
+\end{tikzcd}
+\]
+More precisely, $i_Y \circ (\id_Y \otimes f^*) = i_X \circ (f \otimes \id_{X^*})$ for all $f: X \to Y$.
+
+\begin{proposition}
+The coend $\F = \int^{X \in \C} X \otimes X^*$ exists in $\C$.
+\end{proposition}
+
+\begin{proof}
+Since $\C$ is a finite tensor category, it has finitely many isomorphism classes of simple objects $L_1, \ldots, L_n$ and all $\Hom$-spaces are finite-dimensional over $k$. As a $k$-linear abelian category, $\C$ has all finite colimits (it is equivalent, as a $k$-linear category, to the category of finite-dimensional modules over a finite-dimensional $k$-algebra, which is cocomplete over finite diagrams).
+
+Any coend can be computed as a coequalizer. Concretely, $\F$ is the coequalizer of the pair of maps
+\[
+\bigoplus_{f : X \to Y} Y \otimes X^* \;\;\rightrightarrows\;\; \bigoplus_{Z \in \mathrm{Irr}(\C)} Z \otimes Z^*,
+\]
+where the two maps send the summand indexed by $f: X \to Y$ to the summands indexed by $X$ and $Y$ via $f \otimes \id_{X^*}$ and $\id_Y \otimes f^*$ respectively, and the coproduct on the right ranges over representatives of isomorphism classes of simple objects (by semisimplicity of the relevant Hom-spaces, one reduces the index set to the finitely many simples and the finitely many morphisms between them). Since both direct sums are \emph{finite}, this coequalizer diagram is finite, and hence exists in $\C$.
+\end{proof}
+
+
+
+The finiteness of $\C$ (finitely many simples, finite-dimensional hom-spaces) is essential: it reduces the a priori infinitely indexed coproducts in the coend formula to finite direct sums, which exist in any abelian category.
+
+
+
+
+When $\C$ is \textbf{braided}, with braiding $c_{X,Y} : X \otimes Y \xrightarrow{\sim} Y \otimes X$, the object $\F$ acquires the structure of a \textbf{Hopf algebra in $\C$}. All structure maps are defined by specifying a dinatural family into (or out of) $\F$ and invoking the universal property of the coend:
+
+
+\begin{itemize}
+\item \textbf{Multiplication }   $\mu : \F \otimes \F \to \F$ : 
+
+
+Since $\F \otimes \F \cong \int^{X}\int^{Y} (X \otimes X^*) \otimes (Y \otimes Y^*)$ (the tensor product of coends is the iterated coend, by the Fubini theorem for coends), it suffices to give a dinatural family
+\[
+\mu_{X,Y} : X \otimes X^* \otimes Y \otimes Y^* \longrightarrow \F.
+\]
+Define it as the composite
+\[
+X \otimes X^* \otimes Y \otimes Y^*
+\xrightarrow{\id_X \otimes c_{X^*, Y} \otimes \id_{Y^*}}
+X \otimes Y \otimes X^* \otimes Y^*
+\xrightarrow{\;\sim\;}
+(X \otimes Y) \otimes (X \otimes Y)^*
+\xrightarrow{\;i_{X \otimes Y}\;}
+\F,
+\]
+where the middle isomorphism uses $(X \otimes Y)^* \cong Y^* \otimes X^*$ and the braiding $c_{X^*,Y}$ is used to permute the middle factors. One verifies dinaturality in both $X$ and $Y$ using the naturality of the braiding and the dinaturality of $i_{(\text{--})}$. The resulting morphism $\mu : \F \otimes \F \to \F$ is associative.
+
+
+\item \textbf{Unit $\eta : \one \to \F$:}
+
+
+
+Set
+\[
+\eta \;=\; i_{\one} \;\circ\; \lambda^{-1}_{\one} : \one \xrightarrow{\sim} \one \otimes \one^* \xrightarrow{\;i_{\one}\;} \F,
+\]
+using the canonical isomorphism $\one^* \cong \one$ and the unit constraint $\lambda$.
+
+
+
+\item \textbf{Comultiplication $\Delta : \F \to \F \otimes \F$}
+
+Define the dinatural family $\delta_X : X \otimes X^* \to \F \otimes \F$ by
+\[
+X \otimes X^*
+\xrightarrow{\id_X \otimes \coev_Y \otimes \id_{X^*}}
+X \otimes Y \otimes Y^* \otimes X^*
+\xrightarrow{\id_X \otimes \id_Y \otimes c_{Y^*,X^*}}
+X \otimes Y \otimes X^* \otimes Y^*
+\xrightarrow{\;i_X \,\otimes\, i_Y\;}
+\F \otimes \F,
+\]
+summing over all $Y$ (or more precisely, inserting a copy via coevaluation $\coev_Y : \one \to Y \otimes Y^*$ for each $Y$ and then using the braiding to sort the dual factors). The braiding $c_{Y^*,X^*}$ rearranges $Y^* \otimes X^*$ into $X^* \otimes Y^*$ so that the two tensor factors land correctly in the two copies of $\F$. The result is coassociative.
+
+\item \textbf{Counit $\varepsilon : \F \to \one$:}
+
+The evaluation morphism $\ev_X : X \otimes X^* \to \one$ is natural (hence dinatural) in $X$. By the universal property of $\F$ it factors uniquely through a morphism
+\[
+\varepsilon : \F \longrightarrow \one.
+\]
+
+\item \textbf{Antipode $S : \F \to \F$:}
+
+In a pivotal braided category, define the dinatural family $s_X : X \otimes X^* \to \F$ by
+\[
+X \otimes X^*
+\xrightarrow{\;c_{X, X^*}\;}
+X^* \otimes X
+\xrightarrow{\;\sim\;}
+X^* \otimes X^{**}
+\xrightarrow{\;i_{X^*}\;}
+\F,
+\]
+using the braiding to swap $X$ and $X^*$, and the pivotal structure to identify $X \cong X^{**}$. This gives a well-defined map $S : \F \to \F$ satisfying the Hopf antipode axiom $\mu \circ (S \otimes \id) \circ \Delta = \eta \circ \varepsilon = \mu \circ (\id \otimes S) \circ \Delta$.
+\end{itemize}
+
+Furthermore, this Hopf algebra comes with a Hopf pairing $$\omega_\C : \F \otimes \F \to \F.$$
+As with the other structure maps, it is defined by specifying a dinatural family and invoking the universal property of $\F \otimes \F$ as an iterated coend. Define
+\[
+\omega_{X,Y} : (X \otimes X^*) \otimes (Y \otimes Y^*) \longrightarrow \one
+\]
+by the composite
+\[
+X \otimes X^* \otimes Y \otimes Y^*
+\xrightarrow{\;\id_X \otimes c_{X^*,Y} \otimes \id_{Y^*}\;}
+X \otimes Y \otimes X^* \otimes Y^*
+\xrightarrow{\;\ev_X \otimes \ev_Y\;}
+\one \otimes \one
+\xrightarrow{\;\sim\;}
+\one,
+\]
+where we use the braiding $c_{X^*,Y}$ to bring $X^*$ next to $X$ and $Y^*$ next to $Y$, and then evaluate both pairs simultaneously. More explicitly, this is the composite
+\[
+X \otimes X^* \otimes Y \otimes Y^*
+\xrightarrow{\;\id \otimes c_{X^*,Y} \otimes \id\;}
+X \otimes Y \otimes X^* \otimes Y^*
+\xrightarrow{\;c_{X,Y} \otimes c_{X^*,Y^*}\;}
+Y \otimes X \otimes Y^* \otimes X^*
+\xrightarrow{\;\ev_Y \otimes \ev_X\;}
+\one,
+\]
+where one uses the braiding to arrange evaluation pairings $(X, X^*)$ and $(Y, Y^*)$ next to each other. One checks that this family is dinatural in both $X$ and $Y$, so it descends to a well-defined morphism $\omega : \F \otimes \F \to \one$.
+
+
+
+
+\subsection{Non-degenerate braided finite tensor category}
+
+
+
+Let $\C$ be a  braided finite tensor category. We say that $\C$ is \textbf{non-degenerate} if so is $\omega_\C$.
+
+
+
+\subsection{Weakly-factorisable braided finite tensor category}
+
+Let $\C$ be a  braided finite tensor category. We say that $\C$ is \textbf{weakly-factorisable} if the map $$ \Omega_\C : \Hom_\C (\one, \F) \to \Hom_\C (\F, \one)  \qquad , \qquad f \mapsto (f \otimes \id_\F)\circ \omega_\C $$
+is invertible.
+
+
+
+\subsection{Factorisable braided finite tensor category}
+
+
+
+Let $\mathcal{C}$ be a braided tensor category with braiding $\sigma$, and let
+$\overline{\mathcal{C}}$ denote the finite tensor category $\mathcal{C}^{\mathrm{rev}}$ equipped with the braiding $\overline{\sigma}$ given by
+\[
+(\overline{\sigma}_{V,W} : V \otimes^{\mathrm{rev}} W \to W \otimes^{\mathrm{rev}} V)
+:= (\sigma_{V,W}^{-1} : W \otimes V \to V \otimes W)
+\]
+for $V, W \in \mathcal{C}$. By using the universal property of the Deligne tensor product, we
+define the $k$-linear exact functor $G$ by
+\begin{equation}
+G : \mathcal{C} \boxtimes \overline{\mathcal{C}} \to \mathcal{Z}(\mathcal{C}), \quad V \boxtimes W \mapsto (V \otimes W, c), \tag{3.10}
+\end{equation}
+where the natural isomorphism $c$ is given by
+\begin{equation}
+c_X : V \otimes W \otimes X
+\xrightarrow{\mathrm{id}_V \otimes \sigma_{X,W}^{-1}}
+V \otimes X \otimes W
+\xrightarrow{\sigma_{V,X} \otimes \mathrm{id}_W}
+X \otimes V \otimes W \tag{3.11}
+\end{equation}
+for $X \in \mathcal{C}$. The functor $G$ is in fact a braided tensor functor with the monoidal
+structure given by the braiding of $\mathcal{Z}(\mathcal{C})$.
+
+\begin{definition}
+The braided finite tensor category $\mathcal{C}$ is \emph{factorizable} if the functor $G$ from above is an equivalence.
+\end{definition}
+
+
+
+\subsection{Modular category (non-ss)}
+
+
+The following is Theorem 1.1 in Shimizu's "Non-degeneracy conditions for braided..."
+
+
+For a braided finite tensor category $\mathcal{C}$, the following assertions are equivalent:
+\begin{enumerate}
+    \item $\mathcal{C}$ is non-degenerate.
+    \item $\mathcal{C}$ is factorizable.
+    \item $\mathcal{C}$ is weakly-factorizable.
+    \item The M\"{u}ger center of $\mathcal{C}$ is trivial, ie $\mathcal{Z}_2(\C) \simeq \mathsf{Vec}_\Bbbk$.
+\end{enumerate}
+
+
+A ribbon finite tensor category satisfying any of the four equivalent conditions above is called a \textbf{modular tensor category.}
+
+
 \section{ Module categories}
 
 \subsection{ Definition}
@@ -1742,6 +1967,408 @@ Let \( \mathcal{M}, \mathcal{N} \) be two left \( \mathcal{C} \)-module categori
 
 
 {\color{red} TO BE FINISHED }
+
+
+\subsection{Finite categories}
+
+Following \cite{etingofostrik}, a \emph{finite category} is an abelian category $\mathcal{A}$ such that
+\begin{enumerate}[label=(\roman*)]\itemsep0em 
+  \item the hom-vector spaces are finite-dimensional,
+  \item every object has finite length,
+  \item there are finitely many isomorphisms classes of simple objects,
+  \item $\mathcal{A}$ has enough projectives.
+\end{enumerate}
+It is well-known that an abelian category is finite if and only if it equivalent to the category $A$-$\mathsf{mod}$ of finite-dimensional modules over a finite-dimensional algebra $A$. Therefore, a given finite category determines the Morita equivalence class of a finite-dimensional algebra.
+
+Recall that abelian categories are \emph{finitely (co)complete}, that is, they have all finite (co)limits. A functor $F: \mathcal{C} \to \mathcal{D}$ between abelian categories is \emph{left} (resp. \emph{right}) \emph{exact} if it preserves finite limits (resp. colimits).  Alternatively, $F$ is left (resp. right) exact if and only if it preserves kernels (resp. cokernels). The functor $F$ is \emph{exact} if it is left and right exact.
+
+The following version of the Eilenberg-Watts theorem will be heavily used in the sequel:
+
+\begin{lemma}[{\cite[Corollary 2.3]{fss}}]\label{lem:left_exact=right_adjoint}
+
+Let $F,G: \mathcal{A} \to \mathcal{B}$ be functors between finite categories. Then the following are equivalent:
+\begin{enumerate}\itemsep0em 
+\item[(L1)] $F$ is left exact,
+\item[(L2)] $F$ is right-adjoint,
+\end{enumerate}
+and if $\mathcal{B} = \mathsf{vect}$ the category of finite-dimensional vector spaces, then they are likewise equivalent to
+\begin{enumerate}
+\item[(L3)] $F$ is representable, $F \cong \mathsf{Hom}_{\mathcal{A}}(X,-)$ for some object $X \in \mathcal{A}$.
+\end{enumerate}
+Similarly, the following are equivalent:
+\begin{enumerate}\itemsep0em 
+\item[(R1)] $G$ is right exact,
+\item[(R2)] $G$ is left-adjoint,
+\end{enumerate}
+and if $\mathcal{B} = \mathsf{vect}$, then they are equivalent to
+\begin{enumerate}
+\item[(R3)] $G$ is ``dually representable'', $G \cong \mathsf{Hom}_{\mathcal{A}}(-,X)^*$ for some object $X \in \mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+
+\subsection{Finite tensor categories}
+
+A finite category $\mathcal{A}$ equipped with a rigid bilinear monoidal  product  with simple unit is called a \emph{finite tensor category}~\cite{etingofostrik}. The left and right rigidity induce strong monoidal functors
+\begin{equation}\label{eq:duality_functors}
+(-)^\vee: \mathcal{A} \to \mathcal{A}^{\mathsf{op}, \mathsf{rev}}  \qquad , \qquad ^{\vee}(-): \mathcal{A}^{\mathsf{op} , \mathsf{rev}}\to \mathcal{A} 
+\end{equation}
+respectively, 
+which are mutually quasi-inverses. Here for a monoidal category $\mathcal{C} = (\mathcal{C} , \otimes, \mathbbm{1})$, we have put 
+$$ \mathcal{C}^{\mathsf{op}} = (\mathcal{C}^{\mathsf{op}}, \otimes, \mathbbm{1})  \qquad , \qquad  \mathcal{C}^{\mathsf{rev}} = (\mathcal{C}, \otimes^{\mathsf{rev}}, \mathbbm{1}) \qquad , \qquad \mathcal{C}^{\mathsf{op}, \mathsf{rev}} = (\mathcal{C} ^{\mathsf{op}})^{\mathsf{rev}} $$ with $
+X \otimes^{\mathsf{rev}} Y := Y \otimes X$.
+
+
+In a finite tensor category $\mathcal{A}$, we have adjunctions (e.g. \cite[\S 2.7]{shimizuunimodular})
+\begin{equation}\label{eq:adjunctions_duals_ftc}
+X^\vee \otimes(-)\dashv X\otimes(-)\dashv {}^\vee X\otimes(-)\qquad , \qquad (-)\otimes {}^\vee X\dashv(-)\otimes X\dashv(-)\otimes X^\vee 
+\end{equation}
+for every object $X \in \mathcal{A}$, so by  \cref{lem:left_exact=right_adjoint} the monoidal product bifunctor $\otimes : \mathcal{A} \times \mathcal{A} \to \mathcal{A} $ is exact in each variable.
+
+
+\subsection{Finite module categories}\label{subsec:finite_mod_cats}
+
+Let $\mathcal{C}$ be a monoidal category. A \emph{left $\mathcal{C}$-module structure} on a category $\mathcal{M}$ is the data of an action bifunctor $\ogreaterthan : \mathcal{C} \times \mathcal{M} \longrightarrow \mathcal{M} $ and a family of natural isomorphisms
+$$ \mathbbm{1}\ogreaterthan M \cong M \qquad , \qquad  (X \otimes Y)\ogreaterthan  M \cong X \ogreaterthan (Y \ogreaterthan M)  $$ satisfying a pentagon and triangle axioms similar to those for monoidal categories, see \cite[\S 7.1]{egno} for details (a \emph{right $\mathcal{A}$-module category} is defined analogously with an action functor $\olessthan : \mathcal{M} \times \mathcal{C} \longrightarrow \mathcal{M}$).  Similarly, an \emph{$\mathcal{A}$-module functor} $F: \mathcal{M} \longrightarrow \mathcal{N}$ between $\mathcal{A}$-module categories is a functor together with natural isomorphisms $$ F(X \ogreaterthan M) \cong F(X) \ogreaterthan M   $$ satisfying similar axioms, cf.  \cite[\S 7.2]{egno}.
+
+If $\mathcal{A}$ is a finite tensor category, a finite category $\mathcal{M}$ equipped with a  $\mathcal{A}$-module structure is called a \emph{finite $\mathcal{A}$-module category} if the functors $- \ogreaterthan M : \mathcal{A} \longrightarrow \mathcal{M}$  are right exact for any $M \in \mathcal{M}$. Similarly to the case of finite tensor categories, we have adjunctions
+\begin{equation}\label{eq:adjunctions_action_functor}
+X^\vee \ogreaterthan (-)\dashv X\ogreaterthan (-)\dashv {}^\vee X\ogreaterthan(-)
+\end{equation} 
+so again  \cref{lem:left_exact=right_adjoint} implies that the functor $X \ogreaterthan - : \mathcal{M} \longrightarrow \mathcal{M}$ is always exact for any $X \in \mathcal{A}$.
+
+\subsection{Internal homs}\label{subsec:internal_homs}
+
+Let $\mathcal{A}$ be a finite tensor category and $\mathcal{M}$ a finite $\mathcal{A}$-module category. For every $M \in \mathcal{M}$, the functor $-	 \ogreaterthan M$ has a right-adjoint by \cref{lem:left_exact=right_adjoint}, that we denote by $\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow \mathcal{A}$. By definition, there are linear isomorphisms
+\begin{align}\label{eq:internal_hom_adj}
+\mathsf{Hom}_{\mathcal{M}}(X \ogreaterthan M,N) \cong \mathsf{Hom}_\mathcal{A} (X, \underline{\mathsf{Hom}}(M,N)) 
+\end{align}
+natural in $X \in \mathcal{A}$ and $N \in \mathcal{M}$.
+According to the parametrized adjunction theorem \cite[Theorem IV.7.3]{maclane}, the right adjoints in this family of adjunctions assemble in a unique way into a bifunctor
+\begin{equation}\label{eq:internal_hom_functor}
+\underline{\mathsf{Hom}}:\mathcal{M}^{\mathsf{op}} \times \mathcal{M} \longrightarrow \mathcal{A}
+\end{equation}
+such that the isomorphism \eqref{eq:internal_hom_adj} is natural in the three variables. We call \eqref{eq:internal_hom_functor} the \emph{internal hom functor}. This bifunctor is, just like the hom functor,  left exact in both variables: indeed by definition $\underline{\mathsf{Hom}}(M,-)$ is right-adjoint to $- \ogreaterthan M$, and the isomorphisms
+\begin{align*}
+\mathsf{Hom}_{\mathcal{M}^\mathsf{op}}(X^\vee \ogreaterthan N,M) \overset{\eqref{eq:adjunctions_action_functor}}  {\cong} \mathsf{Hom}_{\mathcal{M}^\mathsf{op}}( N,X \ogreaterthan M) \cong  \mathsf{Hom}_{\mathcal{M}}( X \ogreaterthan M, N)  \cong \mathsf{Hom}_\mathcal{A} (X, \underline{\mathsf{Hom}}(M,N)) 
+\end{align*}
+show that  $\underline{\mathsf{Hom}}(-,N)$ is right-adjoint to $(-)^\vee \ogreaterthan N$. Once again we conclude  by \cref{lem:left_exact=right_adjoint}. 
+
+
+We also record that for objects $X,Y \in \mathcal{A}$ and $M,N \in \mathcal{M}$ there is a natural isomorphism
+\begin{equation}\label{eq:iso_2.15}
+\underline{\mathsf{Hom}}(X \ogreaterthan M, Y \ogreaterthan N) \cong Y \otimes \underline{\mathsf{Hom}}(M,N) \otimes X^\vee,
+\end{equation}
+see \cite[Lemma 7.9.4]{egno} or \cite[(2.15)]{shimizuunimodular}.
+
+The aforementioned internal homs can be used to equip $\mathcal{M}$ with a structure of $\mathcal{A}$-enriched category: for $L,M,N \in \mathcal{M}$ there is a composition map
+\begin{equation}\label{eq:enriched_composite}
+\underline{\circ}_{L,M,N} := \underline{\mathrm{ev}}_{M,N} \circ (\mathrm{id} \ogreaterthan \underline{\mathrm{ev}}_{L,M}) : \underline{\mathsf{Hom}}(M,N)\otimes \underline{\mathsf{Hom}}(L,M)\longrightarrow \underline{\mathsf{Hom}}(L,N)
+\end{equation}
+where $\underline{\mathrm{ev}}_{M,N} : \underline{\mathsf{Hom}}(M,N) \ogreaterthan M \longrightarrow N$ is the counit of the adjunction  \eqref{eq:internal_hom_adj}. The identity arrow $$ \underline{\mathrm{id}}_M:  \mathbbm{1} \longrightarrow \underline{\mathsf{End}}(M):= \underline{\mathsf{Hom}}(M,M) $$  is the morphism corresponding to the isomorphism $\mathbbm{1} \ogreaterthan M \cong M$ under the isomorphism \eqref{eq:internal_hom_adj}. In particular, for any object $M \in \mathcal{M}$, we have that $\underline{\mathsf{End}}(M)$ is an algebra object in $\mathcal{A}$, and for any  $N \in \mathcal{M}$ the object $\underline{\mathsf{Hom}}(M,N)$ is a right $\underline{\mathsf{End}}(M)$-module in $\mathcal{A}$ with structure morphism given by \eqref{eq:enriched_composite} with $L=M$.
+
+We denote by $\mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)$ the category of right $\underline{\mathsf{End}}(M)$-modules in $\mathcal{A}$. It is readily verified that the monoidal product $\otimes : \mathcal{A} \times \mathcal{A} \longrightarrow \mathcal{A}$ restricts to a functor  $\mathcal{A} \times \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)\longrightarrow \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)$ turning it into  a left $\mathcal{A}$-module category. In particular, $\underline{\mathsf{Hom}}(M,-)$ restricts to a functor
+$$\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow  \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)  $$ for which the isomorphisms \eqref{eq:iso_2.15} make it an $\mathcal{A}$-module functor.
+
+\begin{theorem}[Monadicity for module categories, e.g. {\cite[\S 7.10]{egno}}]\label{thm:monadicity_thm}
+Let $M \in \mathcal{M}$. Then the functor $$\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow  \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)  $$ is an equivalence of left $\mathcal{A}$-module categories if and only if $M$ is an $\mathcal{A}$-progenerator. Moreover, such an object always exists.
+\end{theorem}
+
+In the statement above, an object $M \in \mathcal{M}$ is an \emph{$\mathcal{A}$-progenerator} if the functor $\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow \mathcal{A}$ is exact and faithful. When the functor $\underline{\mathsf{Hom}}(M,-)$ is only exact (resp. faithful), then we say that $M \in \mathcal{M}$ is \emph{$\mathcal{A}$-projective} (resp. \emph{$\mathcal{A}$-generator}).
+
+
+\subsection{Deligne product}
+
+If $\mathcal{C}$ and $\mathcal{D}$ are abelian categories, let us denote $\mathsf{Lex}(\mathcal{C}, \mathcal{D})$ (resp. $\mathsf{Rex} (\mathcal{C}, \mathcal{D})$) the category of left (resp. right) exact functors $\mathcal{C} \longrightarrow \mathcal{D}$ and natural transformations between them. Because (co)limits in product categories are computed  componentwise, note that if $\mathcal{C}'$ is another abelian category, then $\mathsf{Lex}(\mathcal{C} \times \mathcal{C}', \mathcal{D})$ consists precisely of functors $\mathcal{C} \times \mathcal{C}' \longrightarrow \mathcal{D}$ that are left exact in each variable (and the same observation applies to right exact functors)
+
+Now suppose that  $\mathcal{A}$, $\mathcal{B}$ are finite categories. Its \emph{Deligne product} \cite[\S 5]{deligne} is another such category $\mathcal{A} \boxtimes \mathcal{B}$ together with a functor 
+\begin{equation}\label{eq:Deligne_product_functor}
+\boxtimes : \mathcal{A} \times \mathcal{B} \longrightarrow \mathcal{A} \boxtimes \mathcal{B}
+\end{equation}
+which is right exact and is universal with respect to this property, in the sense that for any other finite category $\mathcal{E}$ the functor
+$$ \mathsf{Rex}(\mathcal{A} \boxtimes \mathcal{B}, \mathcal{E}) \overset{\simeq}{\longrightarrow } \mathsf{Rex} (\mathcal{A} \times \mathcal{B}, \mathcal{E}) \qquad , \qquad F \longmapsto F \circ \boxtimes  $$
+is an equivalence of categories. It is well-known that the Deligne product of finite categories exists and is of such kind, and moreover that it coincides with the Kelly product of finitely cocomplete categories in this case \cite{Franco2013}.
+
+One can  show that the functor \eqref{eq:Deligne_product_functor} is  in fact exact. Moreover, by the universal property of the tensor product of vector spaces, this (bilinear) functor induces a linear map
+\begin{equation}
+\mathsf{Hom}_{\mathcal{A}}(X,Y)\otimes_\Bbbk\mathsf{Hom}_{\mathcal{B}}(Y,Y') \overset{\cong}{\longrightarrow}\mathsf{Hom}_{\mathcal{A}\boxtimes\mathcal{B}}(X\boxtimes X',Y\boxtimes Y')
+\end{equation}
+which is in fact a linear isomorphism 
+for all $X,Y \in \mathcal{A}$ and $X',Y' \in \mathcal{B}$ \cite[\S 1.11]{egno}.
+
+
+
+
+\begin{proposition}[{\cite[Proposition 5.17]{deligne}}]\label{prop:Deligne_product_of_ftc}
+Let $\mathcal{A}, \mathcal{B}$ be finite tensor categories. Then their Deligne product $\mathcal{A} \boxtimes \mathcal{B}$ is again a finite tensor category with monoidal product determined by $$ (X \boxtimes Y) \otimes (X' \boxtimes Y') = (X \otimes X') \boxtimes (Y \otimes Y'),  $$  monoidal unit $\mathbbm{1} \boxtimes \mathbbm{1}$ and rigidity determined by $(X \boxtimes Y)^\vee = X^\vee \boxtimes Y^\vee$.
+\end{proposition}
+
+
+
+\subsection{Balanced Deligne product}
+
+Let $\mathcal{A}$ be a finite tensor category and let $\mathcal{M}$ and $\mathcal{N}$ be finite right and left $\mathcal{A}$-module categories, respectively. An \emph{$\mathcal{A}$-balanced functor} from $\mathcal{M} \times \mathcal{N}$ to a finite category $\mathcal{E}$  is a right exact functor $F: \mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{E}$ together with a family of natural isomorphisms $$ F(M \olessthan X, N) \cong F(M, X \ogreaterthan N)   $$ satisfying  the corresponding pentagon and triangle axioms. We denote by $\mathsf{Bal}_\mathcal{A} (\mathcal{M} \times \mathcal{N} , \mathcal{E})$ the category of right exact $\mathcal{A}$-balanced functors $\mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{E}$ and natural transformations compatible with these natural isomorphisms.
+
+
+
+If $\mathcal{A}, \mathcal{M}$ and $\mathcal{N}$ are as above, their \emph{balanced Deligne product} is a finite category $\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}$ together with a functor
+\begin{equation}\label{eq:balanced_Deligne_product_functor}
+\boxtimes_\mathcal{A} : \mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}
+\end{equation}
+which is right exact $\mathcal{A}$-balanced and is universal with respect to this property, in the sense that for any finite category $\mathcal{E}$ the functor
+$$ \mathsf{Rex} (\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}, \mathcal{E}) \overset{\simeq}{\longrightarrow} \mathsf{Bal}_\mathcal{A} (\mathcal{M} \times \mathcal{N} , \mathcal{E}) \qquad , \qquad F \longmapsto F \circ \boxtimes_\mathcal{A}  $$
+is an equivalence of categories. The balanced product appeared first in \cite{eno_fc} in the context of fusion categories. In the current setup, it is shown in \cite[Theorem 3.3]{dss} that the balanced Deligne product always exists, that the functor \eqref{eq:balanced_Deligne_product_functor} is in fact exact and moreover that we have the following linear isomorphism:
+\begin{equation}\label{eq:iso_DSS}
+\mathsf{Hom}_{\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}}(M \boxtimes_\mathcal{A} N, M' \boxtimes_\mathcal{A} N') \cong \mathsf{Hom}_\mathcal{A} (\mathbbm{1}, \underline{\mathsf{Hom}}(M,M') \otimes \underline{\mathsf{Hom}}(N,N')).
+\end{equation}
+
+It will be useful to have a concrete realization of the balanced Deligne product. For $\mathcal{M}$ and $\mathcal{N}$  finite right and left $\mathcal{A}$-module categories, \cref{thm:monadicity_thm} gives us (endomorphism) algebras objects $A, B \in \mathcal{A}$ together with equivalences $\mathcal{M} \simeq A \text{-} \mathsf{mod}_\mathcal{A}$ and $ \mathcal{N} \simeq \mathsf{mod}_\mathcal{A}  \text{-} B$. Then according to \cite[Theorem 3.3]{dss}, the balanced Deligned product $\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N} $ can be realised as the category of $A$-$B$-bimodules in $\mathcal{A}$; more precisely, we have that the functor
+\begin{equation}\label{eq:equiv_balanced_Deligne}
+\otimes: A \text{-} \mathsf{mod}_\mathcal{A} \boxtimes_\mathcal{A} \mathsf{mod}_\mathcal{A}  \text{-} B \overset{\simeq}{\longrightarrow} A\text{-}\mathsf{mod}_\mathcal{A}\text{-}B \qquad , \qquad M \boxtimes N \longmapsto M \otimes N
+\end{equation}
+is an equivalence.
+
+
+
+
+\subsection{The distinguished invertible element}
+
+Let $\mathcal{A}$ be a a finite tensor category. An object $X \in \mathcal{A}$ is said to be \emph{invertible} if the evaluation $\mathrm{ev}_X: X^\vee \otimes X \longrightarrow \mathbbm{1} $ and the coevaluation $\mathrm{coev}_X: \mathbbm{1} \longrightarrow X \otimes X^\vee$ are isomorphisms. In that case, $X^\vee$ is often denoted as $X^{-1}$. The goal of this subsection is to introduce the so-called distinguished invertible element of a finite tensor category.
+
+
+If $\mathcal{A}$ is a finite tensor category, its \emph{envelope} is $\mathcal{A}^\mathsf{env} := \mathcal{A} \boxtimes \mathcal{A}^\mathsf{rev}$, which is a finite tensor category by  \cref{prop:Deligne_product_of_ftc}. Note that because of \eqref{eq:duality_functors}, this category is in fact equivalent to $\mathcal{A} \boxtimes \mathcal{A}^\mathsf{op}$. The category $\mathcal{A}$ can be viewed as a left $\mathcal{A}^\mathsf{env}$-module category with action functor determined by 
+$$ (X \boxtimes Y) \ogreaterthan Z = X \otimes Z \otimes Y.  $$
+By the discussion of \cref{subsec:internal_homs}, we have that $\Delta :=\underline{\mathsf{End}}(\mathbbm{1}) \in \mathcal{A}^\mathsf{env}$ is an algebra object, that is usually called the \emph{canonical algebra} of $\mathcal{A}$. By a result of Shimizu \cite[Lemma 4.4]{shimizuunimodular}, the canonical algebra can actually be expressed as the coend
+\begin{equation}\label{eq:Delta_coend}
+\Delta \cong \int^{X \in \mathcal{A}} X^\vee  \boxtimes X.   
+\end{equation}
+
+
+The monoidal unit $\mathbbm{1} \in \mathcal{A}$ is well-known to be an $\mathcal{A}^\mathsf{env}$-progenerator: indeed by \eqref{eq:iso_2.15} we have $\underline{\mathsf{Hom}}(\mathbbm{1},-)\cong (- \boxtimes \mathbbm{1}) \otimes
+\underline{\mathsf{End}}(\mathbbm{1})$, which is right exact; and  since $\underline{\mathsf{End}}(\mathbbm{1})\neq 0$, the argument from \cite[Lemma~6.11]{reflection} tells us that  $\underline{\mathsf{Hom}}(\mathbbm{1},-)$ is also faithful.
+Therefore by \cref{thm:monadicity_thm} the functor $$ \underline{\mathsf{Hom}}(\mathbbm{1},-): \mathcal{A} \overset{\simeq}{\longrightarrow} \mathsf{mod}_{\mathcal{A}^\mathsf{env}}\text{-} \Delta $$
+is an equivalence of $\mathcal{A}^\mathsf{env}$-module categories. Furthermore \eqref{eq:iso_2.15} implies that this functor is naturally isomorphic to the functor $(- \boxtimes \mathbbm{1}) \otimes \Delta_{\Delta}$, where $\Delta_{\Delta}$ denotes $\Delta$ viewed as a right $\Delta$-module by the multiplication of $\Delta$. By means of the equivalence, there exists an object $\alpha$, unique up to isomorphism, such that
+\begin{equation}\label{eq:def_alpha}
+(\alpha \boxtimes \mathbbm{1}) \otimes \Delta_\Delta \cong ({}_{\Delta}\Delta)^\vee.
+\end{equation}
+ It can be shown that this object $\alpha$ is in fact invertible \cite[\S 7.18]{egno} (see also \cite[Lemma 4.3]{shimizuunimodular}), and will be called the \emph{distinguished invertible object} of  $\mathcal{A}$. When $\alpha \cong \mathbbm{1}$, we will say that $\mathcal{A}$ is \emph{unimodular}. This name comes from the theory of Hopf algebras: a finite-dimensional Hopf algebra $H$ is unimodular  (i.e., left- and right-integrals coincide) if and only if the category $H\text{-}\mathsf{mod}_\Bbbk$ is unimodular. We refer the reader to \cite[Theorem 4.10]{shimizuunimodular} for a list of different characterizations of unimodularity.  Note that when $\mathcal{A}$ is unimodular, \eqref{eq:def_alpha} implies the self-duality of $\Delta$.
+
+
+One of the main properties of the distinguished invertible object is that it implements the quadruple dual by conjugation \cite[Theorem 3.3]{eno-d}: we have a natural 
+isomorphism of monoidal functors
+\begin{equation}
+ (-)^{\vee \vee \vee \vee} \cong \alpha \otimes - \otimes \alpha^{-1}. 
+\end{equation} In particular, if $\mathcal{A}$ is unimodular, then $(-)^{\vee \vee \vee \vee} \cong \mathrm{id}_\mathcal{A}$.
+
+
+
+\subsection{Nakayama functors}
+
+Let $\mathcal{A}$ be a finite category and $X \in \mathcal{A}$. By \cref{lem:left_exact=right_adjoint}, the representable functor  $\mathsf{Hom}_\mathcal{A}(X,-): \mathcal{A} \longrightarrow \mathsf{vect}$  has a left adjoint that we denote $(-) \cdot X$. For $V \in \mathsf{vect}$, the object $V \cdot X$ is called the \emph{copower} and exhibits $\mathcal{A}$ as a category tensored over $\mathsf{vect}$ or, in the language of \cref{subsec:finite_mod_cats}, as a finite module category over $\mathsf{vect}$.
+
+
+The aim of this subsection is describe the so-called  Nakayama functors, that will play a major role in the sequel. To this end, we first recall the following 
+
+\begin{theorem}[{\cite[Theorem 3.2]{fss}}]\label{thm:fss_zig_zag}
+Let $\mathcal{A}, \mathcal{B}$ be finite categories. The functors
+$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow  \mathsf{Lex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (X,-) \cdot Y $$
+and
+$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow \mathsf{Rex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot Y $$
+define a zig-zag of adjoint equivalences,
+\begin{equation}\label{eq:fss_zig_zag}
+\mathsf{Lex}(\mathcal{A},\mathcal{B}) \overset{\simeq}{\longleftarrow} \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \overset{\simeq}{\longrightarrow}  \mathsf{Rex}(\mathcal{A},\mathcal{B}).
+\end{equation}
+The quasi-inverses of these functors can be described as follows: to every left exact functor $F$, we assign  the coend $\int^{X \in \mathcal{A}} X \boxtimes F(X)$, and to every right exact functor $G$, the end $\int_{X \in \mathcal{A}} X \boxtimes G(X)$.
+\end{theorem}
+
+The previous theorem can be viewed as a Morita invariant version of the classical Eilenberg-Watts theorem,
+$$  \mathsf{Lex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk) \simeq  B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq \mathsf{Rex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk)  $$ as $B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq  A\text{-}\mathsf{mod}_\Bbbk^\mathsf{op} \boxtimes B\text{-}\mathsf{mod}_\Bbbk$.
+
+Because the identity functor of $\mathcal{A}$ is both left and right exact, \cref{thm:fss_zig_zag} gives rise to two canonical functors: the \emph{left Nakayama functor} $\mathsf{N}^\ell \in \mathsf{Lex}(\mathcal{A}, \mathcal{A})$ and the \emph{right Nakayama functor} $\mathsf{N}^r \in \mathsf{Rex}(\mathcal{A}, \mathcal{A})$. Explicitly,
+\begin{equation}\label{eq:Nakayama_functors}
+\mathsf{N}^\ell= \int_{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (X,-) \cdot X \qquad , \qquad \mathsf{N}^r= \int^{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot X  .
+\end{equation}
+Here we have used that the Hom functor (resp. dual Hom functor) preserves ends (resp. coends) as it is left (resp. right) exact. It follows directly from the zig-zag \eqref{eq:fss_zig_zag} that we have the following isomorphisms in $\mathcal{A}^\mathsf{op} \boxtimes \mathcal{A}$:
+\begin{equation}
+\int^{X \in \mathcal{A}} X \boxtimes \mathsf{N}^\ell(X) \cong \int_{X \in \mathcal{A}}  X \boxtimes X \qquad ,  \qquad  \int_{X \in \mathcal{A}} X \boxtimes \mathsf{N}^r(X) \cong \int^{X \in \mathcal{A}}  X \boxtimes X.
+\end{equation}
+We remark that the left and right Nakayama functors of a finite category $\mathcal{A}$ are very closely related: the left (resp. right) Nakayama functor of $\mathcal{A}$ is precisely the right (resp. left) Nakayama functor of $\mathcal{A}^\mathsf{op}$, viewed as an endofunctor of $\mathcal{A}$. That is, $\mathsf{N}^\ell_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^r_{\mathcal{A}})^\mathsf{op}$ and $\mathsf{N}^r_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^\ell_{\mathcal{A}})^\mathsf{op}$.
+
+
+Another remarkable property is that the Nakayama functors of the Deligne product of two finite categories factor as the Deligne product of the Nakayama functors of the two categories,
+\begin{equation}
+\mathsf{N}^\ell_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^\ell_{\mathcal{A} } \boxtimes \mathsf{N}^\ell_{\mathcal{B}} \qquad , \qquad  \mathsf{N}^r_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^r_{\mathcal{A} } \boxtimes \mathsf{N}^r_{\mathcal{B}},
+\end{equation}
+see \cite[Proposition 3.20]{fss}.
+
+%Moreover, for any finite category $\cA$ and objects $X,P \in \cA$ with $P$ projective, there is a natural isomorphism
+%\begin{equation}\label{eq:Nr-twisted_CY}
+%\Hom_{\cA} (P,X) \cong \Hom_{\cA}(X, \N^r P)^*  
+%\end{equation}
+%which exhibits $\cA$ as a right $\N^r$-twisted projective Calabi-Yau category \cite[Corollary 2.3]{tracesw}. 
+
+
+In the sequel it will be relevant to obtain a trivialization of the right Nakayama functor. To this end, recall from \cite{tracesw} that given a finite category $\mathcal{A}$ and an endofuctor $F: \mathcal{A} \longrightarrow \mathcal{A}$, a \emph{right $F$-twisted Calabi-Yau structure} on $\mathcal{A}$ is a family of natural isomorphisms $$ \mathsf{Hom}_{\mathcal{A}}(X,Y) \cong \mathsf{Hom}_\mathcal{A} (Y, F(X))^*.  $$
+If $F= \mathrm{id}_\mathcal{A}$ we will refer to it as a \emph{Calabi-Yau structure} on $\mathcal{A}$. By a \emph{(right $F$-twisted) projective Calabi-Yau structure} on $\mathcal{A}$ we will mean a  (right $F$-twisted) Calabi-Yau structure on $\operatorname{\mathsf{Proj}} \mathcal{A}$, the subcategory of projective objects of $\mathcal{A}$.
+
+
+
+
+
+\begin{lemma}\label{lem:trivializ_on_ProjA}
+Let $\mathcal{A}$ be a finite category. Then $\mathcal{A}$ admits a projective Calabi-Yau structure if and only if the right Nakayama functor admits a trivialization $\mathsf{N}^r \cong \mathrm{id}_\mathcal{A}$.
+\end{lemma}
+\begin{proof}
+By \cite[Corollary 2.3]{tracesw}, any finite category $\mathcal{A}$ is a right $\mathsf{N}^r$-twisted projective Calabi-Yau category. Because $\mathcal{A}$ admits a projective Calabi-Yau structure, by the (enriched) Yoneda lemma and the fact that the hom-spaces are finite-dimensional, we obtain a natural isomorphism $\mathsf{N}^r_{|\operatorname{\mathsf{Proj}} \mathcal{A}} \cong \mathrm{id}_{\mathcal{A}| \operatorname{\mathsf{Proj}} \mathcal{A}}$. This trivialization lifts to a trivialization $\mathsf{N}^r \cong \mathrm{id}_\mathcal{A}$ as both functors are right-exact and  $\mathcal{A}$ has enough projectives. This demonstrates the necessity and the sufficiency follows directly from \cite[Corollary 2.3]{tracesw}.
+\end{proof}
+
+
+
+We say that a finite category $\mathcal{A}$ is \emph{Frobenius} (resp. \emph{symmetric Frobenius}) if $\mathcal{A}$ is equivalent to the category $A\text{-}\mathsf{mod}_\Bbbk$ of finite-dimensional left $A$-modules for a Frobenius (resp. symmetric Frobenius) algebra $A$. Frobenius categories are also called quasi-Frobenius \cite{egno} or self-injective \cite{fss}, and can be equivalently defined as those finite categories for which the classes of injective and projective objects coincide. It turns out that the Nakayama functors can be used to characterized Frobenius and symmetric Frobenius categories:
+
+\begin{proposition}[{\cite[Proposition 3.24]{fss}}]
+Let $\mathcal{A}$ be a finite category. Then
+\begin{enumerate}
+\item $\mathcal{A}$ is Frobenius if and only if the left and right Nakayama functors are equivalences. In this case, they are quasi-inverses to each other.
+\item $\mathcal{A}$ is symmetric Frobenius if and only if the left and right Nakayama functors are isomorphic to the identity functor. 
+\end{enumerate}
+\end{proposition}
+
+
+Lastly, let us point out that if $\mathcal{M}$ is a finite left module category over a finite tensor category $\mathcal{A}$, then the left and right Nakayama functors of $\mathcal{M}$ have a natural structure of twisted $\mathcal{A}$-module functors, in the sense that there are natural isomorphisms 
+\begin{equation}\label{eq:Nakayama_twisted}
+\mathsf{N}^\ell(X \ogreaterthan M) \cong  X^{\vee \vee} 	\ogreaterthan  \mathsf{N}^\ell( M) \qquad , \qquad \mathsf{N}^r(X \ogreaterthan M) \cong  {}^{\vee \vee} X	\ogreaterthan  \mathsf{N}^r( M),
+\end{equation}
+see \cite[Theorem 4.4]{fss} or \cite[\S 2.5]{relserre}.
+
+
+
+\subsection{Relative Serre functors}
+
+
+Let $\mathcal{A}$ be a finite tensor category and let $\mathcal{M}$ be a finite left $\mathcal{A}$-module category. A \emph{left relative Serre functor} of $\mathcal{M}$ is an endofunctor $\mathsf{S}^\ell : \mathcal{M} \longrightarrow \mathcal{M}$ together with a family of natural isomorphisms in $\mathcal{A}$ 
+\begin{equation}\label{eq:left_Serre_natiso}
+\underline{\mathsf{Hom}} (\mathsf{S}^\ell(M),N) \cong {}^\vee \underline{\mathsf{Hom}}(N,M). 
+\end{equation}
+Similarly, 
+a \emph{right relative Serre functor} of $\mathcal{M}$ is an endofunctor $\mathsf{S}^\ell : \mathcal{M} \longrightarrow \mathcal{M}$ together with a family of natural isomorphisms
+\begin{equation}\label{eq:right_Serre_natiso}
+ \underline{\mathsf{Hom}} (M,\mathsf{S}^r(N)) \cong \underline{\mathsf{Hom}}(N,M)^\vee . 
+\end{equation}
+If they exist, then they are essentially unique by the (enriched) Yoneda lemma. It is shown in \cite[Proposition 4.24]{fss} that a finite left $\mathcal{A}$-module category $\mathcal{M}$ has left and right relative Serre functors if and only if $\mathcal{M}$ is \emph{exact}, that is, a finite left $\mathcal{A}$-module category where all objects  are $\mathcal{A}$-projective. It is readily verified that in this case the left and right relative Serre functors are quasi-inverses to each other.
+
+\begin{example}\label{ex:Serre_funct_in_ftc}
+Let $\mathcal{A}$ be a finite tensor category viewed as a finite left module category over itself. Then  $\mathsf{S}^\ell = {}^{\vee \vee}(-)$ and  $\mathsf{S}^r = (-)^{\vee \vee}$ are readily seen to be  the left and right relative Serre functors (in particular $\mathcal{A}$ is exact). In particular, this says that these functors can be understood as the analogs of the double left and right dual functors in module categories.
+\end{example}
+
+Furthermore, according to \cite[\S 3.3]{relserre}, a left (resp. right) relative Serre functor of $\mathcal{M}$ has a unique structure of twisted $\mathcal{A}$-module functor such that the natural isomorphisms \eqref{eq:left_Serre_natiso} (resp.  \eqref{eq:right_Serre_natiso}) are isomorphisms of $\mathcal{A}$-bimodule functors. This means that there are natural isomorphisms (compare with \eqref{eq:Nakayama_twisted})
+\begin{equation}\label{eq:Serre_twisted}
+\mathsf{S}^\ell(X \ogreaterthan M) \cong {}^{\vee \vee} X 	\ogreaterthan  \mathsf{S}^\ell( M) \qquad , \qquad \mathsf{S}^r(X \ogreaterthan M) \cong  X^{\vee \vee} 	\ogreaterthan  \mathsf{S}^r( M),
+\end{equation}
+see also \cite[Lemma 4.23]{fss}.
+
+
+The relative Serre functors are in fact very closely related to the Nakayama functors:
+
+\begin{theorem}[{\cite[Theorem 4.26]{fss}}]
+Let $\mathcal{A}$ be a finite tensor category with distinguished invertible object $\alpha$ and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then we have natural isomorphisms
+$$ \mathsf{N}^\ell \cong \alpha \ogreaterthan  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong \alpha^{-1} \ogreaterthan  \mathsf{S}^r $$
+of twisted module functors.
+\end{theorem}
+
+
+%\begin{corollary}\label{corfss}
+%	If $\cA$ is unimodular with fixed trivialization
+%	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and moreover pivotal,
+% the left and right relative Serre and Nakayama functors are canonically isomorphic, respectively, as module endofunctors of $\cM$.
+% \end{corollary}
+
+
+
+\begin{corollary}\label{corfss}
+Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a fixed trivialization
+	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then the isomorphisms above induce canonical isomorphisms
+	$$ \mathsf{N}^\ell \cong  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong  \mathsf{S}^r $$
+of untwisted module functors, with the untwisting induced by the pivotal structure.
+ \end{corollary}
+ 
+ 
+
+
+
+
+\begin{corollary}\label{cor:N=alpha_vee_vee}
+For any   finite tensor category $\mathcal{A}$,  we have natural isomorphisms $$ \mathsf{N}^\ell \cong \alpha \otimes  {}^{\vee \vee} (-) \qquad , \qquad  \mathsf{N}^r \cong \alpha^{-1} \otimes  (-)^{\vee \vee} $$
+\end{corollary}
+%Let $\cA$ be a finite tensor category, viewed as an exact left module category over itself. Then we have natural isomorphisms $$ \N^\ell \cong \alpha \ogreaterthan  {}^{\vee \vee} (-) \qquad , \qquad  \N^r \cong \alpha^{-1} \ogreaterthan  (-)^{\vee \vee} $$
+
+
+
+From this last result we easily obtain two important properties about the distinguished invertible object: if $\mathcal{A}$ and $\mathcal{B}$ are finite tensor categories, the distinguished invertible object $\alpha_{\mathcal{A} \boxtimes \mathcal{B}}$ of $\mathcal{A} \boxtimes \mathcal{B}$ (which is a finite tensor category by \cref{prop:Deligne_product_of_ftc}) and that of $\mathcal{A}^\mathsf{rev}$ are given by 
+\begin{equation}\label{eq:disting_inv_for_Deligne_product}
+\alpha_{\mathcal{A} \boxtimes \mathcal{B}} \cong \alpha_\mathcal{A} \boxtimes \alpha_\mathcal{B} \qquad , \qquad \alpha_{\mathcal{A}^\mathsf{rev}} \cong \alpha_\mathcal{A},
+\end{equation}
+where $\alpha_\mathcal{A}$, $\alpha_\mathcal{B}$ and $\alpha_{\mathcal{A}^\mathsf{rev}}$ denote the distinguished invertible objects of $\mathcal{A}$, $\mathcal{B}$ and  $\mathcal{A}^\mathsf{rev}$, respectively.
+
+
+\subsection{Pivotal module categories}
+
+Let $\mathcal{A}$ be a pivotal finite tensor category with pivotal structure $\omega: \mathrm{id}_\mathcal{A} \overset{\cong}{\Longrightarrow} (-)^{\vee \vee}$, let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category and let $\mathsf{S}^r$ be a right relative Serre functor of $\mathcal{M}$. A \emph{pivotal structure} for $\mathcal{M}$ is a natural isomorphism $\widetilde{\omega}: \mathrm{id}_\mathcal{M} \overset{\cong}{\Longrightarrow} \mathsf{S}^r$ which is compatible with the pivotal structure of $\mathcal{A}$ in the sense that the diagram
+\begin{equation}\label{eq:diagram_pmc}
+\begin{tikzcd}
+X \ogreaterthan M \arrow{rr}{\widetilde{\omega}_{X \ogreaterthan M}} \arrow{dr}[swap]{\omega_X \ogreaterthan  \widetilde{\omega}_{ M}} && \mathsf{S}^r(X \ogreaterthan M)\\
+&   X^{\vee \vee} \ogreaterthan \mathsf{S}^r(M)  \arrow{ur}[swap]{\xi_{X,M}}  &
+\end{tikzcd}
+\end{equation}
+commutes for all $X\in \mathcal{A}$ and $M \in \mathcal{M}$, where $\xi_{X,M}$ is the isomorphism from \eqref{eq:Serre_twisted}. An exact  left $\mathcal{A}$-module category $\mathcal{M}$ endowed with a pivotal structure will be called a \emph{pivotal left $\mathcal{A}$-module category}.
+
+\begin{corollary}\label{corfss}
+	Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a fixed trivialization
+	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then the isomorphisms above induce canonical isomorphisms
+	$$ \mathsf{N}^\ell \cong  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong  \mathsf{S}^r $$
+	of untwisted module functors, with the untwisting induced by the pivotal structure.
+	A pivotal module structure on $\mathcal{M}$ is a trivialization of $\mathsf{N}^\ell$ or $\mathsf{N}^r$ as module functor.
+\end{corollary}
+
+
+
+\begin{example}
+Let $\mathcal{A}$ be a pivotal finite tensor category, viewed as a left $\mathcal{A}$-module category (by left multiplication). By \cref{ex:Serre_funct_in_ftc}, $\mathcal{A}$ is exact and the left and right relative Serre functors can be taken to be the identity endofunctor, and the isomorphism $\xi_{X,Y}$ can be seen to be induced by the (inverse of the) pivotal structure. Then the identity natural transformation of the identity functor makes $\mathcal{A}$ makes $\mathcal{A}$ a pivotal module category over itself (the commutativity of \eqref{eq:diagram_pmc} is trivial in this case).
+\end{example}
+
+
+
+Next we will generalize the previous example. Before that let us introduce the following notation: if $\mathcal{A}$ is a finite tensor category and $p,q \geq 0$ are non-negative integers, let us denote by  ${}_p \mathcal{A}_q$ the finite $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$-module category whose underlying finite category is $\mathcal{A}$ with module structure determined by $$(X_1 \boxtimes \cdots \boxtimes X_p \boxtimes Y_1 \boxtimes \cdots \boxtimes Y_p) \ogreaterthan Z=  X_1 \otimes \cdots \otimes  X_p \otimes Z \otimes Y_q \otimes \cdots \otimes Y_1.  $$
+
+\begin{lemma}\label{lem:disk_FH}
+Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a  fixed trivialization $\alpha \cong \mathbbm{1}$ of the distinguished invertible object of $\mathcal{A}$. Then ${}_p \mathcal{A}_q$ inherits a structure of pivotal module category for every $p,q \geq 0$.
+\end{lemma}
+\begin{proof}
+By \cite[Lemma 3.2]{relserre}, ${}_p \mathcal{A}_q$ is exact if for any projective object $P\in \mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ we have that  $P \ogreaterthan X$ is projective for any $X \in {}_p \mathcal{A}_q$. By the properties of the Deligne product, $P$ is a direct summand of a projective object $W$ of the form $W= \bigoplus_i A_i \boxtimes B_i$ with $A_i, B_i$ projective. Because in a finite tensor category, the monoidal product of a projective object and an arbitrary object is projective, $W \ogreaterthan X$ is projective, and since $- \ogreaterthan X$ is right exact, $P \ogreaterthan X$ is a direct summand of $W \ogreaterthan X$, hence again projective.
+
+
+
+
+Next let us see how we can obtain a canonical trivialization of the right relative Serre functor of ${}_p \mathcal{A}_q$. On the one hand, the fixed trivialization of the distinguished invertible object and the pivotal structure induce a trivialization of the right Nakayama functor of $\mathcal{A}$ (the underlying finite tensor category of ${}_p \mathcal{A}_q$) by \cref{cor:N=alpha_vee_vee}. On the other hand, the distinguished invertible object of $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ is according to  \eqref{eq:disting_inv_for_Deligne_product} $$ \alpha_{\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}} \cong \alpha^{\boxtimes p+q} ,$$ 
+
+which implies that $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ is unimodular as well with a trivialization induced by that of $\mathcal{A}$. Moreover the pivotal structure of $\mathcal{A}$ induces a canonical pivotal structure on $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$. Therefore we obtain a trivialization $\mathrm{id}_\mathcal{A} \cong \mathsf{N}^r \cong \mathsf{S}^r$ of the right relative Serre functor by   \cref{corfss}. The commutativity of \eqref{eq:diagram_pmc} holds by construction.
+\end{proof}
+
+
+
+
+
+
+
+
+As it turns out, pivotal module categories can be characterized as categories of modules over symmetric Frobenius algebras:
+
+\begin{theorem}[{\cite[Corollary 3.16]{relserre}}]
+If $\mathcal{M}$ is a pivotal left $\mathcal{A}$-module category, then there is an equivalence of left $\mathcal{A}$-module categories $\mathcal{M} \simeq \mathsf{mod}_\mathcal{A} \text{-}A$ for a symmetric Frobenius algebra object $A$ in $\mathcal{A}$.
+\end{theorem}
+
+
+
 
 
 
@@ -2232,414 +2859,6 @@ This is the endomorphism algebra $$  \mathsf{SkAlg}_\cA (\Sigma):= \mathsf{End}_
 
 
 	
-\section{Module categories}
-
-
-In this section, we review some categorical notions that will play a major role in the present article. Without further comment, all categories  will be assumed to \emph{$\Bbbk$-linear} over a fixed algebraically closed  field $\Bbbk$, that is, enriched over the symmetric monoidal category  of vector spaces over $\Bbbk$, and all functors and natural transformations will be assumed to be $\Bbbk$-linear as well.
-
-
-\subsection{Finite categories}
-
-Following \cite{etingofostrik}, a \emph{finite category} is an abelian category $\mathcal{A}$ such that
-\begin{enumerate}[label=(\roman*)]\itemsep0em 
-  \item the hom-vector spaces are finite-dimensional,
-  \item every object has finite length,
-  \item there are finitely many isomorphisms classes of simple objects,
-  \item $\mathcal{A}$ has enough projectives.
-\end{enumerate}
-It is well-known that an abelian category is finite if and only if it equivalent to the category $A$-$\mathsf{mod}$ of finite-dimensional modules over a finite-dimensional algebra $A$. Therefore, a given finite category determines the Morita equivalence class of a finite-dimensional algebra.
-
-Recall that abelian categories are \emph{finitely (co)complete}, that is, they have all finite (co)limits. A functor $F: \mathcal{C} \to \mathcal{D}$ between abelian categories is \emph{left} (resp. \emph{right}) \emph{exact} if it preserves finite limits (resp. colimits).  Alternatively, $F$ is left (resp. right) exact if and only if it preserves kernels (resp. cokernels). The functor $F$ is \emph{exact} if it is left and right exact.
-
-The following version of the Eilenberg-Watts theorem will be heavily used in the sequel:
-
-\begin{lemma}[{\cite[Corollary 2.3]{fss}}]\label{lem:left_exact=right_adjoint}
-
-Let $F,G: \mathcal{A} \to \mathcal{B}$ be functors between finite categories. Then the following are equivalent:
-\begin{enumerate}\itemsep0em 
-\item[(L1)] $F$ is left exact,
-\item[(L2)] $F$ is right-adjoint,
-\end{enumerate}
-and if $\mathcal{B} = \mathsf{vect}$ the category of finite-dimensional vector spaces, then they are likewise equivalent to
-\begin{enumerate}
-\item[(L3)] $F$ is representable, $F \cong \mathsf{Hom}_{\mathcal{A}}(X,-)$ for some object $X \in \mathcal{A}$.
-\end{enumerate}
-Similarly, the following are equivalent:
-\begin{enumerate}\itemsep0em 
-\item[(R1)] $G$ is right exact,
-\item[(R2)] $G$ is left-adjoint,
-\end{enumerate}
-and if $\mathcal{B} = \mathsf{vect}$, then they are equivalent to
-\begin{enumerate}
-\item[(R3)] $G$ is ``dually representable'', $G \cong \mathsf{Hom}_{\mathcal{A}}(-,X)^*$ for some object $X \in \mathcal{A}$.
-\end{enumerate}
-\end{lemma}
-
-
-\subsection{Finite tensor categories}
-
-A finite category $\mathcal{A}$ equipped with a rigid bilinear monoidal  product  with simple unit is called a \emph{finite tensor category}~\cite{etingofostrik}. The left and right rigidity induce strong monoidal functors
-\begin{equation}\label{eq:duality_functors}
-(-)^\vee: \mathcal{A} \to \mathcal{A}^{\mathsf{op}, \mathsf{rev}}  \qquad , \qquad ^{\vee}(-): \mathcal{A}^{\mathsf{op} , \mathsf{rev}}\to \mathcal{A} 
-\end{equation}
-respectively, 
-which are mutually quasi-inverses. Here for a monoidal category $\mathcal{C} = (\mathcal{C} , \otimes, \mathbbm{1})$, we have put 
-$$ \mathcal{C}^{\mathsf{op}} = (\mathcal{C}^{\mathsf{op}}, \otimes, \mathbbm{1})  \qquad , \qquad  \mathcal{C}^{\mathsf{rev}} = (\mathcal{C}, \otimes^{\mathsf{rev}}, \mathbbm{1}) \qquad , \qquad \mathcal{C}^{\mathsf{op}, \mathsf{rev}} = (\mathcal{C} ^{\mathsf{op}})^{\mathsf{rev}} $$ with $
-X \otimes^{\mathsf{rev}} Y := Y \otimes X$.
-
-
-In a finite tensor category $\mathcal{A}$, we have adjunctions (e.g. \cite[\S 2.7]{shimizuunimodular})
-\begin{equation}\label{eq:adjunctions_duals_ftc}
-X^\vee \otimes(-)\dashv X\otimes(-)\dashv {}^\vee X\otimes(-)\qquad , \qquad (-)\otimes {}^\vee X\dashv(-)\otimes X\dashv(-)\otimes X^\vee 
-\end{equation}
-for every object $X \in \mathcal{A}$, so by  \cref{lem:left_exact=right_adjoint} the monoidal product bifunctor $\otimes : \mathcal{A} \times \mathcal{A} \to \mathcal{A} $ is exact in each variable.
-
-
-\subsection{Finite module categories}\label{subsec:finite_mod_cats}
-
-Let $\mathcal{C}$ be a monoidal category. A \emph{left $\mathcal{C}$-module structure} on a category $\mathcal{M}$ is the data of an action bifunctor $\ogreaterthan : \mathcal{C} \times \mathcal{M} \longrightarrow \mathcal{M} $ and a family of natural isomorphisms
-$$ \mathbbm{1}\ogreaterthan M \cong M \qquad , \qquad  (X \otimes Y)\ogreaterthan  M \cong X \ogreaterthan (Y \ogreaterthan M)  $$ satisfying a pentagon and triangle axioms similar to those for monoidal categories, see \cite[\S 7.1]{egno} for details (a \emph{right $\mathcal{A}$-module category} is defined analogously with an action functor $\olessthan : \mathcal{M} \times \mathcal{C} \longrightarrow \mathcal{M}$).  Similarly, an \emph{$\mathcal{A}$-module functor} $F: \mathcal{M} \longrightarrow \mathcal{N}$ between $\mathcal{A}$-module categories is a functor together with natural isomorphisms $$ F(X \ogreaterthan M) \cong F(X) \ogreaterthan M   $$ satisfying similar axioms, cf.  \cite[\S 7.2]{egno}.
-
-If $\mathcal{A}$ is a finite tensor category, a finite category $\mathcal{M}$ equipped with a  $\mathcal{A}$-module structure is called a \emph{finite $\mathcal{A}$-module category} if the functors $- \ogreaterthan M : \mathcal{A} \longrightarrow \mathcal{M}$  are right exact for any $M \in \mathcal{M}$. Similarly to the case of finite tensor categories, we have adjunctions
-\begin{equation}\label{eq:adjunctions_action_functor}
-X^\vee \ogreaterthan (-)\dashv X\ogreaterthan (-)\dashv {}^\vee X\ogreaterthan(-)
-\end{equation} 
-so again  \cref{lem:left_exact=right_adjoint} implies that the functor $X \ogreaterthan - : \mathcal{M} \longrightarrow \mathcal{M}$ is always exact for any $X \in \mathcal{A}$.
-
-\subsection{Internal homs}\label{subsec:internal_homs}
-
-Let $\mathcal{A}$ be a finite tensor category and $\mathcal{M}$ a finite $\mathcal{A}$-module category. For every $M \in \mathcal{M}$, the functor $-	 \ogreaterthan M$ has a right-adjoint by \cref{lem:left_exact=right_adjoint}, that we denote by $\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow \mathcal{A}$. By definition, there are linear isomorphisms
-\begin{align}\label{eq:internal_hom_adj}
-\mathsf{Hom}_{\mathcal{M}}(X \ogreaterthan M,N) \cong \mathsf{Hom}_\mathcal{A} (X, \underline{\mathsf{Hom}}(M,N)) 
-\end{align}
-natural in $X \in \mathcal{A}$ and $N \in \mathcal{M}$.
-According to the parametrized adjunction theorem \cite[Theorem IV.7.3]{maclane}, the right adjoints in this family of adjunctions assemble in a unique way into a bifunctor
-\begin{equation}\label{eq:internal_hom_functor}
-\underline{\mathsf{Hom}}:\mathcal{M}^{\mathsf{op}} \times \mathcal{M} \longrightarrow \mathcal{A}
-\end{equation}
-such that the isomorphism \eqref{eq:internal_hom_adj} is natural in the three variables. We call \eqref{eq:internal_hom_functor} the \emph{internal hom functor}. This bifunctor is, just like the hom functor,  left exact in both variables: indeed by definition $\underline{\mathsf{Hom}}(M,-)$ is right-adjoint to $- \ogreaterthan M$, and the isomorphisms
-\begin{align*}
-\mathsf{Hom}_{\mathcal{M}^\mathsf{op}}(X^\vee \ogreaterthan N,M) \overset{\eqref{eq:adjunctions_action_functor}}  {\cong} \mathsf{Hom}_{\mathcal{M}^\mathsf{op}}( N,X \ogreaterthan M) \cong  \mathsf{Hom}_{\mathcal{M}}( X \ogreaterthan M, N)  \cong \mathsf{Hom}_\mathcal{A} (X, \underline{\mathsf{Hom}}(M,N)) 
-\end{align*}
-show that  $\underline{\mathsf{Hom}}(-,N)$ is right-adjoint to $(-)^\vee \ogreaterthan N$. Once again we conclude  by \cref{lem:left_exact=right_adjoint}. 
-
-
-We also record that for objects $X,Y \in \mathcal{A}$ and $M,N \in \mathcal{M}$ there is a natural isomorphism
-\begin{equation}\label{eq:iso_2.15}
-\underline{\mathsf{Hom}}(X \ogreaterthan M, Y \ogreaterthan N) \cong Y \otimes \underline{\mathsf{Hom}}(M,N) \otimes X^\vee,
-\end{equation}
-see \cite[Lemma 7.9.4]{egno} or \cite[(2.15)]{shimizuunimodular}.
-
-The aforementioned internal homs can be used to equip $\mathcal{M}$ with a structure of $\mathcal{A}$-enriched category: for $L,M,N \in \mathcal{M}$ there is a composition map
-\begin{equation}\label{eq:enriched_composite}
-\underline{\circ}_{L,M,N} := \underline{\mathrm{ev}}_{M,N} \circ (\mathrm{id} \ogreaterthan \underline{\mathrm{ev}}_{L,M}) : \underline{\mathsf{Hom}}(M,N)\otimes \underline{\mathsf{Hom}}(L,M)\longrightarrow \underline{\mathsf{Hom}}(L,N)
-\end{equation}
-where $\underline{\mathrm{ev}}_{M,N} : \underline{\mathsf{Hom}}(M,N) \ogreaterthan M \longrightarrow N$ is the counit of the adjunction  \eqref{eq:internal_hom_adj}. The identity arrow $$ \underline{\mathrm{id}}_M:  \mathbbm{1} \longrightarrow \underline{\mathsf{End}}(M):= \underline{\mathsf{Hom}}(M,M) $$  is the morphism corresponding to the isomorphism $\mathbbm{1} \ogreaterthan M \cong M$ under the isomorphism \eqref{eq:internal_hom_adj}. In particular, for any object $M \in \mathcal{M}$, we have that $\underline{\mathsf{End}}(M)$ is an algebra object in $\mathcal{A}$, and for any  $N \in \mathcal{M}$ the object $\underline{\mathsf{Hom}}(M,N)$ is a right $\underline{\mathsf{End}}(M)$-module in $\mathcal{A}$ with structure morphism given by \eqref{eq:enriched_composite} with $L=M$.
-
-We denote by $\mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)$ the category of right $\underline{\mathsf{End}}(M)$-modules in $\mathcal{A}$. It is readily verified that the monoidal product $\otimes : \mathcal{A} \times \mathcal{A} \longrightarrow \mathcal{A}$ restricts to a functor  $\mathcal{A} \times \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)\longrightarrow \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)$ turning it into  a left $\mathcal{A}$-module category. In particular, $\underline{\mathsf{Hom}}(M,-)$ restricts to a functor
-$$\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow  \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)  $$ for which the isomorphisms \eqref{eq:iso_2.15} make it an $\mathcal{A}$-module functor.
-
-\begin{theorem}[Monadicity for module categories, e.g. {\cite[\S 7.10]{egno}}]\label{thm:monadicity_thm}
-Let $M \in \mathcal{M}$. Then the functor $$\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow  \mathsf{mod}_\mathcal{A}{\text -}\underline{\mathsf{End}}(M)  $$ is an equivalence of left $\mathcal{A}$-module categories if and only if $M$ is an $\mathcal{A}$-progenerator. Moreover, such an object always exists.
-\end{theorem}
-
-In the statement above, an object $M \in \mathcal{M}$ is an \emph{$\mathcal{A}$-progenerator} if the functor $\underline{\mathsf{Hom}}(M,-): \mathcal{M} \longrightarrow \mathcal{A}$ is exact and faithful. When the functor $\underline{\mathsf{Hom}}(M,-)$ is only exact (resp. faithful), then we say that $M \in \mathcal{M}$ is \emph{$\mathcal{A}$-projective} (resp. \emph{$\mathcal{A}$-generator}).
-
-
-\subsection{Deligne product}
-
-If $\mathcal{C}$ and $\mathcal{D}$ are abelian categories, let us denote $\mathsf{Lex}(\mathcal{C}, \mathcal{D})$ (resp. $\mathsf{Rex} (\mathcal{C}, \mathcal{D})$) the category of left (resp. right) exact functors $\mathcal{C} \longrightarrow \mathcal{D}$ and natural transformations between them. Because (co)limits in product categories are computed  componentwise, note that if $\mathcal{C}'$ is another abelian category, then $\mathsf{Lex}(\mathcal{C} \times \mathcal{C}', \mathcal{D})$ consists precisely of functors $\mathcal{C} \times \mathcal{C}' \longrightarrow \mathcal{D}$ that are left exact in each variable (and the same observation applies to right exact functors)
-
-Now suppose that  $\mathcal{A}$, $\mathcal{B}$ are finite categories. Its \emph{Deligne product} \cite[\S 5]{deligne} is another such category $\mathcal{A} \boxtimes \mathcal{B}$ together with a functor 
-\begin{equation}\label{eq:Deligne_product_functor}
-\boxtimes : \mathcal{A} \times \mathcal{B} \longrightarrow \mathcal{A} \boxtimes \mathcal{B}
-\end{equation}
-which is right exact and is universal with respect to this property, in the sense that for any other finite category $\mathcal{E}$ the functor
-$$ \mathsf{Rex}(\mathcal{A} \boxtimes \mathcal{B}, \mathcal{E}) \overset{\simeq}{\longrightarrow } \mathsf{Rex} (\mathcal{A} \times \mathcal{B}, \mathcal{E}) \qquad , \qquad F \longmapsto F \circ \boxtimes  $$
-is an equivalence of categories. It is well-known that the Deligne product of finite categories exists and is of such kind, and moreover that it coincides with the Kelly product of finitely cocomplete categories in this case \cite{Franco2013}.
-
-One can  show that the functor \eqref{eq:Deligne_product_functor} is  in fact exact. Moreover, by the universal property of the tensor product of vector spaces, this (bilinear) functor induces a linear map
-\begin{equation}
-\mathsf{Hom}_{\mathcal{A}}(X,Y)\otimes_\Bbbk\mathsf{Hom}_{\mathcal{B}}(Y,Y') \overset{\cong}{\longrightarrow}\mathsf{Hom}_{\mathcal{A}\boxtimes\mathcal{B}}(X\boxtimes X',Y\boxtimes Y')
-\end{equation}
-which is in fact a linear isomorphism 
-for all $X,Y \in \mathcal{A}$ and $X',Y' \in \mathcal{B}$ \cite[\S 1.11]{egno}.
-
-
-
-
-\begin{proposition}[{\cite[Proposition 5.17]{deligne}}]\label{prop:Deligne_product_of_ftc}
-Let $\mathcal{A}, \mathcal{B}$ be finite tensor categories. Then their Deligne product $\mathcal{A} \boxtimes \mathcal{B}$ is again a finite tensor category with monoidal product determined by $$ (X \boxtimes Y) \otimes (X' \boxtimes Y') = (X \otimes X') \boxtimes (Y \otimes Y'),  $$  monoidal unit $\mathbbm{1} \boxtimes \mathbbm{1}$ and rigidity determined by $(X \boxtimes Y)^\vee = X^\vee \boxtimes Y^\vee$.
-\end{proposition}
-
-
-
-\subsection{Balanced Deligne product}
-
-Let $\mathcal{A}$ be a finite tensor category and let $\mathcal{M}$ and $\mathcal{N}$ be finite right and left $\mathcal{A}$-module categories, respectively. An \emph{$\mathcal{A}$-balanced functor} from $\mathcal{M} \times \mathcal{N}$ to a finite category $\mathcal{E}$  is a right exact functor $F: \mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{E}$ together with a family of natural isomorphisms $$ F(M \olessthan X, N) \cong F(M, X \ogreaterthan N)   $$ satisfying  the corresponding pentagon and triangle axioms. We denote by $\mathsf{Bal}_\mathcal{A} (\mathcal{M} \times \mathcal{N} , \mathcal{E})$ the category of right exact $\mathcal{A}$-balanced functors $\mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{E}$ and natural transformations compatible with these natural isomorphisms.
-
-
-
-If $\mathcal{A}, \mathcal{M}$ and $\mathcal{N}$ are as above, their \emph{balanced Deligne product} is a finite category $\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}$ together with a functor
-\begin{equation}\label{eq:balanced_Deligne_product_functor}
-\boxtimes_\mathcal{A} : \mathcal{M} \times \mathcal{N} \longrightarrow \mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}
-\end{equation}
-which is right exact $\mathcal{A}$-balanced and is universal with respect to this property, in the sense that for any finite category $\mathcal{E}$ the functor
-$$ \mathsf{Rex} (\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}, \mathcal{E}) \overset{\simeq}{\longrightarrow} \mathsf{Bal}_\mathcal{A} (\mathcal{M} \times \mathcal{N} , \mathcal{E}) \qquad , \qquad F \longmapsto F \circ \boxtimes_\mathcal{A}  $$
-is an equivalence of categories. The balanced product appeared first in \cite{eno_fc} in the context of fusion categories. In the current setup, it is shown in \cite[Theorem 3.3]{dss} that the balanced Deligne product always exists, that the functor \eqref{eq:balanced_Deligne_product_functor} is in fact exact and moreover that we have the following linear isomorphism:
-\begin{equation}\label{eq:iso_DSS}
-\mathsf{Hom}_{\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N}}(M \boxtimes_\mathcal{A} N, M' \boxtimes_\mathcal{A} N') \cong \mathsf{Hom}_\mathcal{A} (\mathbbm{1}, \underline{\mathsf{Hom}}(M,M') \otimes \underline{\mathsf{Hom}}(N,N')).
-\end{equation}
-
-It will be useful to have a concrete realization of the balanced Deligne product. For $\mathcal{M}$ and $\mathcal{N}$  finite right and left $\mathcal{A}$-module categories, \cref{thm:monadicity_thm} gives us (endomorphism) algebras objects $A, B \in \mathcal{A}$ together with equivalences $\mathcal{M} \simeq A \text{-} \mathsf{mod}_\mathcal{A}$ and $ \mathcal{N} \simeq \mathsf{mod}_\mathcal{A}  \text{-} B$. Then according to \cite[Theorem 3.3]{dss}, the balanced Deligned product $\mathcal{M} \boxtimes_\mathcal{A} \mathcal{N} $ can be realised as the category of $A$-$B$-bimodules in $\mathcal{A}$; more precisely, we have that the functor
-\begin{equation}\label{eq:equiv_balanced_Deligne}
-\otimes: A \text{-} \mathsf{mod}_\mathcal{A} \boxtimes_\mathcal{A} \mathsf{mod}_\mathcal{A}  \text{-} B \overset{\simeq}{\longrightarrow} A\text{-}\mathsf{mod}_\mathcal{A}\text{-}B \qquad , \qquad M \boxtimes N \longmapsto M \otimes N
-\end{equation}
-is an equivalence.
-
-
-
-
-\subsection{The distinguished invertible element}
-
-Let $\mathcal{A}$ be a a finite tensor category. An object $X \in \mathcal{A}$ is said to be \emph{invertible} if the evaluation $\mathrm{ev}_X: X^\vee \otimes X \longrightarrow \mathbbm{1} $ and the coevaluation $\mathrm{coev}_X: \mathbbm{1} \longrightarrow X \otimes X^\vee$ are isomorphisms. In that case, $X^\vee$ is often denoted as $X^{-1}$. The goal of this subsection is to introduce the so-called distinguished invertible element of a finite tensor category.
-
-
-If $\mathcal{A}$ is a finite tensor category, its \emph{envelope} is $\mathcal{A}^\mathsf{env} := \mathcal{A} \boxtimes \mathcal{A}^\mathsf{rev}$, which is a finite tensor category by  \cref{prop:Deligne_product_of_ftc}. Note that because of \eqref{eq:duality_functors}, this category is in fact equivalent to $\mathcal{A} \boxtimes \mathcal{A}^\mathsf{op}$. The category $\mathcal{A}$ can be viewed as a left $\mathcal{A}^\mathsf{env}$-module category with action functor determined by 
-$$ (X \boxtimes Y) \ogreaterthan Z = X \otimes Z \otimes Y.  $$
-By the discussion of \cref{subsec:internal_homs}, we have that $\Delta :=\underline{\mathsf{End}}(\mathbbm{1}) \in \mathcal{A}^\mathsf{env}$ is an algebra object, that is usually called the \emph{canonical algebra} of $\mathcal{A}$. By a result of Shimizu \cite[Lemma 4.4]{shimizuunimodular}, the canonical algebra can actually be expressed as the coend
-\begin{equation}\label{eq:Delta_coend}
-\Delta \cong \int^{X \in \mathcal{A}} X^\vee  \boxtimes X.   
-\end{equation}
-
-
-The monoidal unit $\mathbbm{1} \in \mathcal{A}$ is well-known to be an $\mathcal{A}^\mathsf{env}$-progenerator: indeed by \eqref{eq:iso_2.15} we have $\underline{\mathsf{Hom}}(\mathbbm{1},-)\cong (- \boxtimes \mathbbm{1}) \otimes
-\underline{\mathsf{End}}(\mathbbm{1})$, which is right exact; and  since $\underline{\mathsf{End}}(\mathbbm{1})\neq 0$, the argument from \cite[Lemma~6.11]{reflection} tells us that  $\underline{\mathsf{Hom}}(\mathbbm{1},-)$ is also faithful.
-Therefore by \cref{thm:monadicity_thm} the functor $$ \underline{\mathsf{Hom}}(\mathbbm{1},-): \mathcal{A} \overset{\simeq}{\longrightarrow} \mathsf{mod}_{\mathcal{A}^\mathsf{env}}\text{-} \Delta $$
-is an equivalence of $\mathcal{A}^\mathsf{env}$-module categories. Furthermore \eqref{eq:iso_2.15} implies that this functor is naturally isomorphic to the functor $(- \boxtimes \mathbbm{1}) \otimes \Delta_{\Delta}$, where $\Delta_{\Delta}$ denotes $\Delta$ viewed as a right $\Delta$-module by the multiplication of $\Delta$. By means of the equivalence, there exists an object $\alpha$, unique up to isomorphism, such that
-\begin{equation}\label{eq:def_alpha}
-(\alpha \boxtimes \mathbbm{1}) \otimes \Delta_\Delta \cong ({}_{\Delta}\Delta)^\vee.
-\end{equation}
- It can be shown that this object $\alpha$ is in fact invertible \cite[\S 7.18]{egno} (see also \cite[Lemma 4.3]{shimizuunimodular}), and will be called the \emph{distinguished invertible object} of  $\mathcal{A}$. When $\alpha \cong \mathbbm{1}$, we will say that $\mathcal{A}$ is \emph{unimodular}. This name comes from the theory of Hopf algebras: a finite-dimensional Hopf algebra $H$ is unimodular  (i.e., left- and right-integrals coincide) if and only if the category $H\text{-}\mathsf{mod}_\Bbbk$ is unimodular. We refer the reader to \cite[Theorem 4.10]{shimizuunimodular} for a list of different characterizations of unimodularity.  Note that when $\mathcal{A}$ is unimodular, \eqref{eq:def_alpha} implies the self-duality of $\Delta$.
-
-
-One of the main properties of the distinguished invertible object is that it implements the quadruple dual by conjugation \cite[Theorem 3.3]{eno-d}: we have a natural 
-isomorphism of monoidal functors
-\begin{equation}
- (-)^{\vee \vee \vee \vee} \cong \alpha \otimes - \otimes \alpha^{-1}. 
-\end{equation} In particular, if $\mathcal{A}$ is unimodular, then $(-)^{\vee \vee \vee \vee} \cong \mathrm{id}_\mathcal{A}$.
-
-
-
-\subsection{Nakayama functors}
-
-Let $\mathcal{A}$ be a finite category and $X \in \mathcal{A}$. By \cref{lem:left_exact=right_adjoint}, the representable functor  $\mathsf{Hom}_\mathcal{A}(X,-): \mathcal{A} \longrightarrow \mathsf{vect}$  has a left adjoint that we denote $(-) \cdot X$. For $V \in \mathsf{vect}$, the object $V \cdot X$ is called the \emph{copower} and exhibits $\mathcal{A}$ as a category tensored over $\mathsf{vect}$ or, in the language of \cref{subsec:finite_mod_cats}, as a finite module category over $\mathsf{vect}$.
-
-
-The aim of this subsection is describe the so-called  Nakayama functors, that will play a major role in the sequel. To this end, we first recall the following 
-
-\begin{theorem}[{\cite[Theorem 3.2]{fss}}]\label{thm:fss_zig_zag}
-Let $\mathcal{A}, \mathcal{B}$ be finite categories. The functors
-$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow  \mathsf{Lex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (X,-) \cdot Y $$
-and
-$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow \mathsf{Rex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot Y $$
-define a zig-zag of adjoint equivalences,
-\begin{equation}\label{eq:fss_zig_zag}
-\mathsf{Lex}(\mathcal{A},\mathcal{B}) \overset{\simeq}{\longleftarrow} \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \overset{\simeq}{\longrightarrow}  \mathsf{Rex}(\mathcal{A},\mathcal{B}).
-\end{equation}
-The quasi-inverses of these functors can be described as follows: to every left exact functor $F$, we assign  the coend $\int^{X \in \mathcal{A}} X \boxtimes F(X)$, and to every right exact functor $G$, the end $\int_{X \in \mathcal{A}} X \boxtimes G(X)$.
-\end{theorem}
-
-The previous theorem can be viewed as a Morita invariant version of the classical Eilenberg-Watts theorem,
-$$  \mathsf{Lex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk) \simeq  B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq \mathsf{Rex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk)  $$ as $B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq  A\text{-}\mathsf{mod}_\Bbbk^\mathsf{op} \boxtimes B\text{-}\mathsf{mod}_\Bbbk$.
-
-Because the identity functor of $\mathcal{A}$ is both left and right exact, \cref{thm:fss_zig_zag} gives rise to two canonical functors: the \emph{left Nakayama functor} $\mathsf{N}^\ell \in \mathsf{Lex}(\mathcal{A}, \mathcal{A})$ and the \emph{right Nakayama functor} $\mathsf{N}^r \in \mathsf{Rex}(\mathcal{A}, \mathcal{A})$. Explicitly,
-\begin{equation}\label{eq:Nakayama_functors}
-\mathsf{N}^\ell= \int_{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (X,-) \cdot X \qquad , \qquad \mathsf{N}^r= \int^{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot X  .
-\end{equation}
-Here we have used that the Hom functor (resp. dual Hom functor) preserves ends (resp. coends) as it is left (resp. right) exact. It follows directly from the zig-zag \eqref{eq:fss_zig_zag} that we have the following isomorphisms in $\mathcal{A}^\mathsf{op} \boxtimes \mathcal{A}$:
-\begin{equation}
-\int^{X \in \mathcal{A}} X \boxtimes \mathsf{N}^\ell(X) \cong \int_{X \in \mathcal{A}}  X \boxtimes X \qquad ,  \qquad  \int_{X \in \mathcal{A}} X \boxtimes \mathsf{N}^r(X) \cong \int^{X \in \mathcal{A}}  X \boxtimes X.
-\end{equation}
-We remark that the left and right Nakayama functors of a finite category $\mathcal{A}$ are very closely related: the left (resp. right) Nakayama functor of $\mathcal{A}$ is precisely the right (resp. left) Nakayama functor of $\mathcal{A}^\mathsf{op}$, viewed as an endofunctor of $\mathcal{A}$. That is, $\mathsf{N}^\ell_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^r_{\mathcal{A}})^\mathsf{op}$ and $\mathsf{N}^r_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^\ell_{\mathcal{A}})^\mathsf{op}$.
-
-
-Another remarkable property is that the Nakayama functors of the Deligne product of two finite categories factor as the Deligne product of the Nakayama functors of the two categories,
-\begin{equation}
-\mathsf{N}^\ell_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^\ell_{\mathcal{A} } \boxtimes \mathsf{N}^\ell_{\mathcal{B}} \qquad , \qquad  \mathsf{N}^r_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^r_{\mathcal{A} } \boxtimes \mathsf{N}^r_{\mathcal{B}},
-\end{equation}
-see \cite[Proposition 3.20]{fss}.
-
-%Moreover, for any finite category $\cA$ and objects $X,P \in \cA$ with $P$ projective, there is a natural isomorphism
-%\begin{equation}\label{eq:Nr-twisted_CY}
-%\Hom_{\cA} (P,X) \cong \Hom_{\cA}(X, \N^r P)^*  
-%\end{equation}
-%which exhibits $\cA$ as a right $\N^r$-twisted projective Calabi-Yau category \cite[Corollary 2.3]{tracesw}. 
-
-
-In the sequel it will be relevant to obtain a trivialization of the right Nakayama functor. To this end, recall from \cite{tracesw} that given a finite category $\mathcal{A}$ and an endofuctor $F: \mathcal{A} \longrightarrow \mathcal{A}$, a \emph{right $F$-twisted Calabi-Yau structure} on $\mathcal{A}$ is a family of natural isomorphisms $$ \mathsf{Hom}_{\mathcal{A}}(X,Y) \cong \mathsf{Hom}_\mathcal{A} (Y, F(X))^*.  $$
-If $F= \mathrm{id}_\mathcal{A}$ we will refer to it as a \emph{Calabi-Yau structure} on $\mathcal{A}$. By a \emph{(right $F$-twisted) projective Calabi-Yau structure} on $\mathcal{A}$ we will mean a  (right $F$-twisted) Calabi-Yau structure on $\operatorname{\mathsf{Proj}} \mathcal{A}$, the subcategory of projective objects of $\mathcal{A}$.
-
-
-
-
-
-\begin{lemma}\label{lem:trivializ_on_ProjA}
-Let $\mathcal{A}$ be a finite category. Then $\mathcal{A}$ admits a projective Calabi-Yau structure if and only if the right Nakayama functor admits a trivialization $\mathsf{N}^r \cong \mathrm{id}_\mathcal{A}$.
-\end{lemma}
-\begin{proof}
-By \cite[Corollary 2.3]{tracesw}, any finite category $\mathcal{A}$ is a right $\mathsf{N}^r$-twisted projective Calabi-Yau category. Because $\mathcal{A}$ admits a projective Calabi-Yau structure, by the (enriched) Yoneda lemma and the fact that the hom-spaces are finite-dimensional, we obtain a natural isomorphism $\mathsf{N}^r_{|\operatorname{\mathsf{Proj}} \mathcal{A}} \cong \mathrm{id}_{\mathcal{A}| \operatorname{\mathsf{Proj}} \mathcal{A}}$. This trivialization lifts to a trivialization $\mathsf{N}^r \cong \mathrm{id}_\mathcal{A}$ as both functors are right-exact and  $\mathcal{A}$ has enough projectives. This demonstrates the necessity and the sufficiency follows directly from \cite[Corollary 2.3]{tracesw}.
-\end{proof}
-
-
-
-We say that a finite category $\mathcal{A}$ is \emph{Frobenius} (resp. \emph{symmetric Frobenius}) if $\mathcal{A}$ is equivalent to the category $A\text{-}\mathsf{mod}_\Bbbk$ of finite-dimensional left $A$-modules for a Frobenius (resp. symmetric Frobenius) algebra $A$. Frobenius categories are also called quasi-Frobenius \cite{egno} or self-injective \cite{fss}, and can be equivalently defined as those finite categories for which the classes of injective and projective objects coincide. It turns out that the Nakayama functors can be used to characterized Frobenius and symmetric Frobenius categories:
-
-\begin{proposition}[{\cite[Proposition 3.24]{fss}}]
-Let $\mathcal{A}$ be a finite category. Then
-\begin{enumerate}
-\item $\mathcal{A}$ is Frobenius if and only if the left and right Nakayama functors are equivalences. In this case, they are quasi-inverses to each other.
-\item $\mathcal{A}$ is symmetric Frobenius if and only if the left and right Nakayama functors are isomorphic to the identity functor. 
-\end{enumerate}
-\end{proposition}
-
-
-Lastly, let us point out that if $\mathcal{M}$ is a finite left module category over a finite tensor category $\mathcal{A}$, then the left and right Nakayama functors of $\mathcal{M}$ have a natural structure of twisted $\mathcal{A}$-module functors, in the sense that there are natural isomorphisms 
-\begin{equation}\label{eq:Nakayama_twisted}
-\mathsf{N}^\ell(X \ogreaterthan M) \cong  X^{\vee \vee} 	\ogreaterthan  \mathsf{N}^\ell( M) \qquad , \qquad \mathsf{N}^r(X \ogreaterthan M) \cong  {}^{\vee \vee} X	\ogreaterthan  \mathsf{N}^r( M),
-\end{equation}
-see \cite[Theorem 4.4]{fss} or \cite[\S 2.5]{relserre}.
-
-
-
-\subsection{Relative Serre functors}
-
-
-Let $\mathcal{A}$ be a finite tensor category and let $\mathcal{M}$ be a finite left $\mathcal{A}$-module category. A \emph{left relative Serre functor} of $\mathcal{M}$ is an endofunctor $\mathsf{S}^\ell : \mathcal{M} \longrightarrow \mathcal{M}$ together with a family of natural isomorphisms in $\mathcal{A}$ 
-\begin{equation}\label{eq:left_Serre_natiso}
-\underline{\mathsf{Hom}} (\mathsf{S}^\ell(M),N) \cong {}^\vee \underline{\mathsf{Hom}}(N,M). 
-\end{equation}
-Similarly, 
-a \emph{right relative Serre functor} of $\mathcal{M}$ is an endofunctor $\mathsf{S}^\ell : \mathcal{M} \longrightarrow \mathcal{M}$ together with a family of natural isomorphisms
-\begin{equation}\label{eq:right_Serre_natiso}
- \underline{\mathsf{Hom}} (M,\mathsf{S}^r(N)) \cong \underline{\mathsf{Hom}}(N,M)^\vee . 
-\end{equation}
-If they exist, then they are essentially unique by the (enriched) Yoneda lemma. It is shown in \cite[Proposition 4.24]{fss} that a finite left $\mathcal{A}$-module category $\mathcal{M}$ has left and right relative Serre functors if and only if $\mathcal{M}$ is \emph{exact}, that is, a finite left $\mathcal{A}$-module category where all objects  are $\mathcal{A}$-projective. It is readily verified that in this case the left and right relative Serre functors are quasi-inverses to each other.
-
-\begin{example}\label{ex:Serre_funct_in_ftc}
-Let $\mathcal{A}$ be a finite tensor category viewed as a finite left module category over itself. Then  $\mathsf{S}^\ell = {}^{\vee \vee}(-)$ and  $\mathsf{S}^r = (-)^{\vee \vee}$ are readily seen to be  the left and right relative Serre functors (in particular $\mathcal{A}$ is exact). In particular, this says that these functors can be understood as the analogs of the double left and right dual functors in module categories.
-\end{example}
-
-Furthermore, according to \cite[\S 3.3]{relserre}, a left (resp. right) relative Serre functor of $\mathcal{M}$ has a unique structure of twisted $\mathcal{A}$-module functor such that the natural isomorphisms \eqref{eq:left_Serre_natiso} (resp.  \eqref{eq:right_Serre_natiso}) are isomorphisms of $\mathcal{A}$-bimodule functors. This means that there are natural isomorphisms (compare with \eqref{eq:Nakayama_twisted})
-\begin{equation}\label{eq:Serre_twisted}
-\mathsf{S}^\ell(X \ogreaterthan M) \cong {}^{\vee \vee} X 	\ogreaterthan  \mathsf{S}^\ell( M) \qquad , \qquad \mathsf{S}^r(X \ogreaterthan M) \cong  X^{\vee \vee} 	\ogreaterthan  \mathsf{S}^r( M),
-\end{equation}
-see also \cite[Lemma 4.23]{fss}.
-
-
-The relative Serre functors are in fact very closely related to the Nakayama functors:
-
-\begin{theorem}[{\cite[Theorem 4.26]{fss}}]
-Let $\mathcal{A}$ be a finite tensor category with distinguished invertible object $\alpha$ and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then we have natural isomorphisms
-$$ \mathsf{N}^\ell \cong \alpha \ogreaterthan  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong \alpha^{-1} \ogreaterthan  \mathsf{S}^r $$
-of twisted module functors.
-\end{theorem}
-
-
-%\begin{corollary}\label{corfss}
-%	If $\cA$ is unimodular with fixed trivialization
-%	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and moreover pivotal,
-% the left and right relative Serre and Nakayama functors are canonically isomorphic, respectively, as module endofunctors of $\cM$.
-% \end{corollary}
-
-
-
-\begin{corollary}\label{corfss}
-Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a fixed trivialization
-	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then the isomorphisms above induce canonical isomorphisms
-	$$ \mathsf{N}^\ell \cong  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong  \mathsf{S}^r $$
-of untwisted module functors, with the untwisting induced by the pivotal structure.
- \end{corollary}
- 
- 
-
-
-
-
-\begin{corollary}\label{cor:N=alpha_vee_vee}
-For any   finite tensor category $\mathcal{A}$,  we have natural isomorphisms $$ \mathsf{N}^\ell \cong \alpha \otimes  {}^{\vee \vee} (-) \qquad , \qquad  \mathsf{N}^r \cong \alpha^{-1} \otimes  (-)^{\vee \vee} $$
-\end{corollary}
-%Let $\cA$ be a finite tensor category, viewed as an exact left module category over itself. Then we have natural isomorphisms $$ \N^\ell \cong \alpha \ogreaterthan  {}^{\vee \vee} (-) \qquad , \qquad  \N^r \cong \alpha^{-1} \ogreaterthan  (-)^{\vee \vee} $$
-
-
-
-From this last result we easily obtain two important properties about the distinguished invertible object: if $\mathcal{A}$ and $\mathcal{B}$ are finite tensor categories, the distinguished invertible object $\alpha_{\mathcal{A} \boxtimes \mathcal{B}}$ of $\mathcal{A} \boxtimes \mathcal{B}$ (which is a finite tensor category by \cref{prop:Deligne_product_of_ftc}) and that of $\mathcal{A}^\mathsf{rev}$ are given by 
-\begin{equation}\label{eq:disting_inv_for_Deligne_product}
-\alpha_{\mathcal{A} \boxtimes \mathcal{B}} \cong \alpha_\mathcal{A} \boxtimes \alpha_\mathcal{B} \qquad , \qquad \alpha_{\mathcal{A}^\mathsf{rev}} \cong \alpha_\mathcal{A},
-\end{equation}
-where $\alpha_\mathcal{A}$, $\alpha_\mathcal{B}$ and $\alpha_{\mathcal{A}^\mathsf{rev}}$ denote the distinguished invertible objects of $\mathcal{A}$, $\mathcal{B}$ and  $\mathcal{A}^\mathsf{rev}$, respectively.
-
-
-\subsection{Pivotal module categories}
-
-Let $\mathcal{A}$ be a pivotal finite tensor category with pivotal structure $\omega: \mathrm{id}_\mathcal{A} \overset{\cong}{\Longrightarrow} (-)^{\vee \vee}$, let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category and let $\mathsf{S}^r$ be a right relative Serre functor of $\mathcal{M}$. A \emph{pivotal structure} for $\mathcal{M}$ is a natural isomorphism $\widetilde{\omega}: \mathrm{id}_\mathcal{M} \overset{\cong}{\Longrightarrow} \mathsf{S}^r$ which is compatible with the pivotal structure of $\mathcal{A}$ in the sense that the diagram
-\begin{equation}\label{eq:diagram_pmc}
-\begin{tikzcd}
-X \ogreaterthan M \arrow{rr}{\widetilde{\omega}_{X \ogreaterthan M}} \arrow{dr}[swap]{\omega_X \ogreaterthan  \widetilde{\omega}_{ M}} && \mathsf{S}^r(X \ogreaterthan M)\\
-&   X^{\vee \vee} \ogreaterthan \mathsf{S}^r(M)  \arrow{ur}[swap]{\xi_{X,M}}  &
-\end{tikzcd}
-\end{equation}
-commutes for all $X\in \mathcal{A}$ and $M \in \mathcal{M}$, where $\xi_{X,M}$ is the isomorphism from \eqref{eq:Serre_twisted}. An exact  left $\mathcal{A}$-module category $\mathcal{M}$ endowed with a pivotal structure will be called a \emph{pivotal left $\mathcal{A}$-module category}.
-
-\begin{corollary}\label{corfss}
-	Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a fixed trivialization
-	$\alpha \cong \mathbbm{1}$ of the distinguished invertible object, and let $\mathcal{M}$ be an exact left $\mathcal{A}$-module category. Then the isomorphisms above induce canonical isomorphisms
-	$$ \mathsf{N}^\ell \cong  \mathsf{S}^\ell \qquad , \qquad  \mathsf{N}^r \cong  \mathsf{S}^r $$
-	of untwisted module functors, with the untwisting induced by the pivotal structure.
-	A pivotal module structure on $\mathcal{M}$ is a trivialization of $\mathsf{N}^\ell$ or $\mathsf{N}^r$ as module functor.
-\end{corollary}
-
-
-
-\begin{example}
-Let $\mathcal{A}$ be a pivotal finite tensor category, viewed as a left $\mathcal{A}$-module category (by left multiplication). By \cref{ex:Serre_funct_in_ftc}, $\mathcal{A}$ is exact and the left and right relative Serre functors can be taken to be the identity endofunctor, and the isomorphism $\xi_{X,Y}$ can be seen to be induced by the (inverse of the) pivotal structure. Then the identity natural transformation of the identity functor makes $\mathcal{A}$ makes $\mathcal{A}$ a pivotal module category over itself (the commutativity of \eqref{eq:diagram_pmc} is trivial in this case).
-\end{example}
-
-
-
-Next we will generalize the previous example. Before that let us introduce the following notation: if $\mathcal{A}$ is a finite tensor category and $p,q \geq 0$ are non-negative integers, let us denote by  ${}_p \mathcal{A}_q$ the finite $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$-module category whose underlying finite category is $\mathcal{A}$ with module structure determined by $$(X_1 \boxtimes \cdots \boxtimes X_p \boxtimes Y_1 \boxtimes \cdots \boxtimes Y_p) \ogreaterthan Z=  X_1 \otimes \cdots \otimes  X_p \otimes Z \otimes Y_q \otimes \cdots \otimes Y_1.  $$
-
-\begin{lemma}\label{lem:disk_FH}
-Let $\mathcal{A}$ be  a unimodular pivotal finite tensor category with a  fixed trivialization $\alpha \cong \mathbbm{1}$ of the distinguished invertible object of $\mathcal{A}$. Then ${}_p \mathcal{A}_q$ inherits a structure of pivotal module category for every $p,q \geq 0$.
-\end{lemma}
-\begin{proof}
-By \cite[Lemma 3.2]{relserre}, ${}_p \mathcal{A}_q$ is exact if for any projective object $P\in \mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ we have that  $P \ogreaterthan X$ is projective for any $X \in {}_p \mathcal{A}_q$. By the properties of the Deligne product, $P$ is a direct summand of a projective object $W$ of the form $W= \bigoplus_i A_i \boxtimes B_i$ with $A_i, B_i$ projective. Because in a finite tensor category, the monoidal product of a projective object and an arbitrary object is projective, $W \ogreaterthan X$ is projective, and since $- \ogreaterthan X$ is right exact, $P \ogreaterthan X$ is a direct summand of $W \ogreaterthan X$, hence again projective.
-
-
-
-
-Next let us see how we can obtain a canonical trivialization of the right relative Serre functor of ${}_p \mathcal{A}_q$. On the one hand, the fixed trivialization of the distinguished invertible object and the pivotal structure induce a trivialization of the right Nakayama functor of $\mathcal{A}$ (the underlying finite tensor category of ${}_p \mathcal{A}_q$) by \cref{cor:N=alpha_vee_vee}. On the other hand, the distinguished invertible object of $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ is according to  \eqref{eq:disting_inv_for_Deligne_product} $$ \alpha_{\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}} \cong \alpha^{\boxtimes p+q} ,$$ 
-
-which implies that $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$ is unimodular as well with a trivialization induced by that of $\mathcal{A}$. Moreover the pivotal structure of $\mathcal{A}$ induces a canonical pivotal structure on $\mathcal{A}^{\boxtimes p}\boxtimes \left( \mathcal{A}^{\mathsf{rev}} \right)^{\boxtimes q}$. Therefore we obtain a trivialization $\mathrm{id}_\mathcal{A} \cong \mathsf{N}^r \cong \mathsf{S}^r$ of the right relative Serre functor by   \cref{corfss}. The commutativity of \eqref{eq:diagram_pmc} holds by construction.
-\end{proof}
-
-
-
-
-
-
-
-
-As it turns out, pivotal module categories can be characterized as categories of modules over symmetric Frobenius algebras:
-
-\begin{theorem}[{\cite[Corollary 3.16]{relserre}}]
-If $\mathcal{M}$ is a pivotal left $\mathcal{A}$-module category, then there is an equivalence of left $\mathcal{A}$-module categories $\mathcal{M} \simeq \mathsf{mod}_\mathcal{A} \text{-}A$ for a symmetric Frobenius algebra object $A$ in $\mathcal{A}$.
-\end{theorem}
-
-
-
-
-
 
 
 
@@ -2733,6 +2952,39 @@ is naturally isomorphic, by property (3) of \cref{subsec:review_FH}, to the $(n+
 \end{example}
 
 
+
+\section{Modified traces}
+
+
+\subsection{Twisted traces}
+
+Let $\mathcal{M}$ be a $\Bbbk$-linear category, let $\mathcal{P}$ be a full subcategory of $\mathcal{M}$,
+and let $\Sigma : \mathcal{M} \to \mathcal{M}$ be a $\Bbbk$-linear endofunctor. A
+\emph{$\Sigma$-twisted trace on $\mathcal{P}$} is a family
+\[
+\mathsf{t}_\bullet = \{ \mathsf{t}_P : \mathrm{Hom}_{\mathcal{M}}(P, \Sigma(P)) \to \Bbbk \}_{P \in \mathcal{P}}
+\]
+of $\Bbbk$-linear maps parametrized by the objects of $\mathcal{P}$ such that the following $\Sigma$-cyclicity
+condition is satisfied:
+
+\medskip
+\noindent\textbf{$\Sigma$-cyclicity:} For all objects $P, Q \in \mathcal{P}$ and morphisms $f : P \to Q$ and $g : Q \to
+\Sigma(P)$ in $\mathcal{M}$, the following equation holds:
+\begin{equation}
+\mathsf{t}_P\!\left(P \xrightarrow{f} Q \xrightarrow{g} \Sigma(P)\right)
+= \mathsf{t}_Q\!\left(Q \xrightarrow{g} \Sigma(P) \xrightarrow{\Sigma(f)} \Sigma(Q)\right). \tag{3.1}
+\end{equation}
+We say that a $\Sigma$-twisted trace $\mathsf{t}_\bullet$ on $\mathcal{P}$ is \emph{non-degenerate} if the pairing
+\[
+\mathrm{Hom}_{\mathcal{M}}(M, \Sigma(P)) \times \mathrm{Hom}_{\mathcal{M}}(P, M) \to \Bbbk, \quad (f, g) \mapsto \mathsf{t}_P(fg)
+\]
+is non-degenerate for all objects $M \in \mathcal{M}$ and $P \in \mathcal{P}$.
+
+
+Important that $\Sigma$ is not an endofunctor of $\mathcal{P}$ because a major case of interest is $\mathcal{P} = Proj (\mathcal{M})$ and $\Sigma$ the Nakayama functors (that takes proj obj to inj obj).
+
+
+We write $\mathrm{Tr}(\mathcal{M})$ for the class of $\Sigma$-twisted traces on $\mathcal{M}$.
 
 
 \end{document}
