@@ -2959,7 +2959,7 @@ is naturally isomorphic, by property (3) of \cref{subsec:review_FH}, to the $(n+
 \subsection{Twisted traces}
 
 Let $\mathcal{M}$ be a $\Bbbk$-linear category, let $\mathcal{P}$ be a full subcategory of $\mathcal{M}$,
-and let $\Sigma : \mathcal{M} \to \mathcal{M}$ be a $\Bbbk$-linear endofunctor. A
+and let $\Sigma : \mathcal{M} \to \mathcal{M}$ be a $\Bbbk$-linear right exact endofunctor. A
 \emph{$\Sigma$-twisted trace on $\mathcal{P}$} is a family
 \[
 \mathsf{t}_\bullet = \{ \mathsf{t}_P : \mathrm{Hom}_{\mathcal{M}}(P, \Sigma(P)) \to \Bbbk \}_{P \in \mathcal{P}}
@@ -2986,5 +2986,53 @@ Important that $\Sigma$ is not an endofunctor of $\mathcal{P}$ because a major c
 
 We write $\mathrm{Tr}(\mathcal{M})$ for the class of $\Sigma$-twisted traces on $\mathcal{M}$.
 
+
+\begin{theorem}[SS]
+There is a bijection
+$$ \mathrm{Nat}(\Sigma, \mathsf{N}^r) \overset{\cong}{\to}  \mathrm{Tr}(\mathcal{M}) $$ via the ``canonical Nakayama twisted trace''. Under this bijection, natural isomorphisms correspond to non-degenerate $\Sigma$-twisted traces.
+\end{theorem}
+
+
+
+\subsection{Module-compatibility of twisted traces}
+
+Let $\mathcal{C}$ be a rigid monoidal category and let $\mathcal{M}$ be a finite category and a  right $\mathcal{C}$-module category. We write
+
+\[
+\mathtt{cl}_{M,N|X} : \mathrm{Hom}_{\mathcal{M}}(M \olessthan X, N \olessthan X^{**}) \to \mathrm{Hom}_{\mathcal{M}}(M, N)
+\quad (M, N \in \mathcal{M},\, X \in \mathcal{C}),
+\]
+\[
+\mathtt{cl}_{M,N|X}(f) = (\mathrm{id}_N \olessthan \mathrm{ev}_{X^*}) \circ (f \olessthan \mathrm{id}_{X^*}) \circ (\mathrm{id}_M \olessthan \mathrm{coev}_X).
+\]
+The linear map $\mathtt{cl}_{M,N|X}$ is called the partial trace in literature (at least when
+$\mathcal{M} = \mathcal{C}$ and $\mathcal{C}$ is pivotal), however, we call it the \emph{closing operator} to prevent the proliferation of trace-like terms.
+
+
+Now let $\Sigma: \mathcal{M} \to \mathcal{M}$ be a $ (-)^{**}$-twisted right exact $\C$-module functor. In other words, $\Sigma$ is a $\Bbbk$-linear right exact endofunctor on $\mathcal{M}$ equipped with a natural
+isomorphism
+\[
+\Psi^{\Sigma}_{M,X} : \Sigma(M) \olessthan X^{**} \to \Sigma(M \olessthan X) \quad (M \in \mathcal{M},\, X \in \mathcal{C})
+\]
+such that the equations $\Psi^{\Sigma}_{M,\mathbf{1}} = \mathrm{id}_{\Sigma(M)}$ and $\Psi^{\Sigma}_{M, X \otimes Y} = \Psi^{\Sigma}_{M \olessthan X, Y} \circ (\Psi^{\Sigma}_{M,X} \olessthan \mathrm{id}_{Y^{**}})$
+hold for all objects $M \in \mathcal{M}$ and $X, Y \in \mathcal{C}$. Now we clarify what `compatible'
+means:
+
+\begin{definition}
+A $\Sigma$-twisted trace $\mathsf{t}_\bullet$ on $\mathrm{Proj}(\mathcal{M})$ is said to satisfy \textit{the right partial trace property}, or to be \emph{compatible with
+the right $\mathcal{C}$-module structure} (or \emph{module-compatible} for short) if the equation
+\begin{equation}
+\mathsf{t}_P(\mathtt{cl}_{P,\Sigma(P)|X}(f)) = \mathsf{t}_{P \olessthan X}(\Psi^{\Sigma}_{P,X} \circ f) \tag{5.3}
+\end{equation}
+holds for all $P \in \mathrm{Proj}(\mathcal{M})$, $X \in \mathcal{C}$ and $f \in \mathrm{Hom}_{\mathcal{M}}(P \olessthan X, \Sigma(P) \olessthan X^{**})$.
+\end{definition} 
+
+
+
+
+\begin{theorem}[SS]
+Under the previous bijection
+$$ \mathrm{Nat}(\Sigma, \mathsf{N}^r) \overset{\cong}{\to}  \mathrm{Tr}(\mathcal{M}), $$ module-compatible $\Sigma$-twisted traces correspond to  natural transformations correspond to non-degenerate $\Sigma$-twisted traces.
+\end{theorem}
 
 \end{document}
