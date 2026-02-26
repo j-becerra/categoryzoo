@@ -1491,6 +1491,12 @@ A finite tensor category is \textbf{unimodular} if its distinguished invertible 
 
 
 
+\begin{theorem}[ENO04]
+For a finite tensor category, $$ semisimple \Rightarrow unimodular.$$
+\end{theorem}
+
+
+
 
 
 \subsection{Indecomposable projective objects in a finite tensor category}
@@ -1608,9 +1614,7 @@ $$  \Delta^\vee \cong \left( \int^{X \in \C} X^\vee \boxtimes X  \right)^\vee \c
 
 
 
-\subsection{Modified traces}
 
-{\color{red} TO BE FINISHED }
 
 
 
@@ -1622,6 +1626,33 @@ A pivotal finite tensor category is \textit{spherical} (according to Douglas-Sch
 
 This notion of sphericality is related to the sphericality in terms of quantum traces from Section \ref{subsec:spherical_classical} only in the semisimple case. Beyond semisimplicity, it is an entirely different notion. Most remarkably, sphericality, even in the non-semisimple situation, can be perfectly characterized through traces if one uses modified traces instead of quantum traces [SS21, Theorem 1.3].
 
+
+
+Let us make this precise:
+
+
+\begin{definition}
+A pivotal tensor category $(\mathcal{C}, P : (-) \simeq (-)^{**})$ is \textit{trace spherical} if for all objects $V \in \mathcal{C}$, the quantum trace of the pivotal structure on $V$ agrees with the quantum trace of the pivotal structure on $^*V$, that is $\mathrm{Tr}(P_V) = \mathrm{Tr}(P_{(^*V)})$.
+\end{definition}
+
+In the semisimple case, the two notions correspond precisely:
+
+\begin{proposition}
+A semisimple pivotal finite tensor category with absolutely simple unit is spherical if and only if it is trace spherical.
+\end{proposition}
+
+\begin{proof}
+Both the property of sphericality and the property of trace sphericality are invariant under base change, so it suffices to compare them over an algebraically closed field. When the base field is algebraically closed, Etingof-Nikshych-Ostrik prove in \textbf{[ENO04]}, Thm 7.3 and Cor 7.4] that the Radford equivalence $\mathcal{R}_{\mathcal{C}} : (-) \xrightarrow{\simeq} (-)^{****}$ is characterized by a property that is equivalent to the following property: for any object $V \in \mathcal{C}$ and any morphism $f_V : V \to V^{**}$, there is an equality of traces $\mathrm{Tr}(f_V) = \mathrm{Tr}((f_V)^* \circ \mathcal{R}_{\mathcal{C}}(^*V))$. Here we have abbreviated $\mathcal{R}_{\mathcal{C}}(^*V)$ as $\mathcal{R}_{(^*V)}$. When $(\mathcal{C}, P)$ is a pivotal tensor category, we have $(P_V)^* = (P_{V^*})^{-1}$ \textbf{[Sel11]}, Lemma 4.11; SR72, Prop 5.2.3]. If $(\mathcal{C}, P)$ is spherical, it follows that
+\[
+\mathrm{Tr}(P_V)
+= \mathrm{Tr}((P_V)^* \circ \mathcal{R}_{(^*V)})
+= \mathrm{Tr}(P_{V^*}^{-1} \circ P_{V^*} \circ P_{(^*V)})
+= \mathrm{Tr}(P_{(^*V)});
+\]
+that is, $(\mathcal{C}, P)$ is trace spherical. The converse follows by cyclically permuting this equation.
+\end{proof}
+
+\textbf{WARNING:} In the setting of non-semisimple finite tensor categories, it is neither the case that spherical implies trace spherical, nor the case that trace spherical implies spherical.
 
 
 \subsection{Eilenberg-Watts theorem}
@@ -1828,6 +1859,10 @@ structure given by the braiding of $\mathcal{Z}(\mathcal{C})$.
 The braided finite tensor category $\mathcal{C}$ is \emph{factorizable} if the functor $G$ from above is an equivalence.
 \end{definition}
 
+
+
+
+\textbf{IMPORTANT:} Factorisable braided finite tensor category $\Rightarrow$ Unimodular by [EGNO, 8.10.10].
 
 
 \subsection{Modular category (non-ss)}
@@ -2984,7 +3019,7 @@ is non-degenerate for all objects $M \in \mathcal{M}$ and $P \in \mathcal{P}$.
 Important that $\Sigma$ is not an endofunctor of $\mathcal{P}$ because a major case of interest is $\mathcal{P} = Proj (\mathcal{M})$ and $\Sigma$ the Nakayama functors (that takes proj obj to inj obj).
 
 
-We write $\mathrm{Tr}(\mathcal{M})$ for the class of $\Sigma$-twisted traces on $\mathcal{M}$.
+We write $\mathrm{Tr}(\mathcal{M})$ for the class of $\Sigma$-twisted traces on $Proj(\mathcal{M})$.
 
 
 \begin{theorem}[SS]
@@ -3032,7 +3067,217 @@ holds for all $P \in \mathrm{Proj}(\mathcal{M})$, $X \in \mathcal{C}$ and $f \in
 
 \begin{theorem}[SS]
 Under the previous bijection
-$$ \mathrm{Nat}(\Sigma, \mathsf{N}^r) \overset{\cong}{\to}  \mathrm{Tr}(\mathcal{M}), $$ module-compatible $\Sigma$-twisted traces correspond to  natural transformations correspond to non-degenerate $\Sigma$-twisted traces.
+$$ \mathrm{Nat}(\Sigma, \mathsf{N}^r) \overset{\cong}{\to}  \mathrm{Tr}(\mathcal{M}), $$ natural transformations which are module-compatible (ie natural transformations of module functors) correspond to $\Sigma$-twisted traces satisfying the right partial trace property. Natural isomorphisms of module functors correspond to non-degenerate traces.
 \end{theorem}
+
+
+\subsection{Uniqueness}
+
+
+Let $\mathcal{M}$ be an \textbf{indecomposable} (ie not equivalent to a direct sum of categories)  exact right $\C$-module category, and let $\Sigma: \mathcal{M} \to \mathcal{M}$ be a $ (-)^{**}$-twisted right exact $\C$-module functor.
+
+
+Then there exists a non-degenerate module-compatible $\Sigma$-twisted
+trace on $\mathrm{Proj}(\mathcal{M})$ if and only if $\Sigma \cong \mathsf{N}_{\mathcal{M}}$ as right $\mathcal{C}$-module functors. If this is
+the case, a non-zero module-compatible $\Sigma$-twisted trace on $\mathrm{Proj}(\mathcal{M})$ is unique up to
+scalar multiple and every such trace is non-degenerate.
+
+
+
+\subsection{Left/right modified traces}
+
+
+Let $\C$ be a pivotal finite tensor category. The identity of $\C$ becomes a  $(-)^{**}$-twisted left/right  $\C$-module functor thanks to the pivotal structure.
+
+\begin{definition}
+A \emph{left} (resp. \emph{right}) \emph{modified trace} on $\mathrm{Proj}(\mathcal{C})$ is an $\mathrm{id}_{\mathcal{C}}$-twisted trace
+on $\mathrm{Proj}(\mathcal{C})$ compatible with the left (resp. right) $\mathcal{C}$-module structure. We denote by
+$\mathcal{T}_{\mathcal{C}}^{(\ell)}$ and $\mathcal{T}_{\mathcal{C}}^{(r)}$ the spaces of left and right modified traces on $\mathrm{Proj}(\mathcal{C})$, respectively.
+
+
+In more detail: a left/right modified trace  on on $\mathrm{Proj}(\mathcal{C})$ is  a family
+is a family
+\[
+\mathsf{t}_\bullet = \{ \mathsf{t}_P : \mathrm{End}_{\mathcal{C}}(P) \to \Bbbk \}_{P \in \mathcal{P}}
+\]
+of $\Bbbk$-linear maps parametrized by the objects of $\mathcal{P}$ such that
+
+\medskip
+\noindent\textbf{1) Cyclicity:} For all objects $P, Q \in \mathcal{P}$ and morphisms $f : P \to Q$ and $g : Q \to
+P$ in $\mathcal{C}$, the following equation holds: $$\mathsf{t}_Q(f \circ g)  =  \mathsf{t}_P(g \circ f)  $$
+
+
+\medskip
+\noindent\textbf{2)  Left (resp. right) partial trace property:}  If $P\in Proj (\C)$ and $X \in \C$, 
+
+$$ \mathsf{t}_{V \otimes P}(f) = \mathsf{t}_P (\mathtt{cl}_{P|X}(f))  \qquad , \qquad (resp. \ \mathsf{t}_{P \otimes V}(f) = \mathsf{t}_P (\mathtt{cl}_{X|P}(f)) )  $$
+
+
+
+
+
+\textbf{Key observation:} This closure operator, ie the  left/right categorical aka pivotal trace, is a left/right modified trace. The issue is the following:
+
+\begin{proposition}
+Let $\mathcal{C}$ be a pivotal finite tensor category over a field $\Bbbk$. The pivotal trace
+$\mathrm{tr} $ is non-zero on
+$ \mathrm{Proj}(\mathcal{C})$ if and only if $\mathcal{C}$ is semisimple.
+\end{proposition}
+
+\begin{proof}
+Recall that in a finite tensor category there is a distinguished projective object
+$P_{\mathbf{1}}$, the projective cover of the unit object $\mathbf{1}$. A fundamental theorem of
+finite tensor categories states that $\mathcal{C}$ is semisimple if and only if $\mathbf{1}$ is
+projective, that is, $P_{\mathbf{1}} \cong \mathbf{1}$.
+
+We first observe that for any projective object $P \in \mathcal{C}$, the pivotal trace of
+any endomorphism $f \in \mathrm{End}_{\mathcal{C}}(P)$ factors through $P_{\mathbf{1}}$. Indeed, by
+definition of the pivotal trace, $\mathrm{tr}_{P}(f)$ is the composite
+\[
+\mathbf{1}
+\xrightarrow{\mathrm{coev}_{P}}
+P \otimes P^{*}
+\xrightarrow{f \otimes \mathrm{id}_{P^{*}}}
+P \otimes P^{*}
+\xrightarrow{\widetilde{\mathrm{ev}}_{P}}
+\mathbf{1},
+\]
+where $\widetilde{\mathrm{ev}}_{P}$ denotes the pivotal evaluation. This composite is a
+morphism $\mathbf{1} \to \mathbf{1}$, hence a scalar, and it factors as
+\[
+\mathbf{1} \xrightarrow{f} P_{\mathbf{1}} \xrightarrow{g} \mathbf{1}
+\]
+because $P_{\mathbf{1}}$ is the projective cover of $\mathbf{1}$: the morphism
+$\mathbf{1} \xrightarrow{\mathrm{coev}_{P}} P \otimes P^{*}$ lands in a projective object
+(since $P$ projective implies $P \otimes P^{*}$ projective), and any morphism from a
+projective object into $\mathbf{1}$ factors through the projective cover
+$P_{\mathbf{1}} \twoheadrightarrow \mathbf{1}$. Thus $\mathrm{tr}_{P}(f)$ factors through
+$P_{\mathbf{1}}$ for every projective $P$ and every $f$.
+
+\medskip
+
+$(\Leftarrow)$ Suppose $\mathcal{C}$ is semisimple, so $P_{\mathbf{1}} \cong \mathbf{1}$.
+Then the factorisation
+\[
+\mathbf{1} \xrightarrow{f} P_{\mathbf{1}} \xrightarrow{g} \mathbf{1}
+\]
+through which $\mathrm{tr}_{P}(\mathrm{id}_{P})$ factors has $P_{\mathbf{1}} = \mathbf{1}$,
+so $g \circ f$ is simply a scalar multiple of $\mathrm{id}_{\mathbf{1}}$. In a semisimple
+pivotal category every simple object $L$ satisfies
+$\dim(L) = \mathrm{tr}(\mathrm{id}_{L}) \neq 0$, since $\mathrm{End}(L) \cong \Bbbk$ by
+Schur's lemma and the Hom-pairing is non-degenerate. As the trace is additive on
+direct sums, it follows that $\mathrm{tr}_{P} \not\equiv 0$ for every non-zero
+projective $P$.
+
+\medskip
+
+$(\Rightarrow)$ We prove the contrapositive. Suppose $\mathcal{C}$ is not semisimple,
+so $P_{\mathbf{1}} \ncong \mathbf{1}$, meaning the projective cover map
+$\pi : P_{\mathbf{1}} \twoheadrightarrow \mathbf{1}$ does not split. We claim that for
+every projective object $P$, the trace $\mathrm{tr}_{P}(\mathrm{id}_{P}) = 0$, that is,
+the composite
+\[
+\mathbf{1}
+\xrightarrow{\mathrm{coev}_{P}}
+P \otimes P^{*}
+\xrightarrow{\widetilde{\mathrm{ev}}_{P}}
+\mathbf{1}
+\]
+is zero. By the factorisation observation above, this composite factors as
+\[
+\mathbf{1} \xrightarrow{f} P_{\mathbf{1}} \xrightarrow{g} \mathbf{1}
+\]
+for some morphisms $f$ and $g$. Since $\mathcal{C}$ is not semisimple, the sequence
+\[
+0
+\to
+\mathrm{rad}(P_{\mathbf{1}})
+\to
+P_{\mathbf{1}}
+\xrightarrow{\pi}
+\mathbf{1}
+\to 0
+\]
+is a non-split exact sequence with $\mathrm{rad}(P_{\mathbf{1}}) \neq 0$. Any morphism
+$g : P_{\mathbf{1}} \to \mathbf{1}$ is a scalar multiple of $\pi$, and any morphism
+$f : \mathbf{1} \to P_{\mathbf{1}}$ would split $\pi$ if $g \circ f \neq 0$. Since $\pi$
+does not split, there is no morphism $f : \mathbf{1} \to P_{\mathbf{1}}$ with
+$g \circ f \neq 0$, and therefore $g \circ f = 0$ for all such $f$ and $g$. Hence
+\[
+\mathrm{tr}_{P}(\mathrm{id}_{P}) = g \circ f = 0
+\]
+for every projective object $P$, and by linearity
+$\mathrm{tr}_{P} \equiv 0$ on all of $\mathrm{End}_{\mathcal{C}}(P)$.
+\end{proof}
+
+
+
+
+\textbf{Question:} when does a pivotal finite tensor category admit modified traces on $Proj (\C)$? 
+
+
+
+
+\begin{theorem}
+For a pivotal finite tensor category $\mathcal{C}$, the following assertions are
+equivalent:
+\begin{enumerate}
+    \item $\mathcal{C}$ is unimodular, that is, there is an isomorphism $\alpha_{\mathcal{C}} \cong \mathbf{1}$ in $\mathcal{C}$.
+    \item There is a non-zero right modified trace on $\mathrm{Proj}(\mathcal{C})$.
+    \item There is a non-zero left modified trace on $\mathrm{Proj}(\mathcal{C})$.
+\end{enumerate}
+If these equivalent conditions are satisfied, then we have $\dim_{\Bbbk} \mathcal{T}_{\mathcal{C}}^{(r)} = \dim_{\Bbbk} \mathcal{T}_{\mathcal{C}}^{(\ell)} = 1$
+and every non-zero left or right modified trace on $\mathrm{Proj}(\mathcal{C})$ is non-degenerate.
+\end{theorem}
+
+
+\subsection{Two-sided modified traces}
+
+
+Let $\mathcal{C}$ be a pivotal finite tensor category. A \emph{two-sided modified trace}
+on $\mathrm{Proj}(\mathcal{C})$ is an element of $\mathcal{T}_{\mathcal{C}}^{(\ell r)} :=
+\mathcal{T}_{\mathcal{C}}^{(\ell)} \cap \mathcal{T}_{\mathcal{C}}^{(r)}$.
+
+
+Recall that a pivotal finite tensor category is \textit{spherical} (according to Douglas-Schommer-Pries-Snyder) if it is unimodular, ie $\alpha \cong \mathbf{1}$, and the trivialisation $(-)^{\vee \vee \vee \vee} \cong \mathrm{Id}$ coming from the Radford isomorphism coincides with the   trivialisation $(-)^{\vee \vee \vee \vee} \cong (-)^{ \vee \vee} \cong  \mathrm{Id}$ induced by the pivotal structure.
+
+
+
+\begin{corollary}
+Let $\mathcal{C}$ be a pivotal finite tensor category. Then 
+$$ \exists
+\textrm{
+ non-zero
+two-sided modified trace on } \mathrm{Proj}(\mathcal{C}) \iff \mathcal{C} \text{
+spherical} $$ If this is the case, a non-zero two-sided modified trace on
+$\mathrm{Proj}(\mathcal{C})$ is unique up to scalar multiple and every such trace is
+non-degenerate.
+\end{corollary}
+
+
+
+
+If $\C$ is ribbon, the situation is even more interesting:
+
+
+\begin{corollary}
+Let $\C$ be a ribbon finite tensor category. Then TFAE:
+\begin{enumerate}
+\item $\C$ is spherical,
+\item $\C$ is unimodular,
+\item There exists a non-zero two-sided modified trace on $Proj (\C)$ (in this case such a mod trace is always non-degenerate by the corollary above).
+\end{enumerate}
+\end{corollary}
+
+
+
+\begin{corollary}
+Any modular tensor categories admits a non-deg two-sided modified trace.
+\end{corollary}
+
+Reason? Factorisable braided finite tensor category $\Rightarrow$ Unimodular by [EGNO, 8.10.10], and the corollary above.
+
+
+\end{definition}
 
 \end{document}
