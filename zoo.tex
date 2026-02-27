@@ -1883,6 +1883,48 @@ For a braided finite tensor category $\mathcal{C}$, the following assertions are
 A ribbon finite tensor category satisfying any of the four equivalent conditions above is called a \textbf{modular tensor category.}
 
 
+
+\subsection{Hopf algebra terminology and relation with categorical ones}
+
+
+
+Let $H$ be a finite-dimensional Hopf algebra.
+
+
+\begin{enumerate}
+\item $H$ is \textbf{quasi-triangular} if....
+\item $H$ is \textbf{triangular} if it is quasi-triangular with $R^{-1}=R_{21}$.
+\item $H$ is \textbf{factorisable} if it is quasi-triangular and the map $$ H^* \to H \qquad , \qquad \omega \mapsto (\omega \otimes id)(R_{21}R) $$ is an isomorphism (for $H$ not nec fin dim, simply surjective). This is the opposite of being triangular.
+
+
+Equivalently,  by a result of Schneider this can be characterised by $D(H)\cong (H \otimes H)^{F_R}$ (something is twisted by a cocycle), in particular   $D(H)\cong H \otimes H$ as algebras.
+
+\item $H$ is \textbf{unimodular} if it has left and right integrals and they coincide.
+
+\textbf{Sweedler-Lardson theorem:} $H$ is semisimple if and only if there is a left integral $\Lambda$ with $\varepsilon(\Lambda) \neq 0$.
+
+\textbf{Radford theorem:} Factorisable $\Rightarrow$ Unimodular.
+
+
+\item $H$ is \textbf{ribbon} if ....
+\end{enumerate}
+
+
+
+
+\begin{proposition} Let $H$ be a fin dim Hopf algebra.
+\begin{enumerate}
+\item $H$-$\mathsf{mod}$ is a finite tensor category.
+\item If $H$ is  quasi-triangular, then $H$-$\mathsf{mod}$ is braided.
+\item If $H$ is  triangular, then $H$-$\mathsf{mod}$ is symmetric.
+\item If $H$ is factorisable, then $H$-$\mathsf{mod}$ is factorisable. Roughly $$ H\text{-}\mathsf{mod}  \boxtimes H\text{-}\mathsf{mod}  \simeq (H \otimes H)\text{-}\mathsf{mod}  \simeq D(H)\text{-}\mathsf{mod} \simeq \mathcal{Z}(H\text{-}\mathsf{mod}  ).  $$
+\item If $H$ is unimodular, then $H\text{-}\mathsf{mod}  $ is unimodular [EGNO, \S 6.5].
+\item If $H$ is ribbon, then  $H\text{-}\mathsf{mod}  $ is also ribbon.
+\end{enumerate}
+\end{proposition}
+
+
+
 \section{ Module categories}
 
 \subsection{ Definition}
