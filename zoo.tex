@@ -1193,35 +1193,53 @@ A category which is monoidal and abelian with the following compatibility condit
 A category which is monoidal, abelian and \(\Bbbk\)-linear with the following compatibility conditions: the \(\Bbbk\)-module enrichment extends the abelian group enrichment, the tensor product \(\otimes\) is a \(\Bbbk\)-bilinear functor, and the unit \(\mathbf{1}\) is a simple object with \(\operatorname{End}(\mathbf{1}) = \Bbbk\).
 
 \subsection{Projective and injective objects}
-An object \(A\) in an abelian category \(\mathcal{A}\) is \emph{projective} if for every epimorphism \(p: X \to Y\) and every morphism \(f: A \to Y\), there is a morphism \(f': A \to X\) that lifts \(p\), i.e., \(f = p \circ f'\):
+An object \(P\) in an abelian category \(\mathcal{A}\) is \emph{projective} if for every epimorphism \(p: X \to Y\) and every morphism \(f: P \to Y\), there is a morphism \(f': P \to X\) that lifts \(p\), i.e., \(f = p \circ f'\):
 \[
 \begin{tikzcd}
 & X \arrow[d, "p"'] \\
-A \arrow[r, "f"] \arrow[ur, dashed, "\exists f'"] & Y
+P \arrow[r, "f"] \arrow[ur, dashed, "\exists f'"] & Y
 \end{tikzcd}
 \]
 
-An object \(A\) in an abelian category \(\mathcal{A}\) is \emph{injective} if for every monomorphism \(i: Y \to X\) and every morphism \(f: Y \to A\), there is a morphism \(f': X \to A\) that extends \(i\), i.e., \(f = f' \circ i\):
+An object \(I\) in an abelian category \(\mathcal{A}\) is \emph{injective} if for every monomorphism \(i: Y \to X\) and every morphism \(f: Y \to I\), there is a morphism \(f': X \to I\) that extends \(i\), i.e., \(f = f' \circ i\):
 \[
 \begin{tikzcd}
-Y \arrow[r, "f"] \arrow[d, "i"'] & A \\
+Y \arrow[r, "f"] \arrow[d, "i"'] & I \\
 X \arrow[ur, dashed, swap,"\exists f'"]
 \end{tikzcd}
 \]
 
-One can show, as for the category of modules, that an object \(A\) is projective if and only if the functor
+One can show, as for the category of modules, that an object \(P\) is projective if and only if the functor
 \[
-\operatorname{Hom}_{\mathcal{A}}(A,-) : \mathcal{A} \to \mathsf{Ab}
+\operatorname{Hom}_{\mathcal{A}}(P,-) : \mathcal{A} \to \mathsf{Ab}
 \]
-is exact. Similarly, an object \(A\) is injective if and only if the functor
+is exact. Similarly, an object \(I\) is injective if and only if the functor
 \[
-\operatorname{Hom}_{\mathcal{A}}(-,A) : \mathcal{A}^{\mathrm{op}} \to \mathsf{Ab}
+\operatorname{Hom}_{\mathcal{A}}(-,I) : \mathcal{A}^{\mathrm{op}} \to \mathsf{Ab}
 \]
 is exact.
+
+
+
+Another characterisation: an object $P$ is projective if and only if every short exact sequence $$  0 \to X \to Y \to P \to 0 $$ is split. Similarly, an object $I$ is injective if and only if every short exact sequence $$  0 \to I \to X \to Y \to 0 $$ is split. 
 
 In the abelian category of \(R\)-modules, free \(\Rightarrow\) projective.
 
 In the abelian category of \(\mathbb{Z}\)-modules (i.e., abelian groups), divisible \(\Rightarrow\) injective (recall that an abelian group \(A\) is divisible if for every non-zero integer \(n\), the canonical map \(A \to A\), \(a \mapsto na\) is surjective. If \(A\) is torsion-free, then this is the same as \(A\) being uniquely divisible, i.e., that map being an isomorphism, because being torsion-free means precisely that such a map is always injective.) So examples are \(\mathbb{Q}\), \(\mathbb{Q} / \mathbb{Z}\), etc.
+
+
+\subsection{Direct sums and summands of projective and injective objects}
+
+
+\textbf{Proposition:} Let $X:= X_1 \oplus X_2$. Then we have that $X$ is projective (resp. injective) if and only if so are $X_1$ and $X_2$. Ie, direct sums and direct summands of projective and injective objects are of the same type.
+
+
+\begin{proof}
+
+\end{proof}
+
+
+
 
 \subsection{Semisimple category}
 This is the analogue of pre-fusion categories for abelian categories (instead of for linear categories).
@@ -1581,13 +1599,86 @@ as desired.
 
 
 
-\subsection{Nakayama functors}
+\subsection{Nakayama functors: classical setting}
+
+
+Let $A$ be a fin dim algebra and write $\Hom_A(-,-)$ for the hom of the category $A$-mod of fin dim $A$-modules.
+
+Both $A$ and $A^*$ can be viewed as a left/right/bi module with the regular  action, ie $a \cdot b := ab$ for the left one; and the co-regular left/right/bimod action which is the dual of the regular one: for the left one this is multiplication by $a$ in $A^*$ is the map $(a \cdot -)^*$, ie $(a \cdot \omega)(b)= \omega (ab)$.
+
+
+The left and right Nakayama functors of $A$-mod are the functors $A-mod \to A-mod$ given by $$\mathsf{N}^r_A :=\Hom_A(-,A)^* \qquad , \qquad \mathsf{N}^l_A:= \Hom_{A^{op}}(-^*,A).$$
+
+This requires some explanation: first of all if $V$ is a left module then $\Hom_A(V,A)$ is a right module with $(f \cdot a)(v)= f(a\cdot v)$. On the other hand if $V$ is a right $A$-module then $V^*$ is a left $A$-module with $(a \cdot \omega)(v)=\omega (v \cdot a)$. Also recall that $A^{op}$-mod$ \cong $mod-$A$.
+
+One can show, see [Ivanov prop 3.1] that 
+
+$$ \mathsf{N}^r_A \cong A^* \otimes_A - \qquad , \qquad \mathsf{N}^l_A \cong \Hom_A(A^*,-).$$
+
+A word on this: recall that given a right $A$-module $M$ and a left $A$-module $N$, we have $M \otimes_A N := M \otimes_\Bbbk N / (ma\otimes n - m \otimes an)$. In particular if $M$ is an $(B,A)$-bimodule then $M \otimes_A N$ is a left $B$-module. 
+
+
+Returning to Nakayama functors, if we view $A^*$ as a $A$-bimodule with the left and right co-regular action, we get that $A^* \otimes_A N$ is a left module whenever so is $N$ . In particular it is very easy to see that this functor is right exact ie preserves cokernels. A similar note goes for the left exact cousin.
+
+
+
+\begin{theorem}[{[Iv, Sect. 3]} ] 
+We have
+\begin{enumerate}
+
+
+\item The right Nakayama functor takes projective objects to injective objects.
+\item The left Nakayama functor takes injective objects to projective objects.
+\item Restriction  induces an equivalence of categories $$ \mathsf{N}^r_A : \mathsf{Proj}(A\text{-}\mathsf{mod}) \overset{\simeq}{\longrightarrow}   \mathsf{Inj}(A\text{-}\mathsf{mod}) : \mathsf{N}^l_A .$$
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of (1)]
+Let $A$ be a finite-dimensional algebra over a field $k$, and let 
+\[
+\mathsf{N}^r_A = - \otimes_A A^*
+\]
+be the right Nakayama functor, where $(-)^* = \operatorname{Hom}_k(-,k)$.
+
+Let $P$ be a projective right $A$-module. Since $P$ is projective, it is a direct summand of a finite free module, i.e. there exists $n \in \mathbb{N}$ such that
+\[
+P \mid A^{\oplus n}.
+\]
+Since the functor $- \otimes_A A^*$ is additive and preserves direct summands, it suffices to prove that
+\[
+A \otimes_A A^* \cong A^*
+\]
+is injective as a right $A$-module.
+
+We now show that $A^*$ is injective. For any right $A$-module $M$, there is a natural isomorphism
+\[
+\operatorname{Hom}_A(M, A^*) \cong \operatorname{Hom}_k(M,k) = M^*,
+\]
+given by sending a morphism $f: M \to A^*$ to the linear functional
+\[
+m \mapsto f(m)(1).
+\]
+One checks that this construction is functorial and defines a natural isomorphism.
+
+Since $k$ is a field, the functor $(-)^* = \operatorname{Hom}_k(-,k)$ is exact. Hence the functor
+\[
+\operatorname{Hom}_A(-, A^*)
+\]
+is exact, and therefore $A^*$ is an injective right $A$-module.
+
+It follows that $A \otimes_A A^*$ is injective. Since injective modules are closed under finite direct sums and direct summands, we conclude that
+\[
+P \otimes_A A^*
+\]
+is injective for every projective module $P$.
+
+This proves that the right Nakayama functor takes projective objects to injective objects.
+\end{proof}
+
+
+
+\subsection{Nakayama functors: FSS setting}
 
 {\color{red} TO BE FINISHED }
-
-
-
-
 
 
 \subsection{The canonical coend $\Delta$}
