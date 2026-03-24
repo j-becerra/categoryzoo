@@ -1235,7 +1235,63 @@ In the abelian category of \(\mathbb{Z}\)-modules (i.e., abelian groups), divisi
 
 
 \begin{proof}
+We prove the statement for injective objects; the projective case is dual.
 
+\medskip
+
+\noindent
+\emph{($\Rightarrow$)} Suppose $X = X_1 \oplus X_2$ is injective. We show that $X_1$ and $X_2$ are injective. We treat $X_1$; the argument for $X_2$ is identical.
+
+Let $j: A \hookrightarrow B$ be a monomorphism and $f: A \to X_1$ a morphism. Consider the composition
+\[
+i_1 \circ f: A \to X,
+\]
+where $i_1: X_1 \to X_1 \oplus X_2$ is the canonical inclusion.
+
+Since $X$ is injective, there exists $g: B \to X$ such that
+\[
+g \circ j = i_1 \circ f.
+\]
+Let $p_1: X \to X_1$ be the projection. Define
+\[
+g_1 := p_1 \circ g: B \to X_1.
+\]
+Then
+\[
+g_1 \circ j = p_1 \circ g \circ j = p_1 \circ i_1 \circ f = \mathrm{id}_{X_1} \circ f = f.
+\]
+Thus $f$ extends, and $X_1$ is injective.
+
+\medskip
+
+\emph{($\Leftarrow$)} Suppose $X_1$ and $X_2$ are injective. Let
+\[
+0 \to X_1 \oplus X_2 \xrightarrow{i} M \to N \to 0
+\]
+be a short exact sequence. Let $p_k: X_1 \oplus X_2 \to X_k$ be the projections, and set
+\[
+i_k := p_k \circ i: X_1 \oplus X_2 \to X_k.
+\]
+Then each $i_k$ restricts to a monomorphism $X_k \hookrightarrow M$. Since $X_k$ is injective, there exists a retraction
+\[
+r_k: M \to X_k
+\]
+such that $r_k \circ i = p_k$.
+
+Define
+\[
+r := (r_1, r_2): M \to X_1 \oplus X_2.
+\]
+Then
+\[
+r \circ i = (r_1 \circ i, r_2 \circ i) = (p_1, p_2) = \mathrm{id}_{X_1 \oplus X_2},
+\]
+so the sequence splits. Hence $X_1 \oplus X_2$ is injective.
+
+\medskip
+
+
+The proof for projective objects is dual: one replaces monomorphisms by epimorphisms and uses the lifting property for projectives.
 \end{proof}
 
 
@@ -1639,15 +1695,15 @@ Let $A$ be a finite-dimensional algebra over a field $k$, and let
 \]
 be the right Nakayama functor, where $(-)^* = \operatorname{Hom}_k(-,k)$.
 
-Let $P$ be a projective right $A$-module. Since $P$ is projective, it is a direct summand of a finite free module, i.e. there exists $n \in \mathbb{N}$ such that
+Let $P$ be a projective $A$-module. Since $P$ is projective, it is a direct summand of a finite free module, i.e. there exists $n \in \mathbb{N}$ such that
 \[
-P \mid A^{\oplus n}.
+P \oplus K A^{\oplus n}.
 \]
-Since the functor $- \otimes_A A^*$ is additive and preserves direct summands, it suffices to prove that
+Since the functor $- \otimes_A A^*$ is additive and preserves direct summands, and direct sums and direct summands of injective objects are injective,  it suffices to prove that
 \[
 A \otimes_A A^* \cong A^*
 \]
-is injective as a right $A$-module.
+is injective as an $A$-module.
 
 We now show that $A^*$ is injective. For any right $A$-module $M$, there is a natural isomorphism
 \[
