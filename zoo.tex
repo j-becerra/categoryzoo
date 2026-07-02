@@ -600,6 +600,373 @@ The homotopy fibre $\mathrm{hofib}_b(F)$  of a functor $F: \cat{A}\to \cat{B}$ i
     \cat{A} \rar{F} & \cat{B} & * \lar[swap]{b}.
 \end{tikzcd}$
 
+
+
+
+\subsection{Yoneda lemma}
+
+\textbf{Setup.} Let $\mathcal{C}$ be a locally small category, $A \in \mathcal{C}$, and
+$F : \mathcal{C} \to \mathbf{Set}$ a functor. Write $\mathcal{C}(A,-)$ for the covariant
+representable functor $\mathrm{Hom}_{\mathcal{C}}(A,-)$.
+
+\bigskip
+\textbf{Classical statement.} There is a bijection, natural in both $A$ and $F$,
+\begin{align}
+\mathrm{Nat}\big(\mathcal{C}(A,-),\, F\big) \;\cong\; FA,
+\end{align}
+given by $\eta \mapsto \eta_A(\mathrm{id}_A)$, with inverse sending $x \in FA$ to the
+natural transformation with components $\eta_X(f) = (Ff)(x)$ for $f \in \mathcal{C}(A,X)$.
+
+\subsection*{Natural transformations as an end}
+
+Recall that for functors $F,G : \mathcal{C} \to \mathcal{D}$, the set of natural
+transformations can be computed as an \emph{end}:
+\begin{align}
+\mathrm{Nat}(F,G) \;\cong\; \int_{X \in \mathcal{C}} \mathcal{D}(FX, GX).
+\end{align}
+Here the end is the limit of the diagram sending $X \mapsto \mathcal{D}(FX,GX)$ and
+$f : X \to Y$ to the two maps
+\begin{align}
+\mathcal{D}(FX,GX) \xrightarrow{\ (Gf)_* \ } \mathcal{D}(FX,GY) \xleftarrow{\ (Ff)^* \ } \mathcal{D}(FY,GY),
+\end{align}
+i.e.\ a family $(\varphi_X)_{X}$ lies in the end iff $Gf \circ \varphi_X = \varphi_Y \circ Ff$
+for all $f$ --- exactly naturality.
+
+\subsection*{The ``ninja'' Yoneda lemma}
+
+Applying this to $\mathcal{C}(A,-)$ and $F$ gives the end-form of Yoneda:
+\begin{align}
+FA \;\cong\; \int_{X \in \mathcal{C}} \mathbf{Set}\big(\mathcal{C}(A,X),\, FX\big).
+\end{align}
+
+\begin{proof}
+By definition,
+\begin{align}
+\int_{X} \mathbf{Set}(\mathcal{C}(A,X), FX) = \mathrm{Nat}\big(\mathcal{C}(A,-), F\big),
+\end{align}
+so it suffices to reprove the classical statement, but it is instructive to see how the
+\emph{wedge condition itself} forces everything. A wedge is a family
+\begin{align}
+\varphi_X : \mathcal{C}(A,X) \longrightarrow FX, \qquad X \in \mathcal{C},
+\end{align}
+such that for every $f : X \to Y$ the square
+$$
+\begin{tikzcd}
+\mathcal{C}(A,X) \arrow[r, "\varphi_X"] \arrow[d, "f \circ -"'] & FX \arrow[d, "Ff"] \\
+\mathcal{C}(A,Y) \arrow[r, "\varphi_Y"'] & FY
+\end{tikzcd}
+$$
+commutes. Take $X = A$, $g \in \mathcal{C}(A,X)$ arbitrary, and apply the square to
+$f = g : A \to X$ evaluated at $\mathrm{id}_A$:
+\begin{align}
+\varphi_X(g) \;=\; \varphi_X\big(g \circ \mathrm{id}_A\big) \;=\; (Fg)\big(\varphi_A(\mathrm{id}_A)\big).
+\end{align}
+So \textbf{every component $\varphi_X$ is completely determined by the single value}
+$x := \varphi_A(\mathrm{id}_A) \in FA$, via
+\begin{align}
+\varphi_X(g) = (Fg)(x), \qquad g \in \mathcal{C}(A,X).
+\end{align}
+Conversely, given any $x \in FA$, this formula defines a wedge (functoriality of $F$ gives
+exactly the required commuting squares). This exhibits a bijection
+\begin{align}
+\int_{X} \mathbf{Set}(\mathcal{C}(A,X), FX) \;\xrightarrow{\ \cong\ }\; FA,
+\qquad \varphi \longmapsto \varphi_A(\mathrm{id}_A),
+\end{align}
+with the evaluation map $x \mapsto (g \mapsto (Fg)(x))$ as inverse. \hfill $\blacksquare$
+\end{proof}
+
+\subsection*{Remarks}
+
+\begin{itemize}
+\item This proof is the ``universal element'' argument in disguise: the wedge condition,
+applied at $X=A$ with $g = \mathrm{id}_A$, is nothing but the statement that
+$\mathcal{C}(A,-)$ is the \textbf{free/representing} functor on the ``generic element''
+$\mathrm{id}_A \in \mathcal{C}(A,A)$, and $x = \varphi_A(\mathrm{id}_A)$ is where that
+generic element must go.
+
+\item The contravariant version, for $F : \mathcal{C}^{\mathrm{op}} \to \mathbf{Set}$, reads
+\begin{align}
+FA \;\cong\; \int_{X\in\mathcal{C}} \mathbf{Set}\big(\mathcal{C}(X,A), FX\big).
+\end{align}
+
+\item The end formula is the one that generalizes cleanly to \textbf{enriched} category
+theory: for a $\mathcal{V}$-category $\mathcal{C}$ and $F : \mathcal{C} \to \mathcal{V}$,
+\begin{align}
+FA \;\cong\; \int_{X \in \mathcal{C}} \big[\mathcal{C}(A,X), FX\big],
+\end{align}
+where $[-,-]$ is the internal hom of $\mathcal{V}$ --- this is the version used e.g.\ for
+$\mathrm{Vect}$-enriched or $\mathrm{Cat}$-enriched Yoneda, and it is the natural language
+for the \textbf{coend/density formula}
+\begin{align}
+F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,-) \cdot FX
+\end{align}
+(every functor is a colimit of representables), which is Yoneda's \emph{co}end dual and
+the starting point for Kan extension formulas via the \textbf{Fubini/ninja Yoneda}
+manipulations (co-Yoneda reduction).
+\end{itemize}
+
+
+
+
+
+\subsection{Bimodules and the hom}
+
+
+
+\textbf{Setup.} Let $k$ be a field and $A,B$ finite-dimensional $k$-algebras. Let
+$M,M'$ be left $A$-modules and $N,N'$ right $B$-modules, all finite-dimensional over $k$.
+As before, $M\otimes_k N$ and $M'\otimes_k N'$ carry natural $A$-$B$-bimodule structures
+\begin{align}
+a\cdot(m\otimes n)\cdot b = (a\cdot m)\otimes(n\cdot b).
+\end{align}
+
+For an $A$-$B$-bimodule $P$, let $\mathrm{Hom}_B(N,P)$ denote the space of right
+$B$-module maps $N \to P$ (forgetting the $A$-action on $P$). This carries a left
+$A$-module structure via
+\begin{align}
+(a\cdot\varphi)(n) := a\cdot\varphi(n), \qquad \varphi \in \mathrm{Hom}_B(N,P),\ a\in A,\ n\in N,
+\end{align}
+which is well-defined precisely because the $A$- and $B$-actions on $P$ commute:
+\begin{align}
+(a\cdot\varphi)(nb) = a\cdot\varphi(nb) = a\cdot\big(\varphi(n)\cdot b\big)
+= \big(a\cdot\varphi(n)\big)\cdot b = (a\cdot\varphi)(n)\cdot b,
+\end{align}
+so $a\cdot\varphi$ is again $B$-linear.
+
+\bigskip
+\textbf{Statement.} There is an isomorphism, natural in $M$, $M'$, $N$, $N'$,
+\begin{align}
+\boxed{
+\mathrm{Hom}_{A\text{-}\mathrm{mod}\text{-}B}\big(M\otimes_k N,\; M'\otimes_k N'\big)
+\;\cong\;
+\mathrm{Hom}_A\big(M,\; \mathrm{Hom}_B(N,\, M'\otimes_k N')\big).}
+\end{align}
+
+\subsection*{Proof}
+
+\begin{proof}
+Start from the classical tensor--hom adjunction over $k$,
+\begin{align}
+\Xi \;:\; \mathrm{Hom}_k(M\otimes_k N,\; M'\otimes_k N')
+\;\xrightarrow{\ \cong\ }\;
+\mathrm{Hom}_k\big(M,\, \mathrm{Hom}_k(N, M'\otimes_k N')\big),
+\qquad
+\Xi(\theta)(m)(n) = \theta(m\otimes n).
+\end{align}
+It suffices to show $\Xi$ restricts to a bijection between the two subspaces of
+bimodule/module-compatible maps.
+
+\smallskip
+$\theta$ is a morphism of $A$-$B$-bimodules if and only if, for all $a\in A$, $b\in B$,
+$m \in M$, $n \in N$,
+\begin{align}
+\theta\big((a\cdot m)\otimes(n\cdot b)\big) \;=\; a\cdot\theta(m\otimes n)\cdot b.
+\end{align}
+Writing $\hat\theta := \Xi(\theta)$, i.e.\ $\hat\theta(m)(n) = \theta(m\otimes n)$, this
+condition reads
+\begin{align}
+\hat\theta(a\cdot m)(n\cdot b) \;=\; a\cdot \hat\theta(m)(n)\cdot b
+\qquad \text{for all } a,b,m,n. \tag{$\ast$}
+\end{align}
+
+\textbf{Setting $a = 1$ in $(\ast)$:} $\hat\theta(m)(n\cdot b) = \hat\theta(m)(n)\cdot b$
+for all $m,n,b$, i.e.\ $\hat\theta(m) \in \mathrm{Hom}_B(N, M'\otimes_k N')$ for every
+$m \in M$.
+
+\textbf{Setting $b = 1$ in $(\ast)$, given the above:} $\hat\theta(a\cdot m)(n) =
+a\cdot\hat\theta(m)(n)$ for all $m,n$, i.e.\
+$\hat\theta(a\cdot m) = a\cdot\hat\theta(m)$ in $\mathrm{Hom}_B(N,M'\otimes_k N')$,
+using the $A$-module structure defined above. This says exactly that
+$\hat\theta : M \to \mathrm{Hom}_B(N, M'\otimes_k N')$ is $A$-linear.
+
+Conversely, if $\hat\theta(m)$ is $B$-linear for every $m$ and $\hat\theta$ itself is
+$A$-linear into $\mathrm{Hom}_B(N,M'\otimes_kN')$, then combining the two displayed
+identities recovers $(\ast)$ for all $a,b$.
+
+\smallskip
+Hence $\theta$ is a bimodule map if and only if $\hat\theta$ lies in
+$\mathrm{Hom}_A\big(M, \mathrm{Hom}_B(N, M'\otimes_k N')\big)$, so $\Xi$ restricts to
+the desired isomorphism
+\begin{align}
+\mathrm{Hom}_{A\text{-}\mathrm{mod}\text{-}B}(M\otimes_kN,\, M'\otimes_kN')
+\;\xrightarrow{\ \cong\ }\;
+\mathrm{Hom}_A\big(M,\, \mathrm{Hom}_B(N,\, M'\otimes_kN')\big),
+\qquad \theta \longmapsto \hat\theta. \tag*{$\blacksquare$}
+\end{align}
+\end{proof}
+
+\subsection*{Remarks}
+
+\begin{itemize}
+\item This is a genuine adjunction: the functor $(-)\otimes_k N : A\text{-}\mathrm{mod}
+\to A\text{-}\mathrm{mod}\text{-}B$ is left adjoint to
+$\mathrm{Hom}_B(N,-) : A\text{-}\mathrm{mod}\text{-}B \to A\text{-}\mathrm{mod}$, with unit
+and counit induced from the classical tensor--hom adjunction, restricted along the
+fully-faithful inclusion of bimodule maps described above. No finite-dimensionality is
+needed for this statement (unlike the pure tensor-factorization formula
+$\mathrm{Hom}_A(M,M')\otimes_k\mathrm{Hom}_B(N,N')$ from before, which does use it).
+
+\item If $N$ is finite-dimensional, evaluation/coevaluation gives
+$\mathrm{Hom}_B(N,P) \cong (N^\vee \otimes_k P)^B$ (right-$B$-invariants for the
+diagonal action, using the induced left $B$-action on $N^\vee$), so the formula can be
+rewritten as
+\begin{align}
+\mathrm{Hom}_{A\text{-}\mathrm{mod}\text{-}B}(M\otimes_kN,\,M'\otimes_kN')
+\;\cong\;
+\mathrm{Hom}_A\big(M,\; (N^\vee\otimes_k M'\otimes_k N')^B\big),
+\end{align}
+the same evaluation-morphism circle of ideas that appears in the canonical coend
+\begin{align}
+\mathbb{F} \;=\; \int^{X} X^\vee \otimes X
+\end{align}
+for a finite tensor category: the coend $\mathbb{F}$ is built from exactly this kind of
+evaluation pairing between an object and its dual, and the adjunction above is its
+bimodule-level shadow.
+\item If $A,B$ are algebras in a finite tensor category $\mathcal{A}$, then the isomorphism reads 
+\begin{align}
+\boxed{
+\mathrm{Hom}_{A\text{-}\mathrm{mod}\text{-}B}\big(M\otimes N,\; M'\otimes N'\big)
+\;\cong\;
+\mathrm{Hom}_A\big(M,\; \underline{\mathrm{Hom}}_B(N,\, M'\otimes N')\big).}
+\end{align}
+\end{itemize}
+
+
+
+\subsection{coYoneda lemma}
+
+
+
+\textbf{Setup.} Let $\mathcal{C}$ be a locally small category and $F : \mathcal{C} \to \mathbf{Set}$
+a functor. Write $\mathcal{C}(X,-)$ for the covariant representable functor at $X \in \mathcal{C}$.
+The co-Yoneda lemma expresses $F$ itself as a colimit of representables --- it is the
+formal statement that ``every functor is built out of its representable pieces.''
+
+\bigskip
+\textbf{Statement.} There is an isomorphism, natural in $F$,
+\begin{align}
+F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,-) \cdot FX,
+\end{align}
+where $\int^{X}$ denotes the \emph{coend} and $\mathcal{C}(X,-) \cdot FX$ is the copower
+(a coproduct of $|FX|$ copies of the functor $\mathcal{C}(X,-)$):
+\begin{align}
+\mathcal{C}(X,-) \cdot FX \;=\; \coprod_{x \in FX} \mathcal{C}(X,-).
+\end{align}
+If $F : \mathcal{C}^{op} \to \mathbf{Set}$ then the formula reads
+\begin{align}
+F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(-,X) \cdot FX,
+\end{align}
+
+
+Evaluated at an object $A \in \mathcal{C}$, this reads
+\begin{align}
+FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \cdot FX.
+\end{align}
+
+If the categories are $\Bbbk$-linear, then this reads
+\begin{align}
+FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes FX
+\end{align}
+or in the contravariant case
+\begin{align}
+FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(A,X) \otimes FX.
+\end{align}
+And in particular for $F=\mathcal{C}(-,B)^*$ we get
+\begin{align}
+\mathcal{C}(A,B)^* \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes \mathcal{C}(X,B)^*.
+\end{align}
+or similarly taking the contravariant version
+\begin{align}
+\boxed{
+\mathcal{C}(A,B)^* \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(B,X) \otimes \mathcal{C}(A,X)^*.}
+\end{align}
+
+\paragraph{Coends as colimits}
+
+Dually to the end description of naturality, the coend
+$\int^{X} \mathcal{C}(X,A) \times FX$
+is the \emph{coequalizer}
+$$
+\begin{tikzcd}[column sep=large]
+\displaystyle\coprod_{f : X \to Y} \mathcal{C}(Y,A) \times FX
+\arrow[r, shift left, "f^* \times \mathrm{id}"]
+\arrow[r, shift right, "\mathrm{id} \times Ff"']
+&
+\displaystyle\coprod_{X \in \mathcal{C}} \mathcal{C}(X,A) \times FX
+\arrow[r]
+& \int^{X} \mathcal{C}(X,A)\times FX
+\end{tikzcd}
+$$
+That is, elements are pairs $(g,x)$ with $g : X \to A$, $x \in FX$, modulo the relation
+\begin{align}
+(g \circ f,\, x) \;\sim\; (g,\, (Ff)(x)), \qquad \text{for } f : X \to Y,\ g : Y \to A,\ x \in FX.
+\end{align}
+We write $[g,x]$ for the equivalence class of $(g,x)$.
+
+\paragraph{Proof}
+
+\begin{proof}
+Define a map
+\begin{align}
+\Phi : \int^{X} \mathcal{C}(X,A) \times FX \longrightarrow FA, \qquad \Phi[g,x] = (Fg)(x).
+\end{align}
+This is well-defined on equivalence classes: for $f : X \to Y$,
+\begin{align}
+\Phi[g\circ f, x] = \big(F(g\circ f)\big)(x) = (Fg)\big((Ff)(x)\big) = \Phi[g, (Ff)(x)],
+\end{align}
+using functoriality of $F$, which is exactly the coequalizer relation.
+
+Conversely, define
+\begin{align}
+\Psi : FA \longrightarrow \int^{X} \mathcal{C}(X,A) \times FX, \qquad
+\Psi(a) = [\mathrm{id}_A,\, a].
+\end{align}
+
+\textbf{$\Phi \circ \Psi = \mathrm{id}$:} $\Phi\Psi(a) = \Phi[\mathrm{id}_A,a] = (F\mathrm{id}_A)(a) = a$.
+
+\textbf{$\Psi \circ \Phi = \mathrm{id}$:} for any representative $(g,x)$ with $g : X \to A$,
+\begin{align}
+\Psi\Phi[g,x] = \Psi\big((Fg)(x)\big) = [\mathrm{id}_A, (Fg)(x)] = [\mathrm{id}_A \circ g,\, x] = [g,x],
+\end{align}
+using the coequalizer relation with $f = g$. Hence $\Phi$ and $\Psi$ are mutually inverse
+bijections, natural in $A$ and $F$. \hfill $\blacksquare$
+\end{proof}
+
+\paragraph{Remarks}
+
+\begin{itemize}
+\item Every element of $\int^{X} \mathcal{C}(X,A) \times FX$ can be represented (non-uniquely)
+as $[g,x]$ with $g : X \to A$, $x \in FX$; the coend relation says exactly that ``pushing
+$f$ along $g$'' and ``pushing $f$ along $F$'' give the same class. The isomorphism above
+shows the \emph{canonical} representative of $a \in FA$ is $[\mathrm{id}_A, a]$.
+
+\item This is the coend/co-Yoneda dual of the end form of Yoneda,
+\begin{align}
+FA \;\cong\; \int_{X \in \mathcal{C}} \mathbf{Set}\big(\mathcal{C}(A,X), FX\big),
+\end{align}
+and the two are related by the general \textbf{Yoneda--density} philosophy: $F$ is
+simultaneously a limit of the diagram of hom-sets \emph{into} it (end form) and a colimit
+of representables glued along $F$'s values (coend form).
+
+\item The enriched version, for $F : \mathcal{C} \to \mathcal{V}$ with $\mathcal{C}$ a
+$\mathcal{V}$-category and $\mathcal{V}$ cocomplete closed symmetric monoidal, reads
+\begin{align}
+F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,-) \otimes FX,
+\end{align}
+with $\otimes$ the tensoring of $\mathcal{V}$-objects over $\mathcal{V}$-functors. This is
+the formula underlying the \textbf{density theorem} (every presheaf is a colimit of
+representables) and is the standard tool for \textbf{Fubini/ninja Yoneda} manipulations,
+e.g.\ rewriting coends of Hom functors such as
+\begin{align}
+\int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes G(X) \;\cong\; G(A)
+\end{align}
+for any $G : \mathcal{C} \to \mathcal{V}$ --- the ``co-Yoneda reduction'' used constantly
+when simplifying coend expressions (e.g.\ in the canonical coend algebra
+$F = \int^{X} X^\vee \otimes X$ for a finite tensor category).
+\end{itemize}
+
+
+
 \section{Monoidal Categories and Related Structures}
 
 \subsection{Monoidal category}
@@ -2058,6 +2425,12 @@ Equivalently,  by a result of Schneider this can be characterised by $D(H)\cong 
 
 
 
+IMPORTANT NOTE: For a fd Hopf algebra, 
+
+-- Semisimple implies unimodular
+
+-- Factorisable implies unimodular.
+
 
 \begin{proposition} Let $H$ be a fin dim Hopf algebra.
 \begin{enumerate}
@@ -2067,6 +2440,9 @@ Equivalently,  by a result of Schneider this can be characterised by $D(H)\cong 
 \item If $H$ is factorisable, then $H$-$\mathsf{mod}$ is factorisable. Roughly $$ H\text{-}\mathsf{mod}  \boxtimes H\text{-}\mathsf{mod}  \simeq (H \otimes H)\text{-}\mathsf{mod}  \simeq D(H)\text{-}\mathsf{mod} \simeq \mathcal{Z}(H\text{-}\mathsf{mod}  ).  $$
 \item If $H$ is unimodular, then $H\text{-}\mathsf{mod}  $ is unimodular [EGNO, \S 6.5].
 \item If $H$ is ribbon, then  $H\text{-}\mathsf{mod}  $ is also ribbon.
+\item If $H$ is a factorisable ribbon Hopf algebra, then $H\text{-}\mathsf{mod}  $ is a modular tensor category.
+\item If $H$ is a semisimple factorisable ribbon Hopf algebra, then $H\text{-}\mathsf{mod}  $ is a modular fusion category.
+\item In particular if $H$ is a semisimple fin dim Hopf algebra over a field of char 0, then $D(H)$ is a semisimple factorizable ribbon Hopf algebra (with balancing element 1) and then $D(H)\text{-}\mathsf{mod}  $ is a modular fusion category.
 \end{enumerate}
 \end{proposition}
 
@@ -2594,10 +2970,88 @@ If $\mathcal{M}$ is a pivotal left $\mathcal{A}$-module category, then there is 
 
 
 
+\subsection{Bimodules and the hom}
+
+
+\paragraph{Setup.}
+Let $A$ and $B$ be finite-dimensional algebras over a field $k$.
+Let
+\[
+M,M' \in A\text{-}\mathrm{Mod}, 
+\qquad
+N,N' \in \mathrm{Mod}\text{-}B,
+\]
+where $M,M'$ are left $A$-modules and $N,N'$ are right $B$-modules.
+
+Then $M \otimes_k N$ and $M' \otimes_k N'$ carry natural $A$-$B$-bimodule structures via
+\[
+a \cdot (m \otimes n) \cdot b := (am) \otimes (nb).
+\]
+
+\paragraph{Claim (tensor–Hom adjunction for bimodules).}
+There is a canonical isomorphism
+\[
+\operatorname{Hom}_{A\text{-}B}(M \otimes N,\; M' \otimes N')
+\;\cong\;
+\operatorname{Hom}_A\!\big(M,\operatorname{Hom}_B(N, M' \otimes N')\big).
+\]
+
+\paragraph{Explanation.}
+We first apply the usual tensor–Hom adjunction in $\mathrm{Vect}_k$:
+\[
+\operatorname{Hom}_k(M \otimes N,\; M' \otimes N')
+\cong
+\operatorname{Hom}_k\!\big(M,\operatorname{Hom}_k(N, M' \otimes N')\big).
+\]
+
+We then impose equivariance:
+
+\begin{itemize}
+\item $A$-linearity in the first variable replaces $\operatorname{Hom}_k(M,-)$ by $\operatorname{Hom}_A(M,-)$.
+\item $B$-linearity in the second variable replaces $\operatorname{Hom}_k(N,-)$ by $\operatorname{Hom}_B(N,-)$.
+\end{itemize}
+
+Also 
+\[
+\operatorname{Hom}_B\!\big(N,\, M' \otimes N'\big)
+\]
+carries a natural structure of left $A$-module: For $f \in \operatorname{Hom}_B(N, M' \otimes N')$ and $a \in A$, define
+\[
+(a \cdot f)(n) := a \cdot f(n),
+\]
+where the action on the right-hand side is the $A$-action on $M' \otimes N'$.
+
+
+This yields the canonical identification
+\[
+\boxed{
+\operatorname{Hom}_{A\text{-}B}(M \otimes N,\; M' \otimes N')
+\;\cong\;
+\operatorname{Hom}_A\!\big(M,\operatorname{Hom}_B(N, M' \otimes N')\big).
+}
+\]
+
+\paragraph{Remark.}
+There is a symmetric form obtained by currying in the other variable:
+\[
+\operatorname{Hom}_{A\text{-}B}(M \otimes N,\; M' \otimes N')
+\cong
+\operatorname{Hom}_B\!\big(N,\operatorname{Hom}_A(M, M' \otimes N')\big).
+\]
 
 
 
 
+If $A,B$ are algebras in a finite tensor category $\mathcal{A}$, and $M,M',N,N'$ are $A$/$B$ modules in $\mathcal{A}$, then the formula becomes 
+\[
+\boxed{
+\operatorname{Hom}_{A\text{-}B}(M \otimes N,\; M' \otimes N')
+\;\cong\;
+\operatorname{Hom}_A\!\big(M,\underline{\operatorname{Hom}}_B(N, M' \otimes N')\big).
+}
+\]
+where $\underline{\operatorname{Hom}}_B(N, M' \otimes N')$ is viewed as a left $A$-module with action map
+$$A \otimes\underline{\operatorname{Hom}}_B(N, M' \otimes N') \cong \underline{\operatorname{Hom}}_B(N, A \otimes M' \otimes N') \to \underline{\operatorname{Hom}}_B(N, M' \otimes N').$$
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%
 
