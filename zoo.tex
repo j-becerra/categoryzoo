@@ -41,7 +41,8 @@
 \newcommand{\coev}{\mathrm{coev}}
 \newcommand{\ev}{\mathrm{ev}}
 
-
+\newcommand{\Lexf}{\mathsf{Lex}^\mathsf{f}}
+\newcommand{\Ao}{\cA_{\text{\normalfont \bfseries !}}}
 
 
 
@@ -2955,7 +2956,11 @@ In order to generalize this to cyclic and modular operads, the endomorphism oper
     \item \textit{non-degeneracy} means that $\kappa$ exhibits $\mathcal{A}$ as its own dual in the homotopy category of $\mathcal{S}$, that is, there is a coevaluation object $\Delta : \mathcal{I} \to \mathcal{A} \boxtimes \mathcal{A}$ that together with $\kappa$ satisfies the zigzag identities up to isomorphism. 
     \item and \textit{symmetry} means that $\kappa$ is a homotopy fixed point in $\mathcal{S}(\mathcal{A} \boxtimes \mathcal{A}, \mathcal{I})$ with respect to the $\mathbb{Z}_2$-action coming from the symmetric braiding of $\mathcal{S}$.
 \end{itemize}
-Thanks to the non-degenerate symmetric pairing, we can define a symmetric monoidal functor $$\mathsf{End}_{\mathcal{A}, \kappa}: \mathsf{Graphs} \to \mathsf{Cat}$$ sending a corolla $T$ to the morphism category $$\mathsf{End}_{\mathcal{A}, \kappa}(T):=\mathcal{S}(\mathcal{A}^{\boxtimes \mathsf{Legs}(T)}, \mathcal{I})$$ from the unordered monoidal product $\mathcal{A}^{\boxtimes \mathsf{Legs}(T)}$ of $\mathcal{A}$ over the set $\mathsf{Legs}(T)$ of legs of $T$ to the monoidal unit $\mathcal{I} \in \mathcal{S}$. This $\mathsf{Cat}$-valued modular operad is the \textit{modular endomorphism operad} of $(\mathcal{A}, \kappa)$ and denoted by $\mathsf{End}_{\mathcal{A}, \kappa}$.
+Thanks to the non-degenerate symmetric pairing, we can define a symmetric monoidal functor $$\mathsf{End}_{\mathcal{A}, \kappa}: \mathsf{Graphs} \to \mathsf{Cat}$$ sending a corolla $T$ to the morphism category 
+\begin{equation}\label{eq:End_Ak}
+\mathsf{End}_{\mathcal{A}, \kappa}(T):=\mathcal{S}(\mathcal{A}^{\boxtimes \mathsf{Legs}(T)}, \mathcal{I})
+\end{equation}
+from the unordered monoidal product $\mathcal{A}^{\boxtimes \mathsf{Legs}(T)}$ of $\mathcal{A}$ over the set $\mathsf{Legs}(T)$ of legs of $T$ to the monoidal unit $\mathcal{I} \in \mathcal{S}$. This $\mathsf{Cat}$-valued modular operad is the \textit{modular endomorphism operad} of $(\mathcal{A}, \kappa)$ and denoted by $\mathsf{End}_{\mathcal{A}, \kappa}$.
 
 If $\mathcal{O}$ is a $\mathsf{Cat}$-valued modular operad $\mathcal{O} :\mathsf{Graphs} \to \mathsf{Cat}$, an \textit{$\mathcal{S}$-valued  modular $\mathcal{O}$-algebra}  is now defined as an object $\mathcal{A}$ in $\mathcal{S}$  with a non-degenerate symmetric pairing $\kappa$ plus a map $\mathcal{O} \to \mathsf{End}_{\mathcal{A}, \kappa}$ of modular operads (aka a symm mon nat transf). A \textit{cyclic algebra} is defined analogously. Both cyclic and modular algebras over a fixed cyclic or modular operad, respectively, with values in a symmetric monoidal bicategory form themselves bicategories in which all morphisms turn out to be invertible, i.e.\ they form 2-groupoids [MW23a, Proposition 2.18].
 
@@ -2999,12 +3004,6 @@ $$ \CycAlg (\mathsf{f}E_2, \Rexf) \simeq  \ModAlg (\Hbdy, \Rexf) \simeq \text{ri
 We also have $$\Surf_{| g=0} \simeq \mathsf{f}E_2,$$
 ie $\mathsf{f}E_2$ is the ``cyclic operad of genus zero surfaces''
 
-\subsection{Modular functors}
-
-
-
-
-Cyclic framed $E_2$-algebra = genus zero modular functor.
 
 
 
@@ -3468,5 +3467,165 @@ Reason? Factorisable braided finite tensor category $\Rightarrow$ Unimodular by 
 
 
 \end{definition}
+
+
+
+
+
+
+
+
+\section{Modular functors}
+
+%Cyclic framed $E_2$-algebra = genus zero modular functor.
+
+
+\subsection{Bakalov-Kirillov's modular functors}
+
+
+\begin{definition}[Naïve version]
+Let $\mathsf{Mnfd}_d$ be the category with objects homeomorphism classes of $d$-manifolds and arrows only endomorphisms given by $\mathrm{End}(M)=MCG(M).$ This is a symmetric monoidal category with respect to disjoint union.
+
+A $d$-dimensional modular functor is a strong monoidal functor $$\tau: \mathsf{Mnfd}_d \to \mathsf{vect}_\Bbbk$$ with the normalisation property that $\tau (S^d)=\Bbbk$.
+\end{definition}
+
+
+
+Ie this is a system of MCG representations. 
+
+Now we put $d=2$.  Ideally one would like to glue surfaces and say that the MCG representations are coherent with respect to glueing. For this we need \textit{extended surfaces}, ie surfaces with parametrised boundary (=circle) components. Homeomorphisms between extended surfaces are supposed to preserve the boundary parametrisations.
+
+
+
+
+\begin{definition}
+Let $\mathcal{C}$ be an abelian category over a field $k$, and let $R=\bigoplus V_i \boxtimes V_i^* $ be a symmetric object in $\mathrm{ind}\text{-}\mathcal{C}^{\boxtimes 2}$ (see Section~2.4). Then a \emph{$\mathcal{C}$-extended modular functor} is the following collection of data:
+
+\begin{enumerate}
+\item[(i)] To every extended surface $\Sigma$ is assigned a polylinear functor
+\[
+\tau(\Sigma) \colon \mathcal{C}^{\boxtimes \pi_0(\partial \Sigma)} \longrightarrow \mathsf{vect}_\Bbbk,
+\]
+where $\pi_0(\partial \Sigma)$ is the set of boundary components (or punctures, depending on the point of view) of $\Sigma$. In other words, for every choice of objects $W_a \in \mathcal{C}$ attached to every boundary component of $\Sigma$ (so, $a$ runs through the set of connected components of $\partial \Sigma$) is assigned a finite-dimensional vector space $\tau(\Sigma; \{W_a\})$, and this assignment is functorial in $W_a$.
+
+\item[(ii)] To every homeomorphism $f \colon \Sigma \xrightarrow{\sim} \Sigma'$ is assigned a functorial isomorphism $f_* \colon \tau(\Sigma) \xrightarrow{\sim} \tau(\Sigma')$, which depends only on the isotopy class of $f$.
+
+\item[(iii)] Functorial isomorphisms $\tau(\emptyset) \xrightarrow{\sim} k$, $\tau(N_1 \sqcup N_2) \xrightarrow{\sim} \tau(N_1) \otimes \tau(N_2)$.
+
+\item[(iv)] \textbf{Gluing isomorphism:} Let $(\partial \Sigma)_\alpha$, $(\partial \Sigma)_\beta$ be two different boundary components of $\Sigma$, and let $\pi_\alpha \colon (\partial \Sigma)_\alpha \xrightarrow{\sim} S^1$, $\pi_\beta$ be their parameterizations. Define a new surface $\sqcup_{\alpha,\beta} \Sigma$ by identifying all points $p \in (\partial \Sigma)_\alpha$ with $\pi_\beta^{-1}(-\overline{\pi_\alpha(p)}) \in (\partial \Sigma)_\beta$. Let us write $R = \bigoplus_i A_i \boxtimes B_i$. Then we have a functorial isomorphism
+\begin{equation}
+G_{\alpha,\beta} \colon \bigoplus_i \tau(\Sigma; \{W_a\}, A_i, B_i) \xrightarrow{\sim} \tau(\sqcup_{\alpha,\beta}\Sigma; \{W_a\}), \tag{5.1.1}
+\end{equation}
+where $A_i$, $B_i$ correspond to the boundary components $(\partial \Sigma)_\alpha$, $(\partial \Sigma)_\beta$, respectively. In the notation of Section~2.4, this can be written as:
+\begin{equation}
+G_{\alpha,\beta} \colon \tau(\Sigma; \{W_a\}, R^{(1)}, R^{(2)}) \xrightarrow{\sim} \tau(\sqcup_{\alpha,\beta}\Sigma; \{W_a\}). \tag{5.1.2}
+\end{equation}
+\end{enumerate}
+
+The above data have to satisfy the following axioms:
+
+\medskip
+\noindent \textbf{Multiplicativity:} $(fg)_* = f_* g_*$, $\mathrm{id}_* = \mathrm{id}$.
+
+\smallskip
+\noindent \textbf{Functoriality:} All isomorphisms in parts (iii), (iv) above are functorial in $\Sigma$.
+
+
+\noindent \textbf{Compatibility:} All isomorphisms in parts (iii), (iv) above are compatible with each other.
+
+\smallskip
+\noindent \textbf{Symmetry of gluing:} After the identification $R \simeq R^{\mathrm{op}}$, we have $G_{\alpha,\beta} = G_{\beta,\alpha}$.
+
+\smallskip
+\noindent \textbf{Normalization:} $\tau(S^2) = k$.
+
+\bigskip
+
+As before, we leave it to the reader to write the explicit statements of all functoriality and compatibility axioms, taking as an example the definitions in Section~4.2. Let us give two of them.
+
+\medskip
+\noindent \textbf{Compatibility of gluing with disjoint union:} Let $\Sigma'$, $\Sigma''$ be two extended surfaces, and $(\partial \Sigma')_\alpha$, $(\partial \Sigma')_\beta$ be two different boundary components of $\Sigma'$. Then the following diagram is commutative:
+\[
+\begin{tikzcd}[column sep=huge, row sep=large]
+\tau(\Sigma' \sqcup \Sigma''; \{W_a'\}, R^{(1)}, R^{(2)}, \{W_b''\}) \arrow[r, "G_{\alpha,\beta}"] \arrow[d]
+& \tau(\Sigma; \{W_a'\}, \{W_b''\}) \arrow[d] \\
+\tau(\Sigma'; \{W_a'\}, R^{(1)}, R^{(2)}) \otimes \tau(\Sigma''; \{W_b''\}) \arrow[r, "G_{\alpha,\beta} \otimes \mathrm{id}"]
+& \tau(\sqcup_{\alpha,\beta}\Sigma'; \{W_a'\}) \otimes \tau(\Sigma''; \{W_b''\})
+\end{tikzcd}
+\]
+where the vertical arrows are the isomorphisms from part (iii), and $\Sigma = \sqcup_{\alpha,\beta}(\Sigma' \sqcup \Sigma'') \simeq (\sqcup_{\alpha,\beta}\Sigma') \sqcup \Sigma''$ (with the homeomorphism isotopic to the identity).
+
+
+\noindent \textbf{Associativity of gluing:} If $(\partial \Sigma)_\alpha, \dots, (\partial \Sigma)_\delta$ are four different boundary components of $\Sigma$, then:
+\begin{equation}
+G_{\alpha,\beta} G_{\gamma,\delta} = G_{\gamma,\delta} G_{\alpha,\beta}. \tag{5.1.3}
+\end{equation}
+
+In more detail, the following diagram is commutative:
+\[
+\begin{tikzcd}[column sep=huge, row sep=large]
+\tau(\Sigma; \{W_a\}, R'^{(1)}, R'^{(2)}, R''^{(1)}, R''^{(2)}) \arrow[r, "G_{\alpha,\beta}"] \arrow[d, "G_{\gamma,\delta}"']
+& \tau(\sqcup_{\alpha,\beta}\Sigma; \{W_a\}, R''^{(1)}, R''^{(2)}) \arrow[d, "G_{\gamma,\delta}"] \\
+\tau(\sqcup_{\gamma,\delta}\Sigma; \{W_a\}, R'^{(1)}, R'^{(2)}) \arrow[r, "G_{\alpha,\beta}"']
+& \tau(\Sigma'; \{W_a\})
+\end{tikzcd}
+\]
+where $R'$, $R''$ are two copies of $R$, and $\Sigma' = \sqcup_{\alpha,\beta} \sqcup_{\gamma,\delta} \Sigma \simeq \sqcup_{\gamma,\delta} \sqcup_{\alpha,\beta} \Sigma$ (with the homeomorphism isotopic to the identity).
+
+\paragraph{Remark}
+Let us give a modification of Definition~5.1.13 which will be useful later. Instead of extended surfaces $\Sigma$, consider pairs $(\Sigma, \varphi)$ where $\Sigma$ is an extended surface and $\varphi \colon \pi_0(\partial \Sigma) \xrightarrow{\sim} S$ is a labeling of the boundary components of $\Sigma$ with a finite set $S$. Then the functor $\tau(\Sigma) \colon \mathcal{C}^{\boxtimes \pi_0(\partial \Sigma)} \to \mathcal{V}ec_f$ from Definition~5.1.13(i) gives rise to a functor $\tau(\Sigma, \varphi) \colon \mathcal{C}^{\boxtimes S} \to \mathcal{V}ec_f$; explicitly, $\tau(\Sigma, \varphi) = \tau(\Sigma) \circ \varphi_*^{-1}$, where $\varphi_* \colon \mathcal{C}^{\boxtimes \pi_0(\partial \Sigma)} \to \mathcal{C}^{\boxtimes S}$ is the functor induced from $\varphi$. It is clear that for any bijection $\psi \colon S \xrightarrow{\sim} S'$, we have $\tau(\Sigma, \psi\varphi) = \tau(\Sigma, \varphi) \circ \psi_*^{-1}$. So a modular functor can be defined as a collection of functors $\tau(\Sigma, \varphi)$ satisfying obvious equivariance conditions.
+
+
+
+
+
+\subsection{Open  modular functors}
+
+
+
+This is a simpler version of modular functor, where we do not glue along boundary components but along parametrised marked intervals.
+
+
+
+
+ The \emph{open surface operad} $\mathsf{O}$~\cite{giansiracusa,sn,envas} is the groupoid-valued operad whose groupoid $\mathsf{O}(n)$ of operations of arity $n$ has as
+ objects compact, oriented surfaces with at least one boundary component per connected component together with $n+1$ parametrized intervals embedded in their boundary; the morphisms are mapping classes
+ (isotopy classes of diffeomorphisms preserving the orientation and the parametrized intervals),
+  and operadic composition is given by gluing surfaces along the parametrized intervals. The open surface operad is in fact a \emph{modular operad} in the sense of \cite{gkmod}.
+
+\begin{definition}
+An \emph{open modular functor}, also referred to as a \emph{two-dimensional categorified open topological field theory},
+  is defined as a  modular $\mathsf{O}$-algebra that (at least in the context of this article) takes values  in the symmetric monoidal bicategory $\Lexf$ of finite categories, left exact functors and natural transformations.
+\end{definition}
+  Such a structure is exactly the mathematical description
+  of the monodromy data of an \emph{\underline{open} conformal field theory}; this is informed by the notions
+  \cite{Lazaroiu,costellotcft,ffrsunique} 
+   and defined in this form \cite[Section~8]{microcosm} in the context of the modular microcosm principle.
+
+
+Let us unpack the definition: a $\Lexf$-valued
+  	 open modular functor $\mathfrak{B}$ consists of the data of a finite category $\cA$ (ie the object underlying the  algebra itself) and a rule that associates to every surface $\Sigma$ with at least one boundary component per connected component with $n$ marked boundary intervals  a left exact functor (recall \eqref{eq:End_Ak})
+  	 $$ \mathfrak{B}(\Sigma;-) : \cA^{\boxtimes n} \to \mathsf{vect},  $$  	 
+ie given $n$ objects $X_1, \ldots, X_n \in \cA$ attached to the boundary intervals, we get a vector space $\mathfrak{B}(\Sigma;X_1, \ldots, X_n)$, the so-called \emph{space of (open) conformal blocks}, which carries an action of the mapping class group of the surface and is compatible with gluing along parametrized intervals. By definition, the space of conformal blocks is left exact in the boundary labels.
+
+$$\includegraphics[width=1\textwidth]{open_mod_functor.png}$$
+
+
+Some boundary components may have no
+parametrized boundary intervals; they are called \textit{free boundary circles}.
+
+
+
+According to \cite[Theorem 2.2]{envas},  a $\Lexf$-valued open modular functor is, by evaluation on disks with marked intervals in their boundary, equivalent to the datum of a \emph{pivotal Grothendieck-Verdier category} in $\Lexf$ in the sense of \cite{bd}. In particular, the underlying pivotal finite tensor category of a finite ribbon category $\cA$ extends to a unique open modular functor that we denote by $\Ao$. 
+
+
+\end{definition}
+
+
+
+
+
+
+
 
 \end{document}
