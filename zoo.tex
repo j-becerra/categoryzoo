@@ -8,6 +8,16 @@
 \usepackage{tocloft}
 \usepackage[capitalize]{cleveref} 
 
+
+
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+\coordinate (ta-base-2) at (0,-1pt);},
+mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+\draw[#2] (ta-base-2) -- (0,-1pt);
+}}}}
+
 \geometry{margin=1in}
 
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
@@ -1671,6 +1681,74 @@ The proof for projective objects is dual: one replaces monomorphisms by epimorph
 
 
 
+\subsection{Projective cover and injective hull}
+
+
+Let $\C$ be a finite category and  $X \in \mathcal{C}$.
+
+\smallskip
+\noindent \textbf{(Projective cover.)} A \emph{projective cover} of $X$ is a projective object $P(X) \in \mathcal{C}$ together with an epimorphism
+\[
+p \colon P(X) \twoheadrightarrow X
+\]
+such that for every epimorphism $g \colon P \twoheadrightarrow X$ from a projective object $P$, there exists an epimorphism $h \colon P \twoheadrightarrow P(X)$ such that
+\[
+p h = g.
+\]
+
+If a projective cover $P(X)$ of $X$ exists, then it is unique up to a (non-unique) isomorphism.
+
+\smallskip
+\noindent \textbf{(Injective hull.)} An \emph{injective hull} of $X$ is an injective object $I(X) \in \mathcal{C}$ together with a monomorphism
+\[
+\iota \colon X \hookrightarrow I(X)
+\]
+such that for every monomorphism $f \colon X \hookrightarrow I$ into an injective object $I$, there exists a monomorphism $k \colon I(X) \hookrightarrow I$ such that
+\[
+k \iota = f.
+\]
+
+If an injective hull $I(X)$ of $X$ exists, then it is unique up to a (non-unique) isomorphism.
+
+
+
+
+\subsection{Socle and top}
+
+
+If $\C$ is a finite category and $X \in \C$, the \textit{socle} if $X$ is the maximal semisimple subobject of $X$, ie, the direct sum of all its simple subobjects,
+
+$$\mathrm{soc}(X)= \text{sum of all simple subobjects of }X.$$ Similarly, the \textit{top} of $X$ is the maximal semisimple quotient,
+
+$$\mathrm{top}(X)= X/\mathrm{rad}(X). $$
+
+Here $\mathrm{rad}(X)$ is the intersection of all maximal subobjects of $X$ ($M \subset X$ maximal if $X/M$ is simple). 
+
+
+
+\begin{proposition}
+There are bijections
+$$\begin{tikzcd}[column sep=3em, row sep=1em]
+\left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{simple objects of $\C$ }}} \right\}  \ar[-,double line with arrow={-,-}]{r}  &     \left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{ indecomposable projective objects of $\C$}}} \right\} \\
+S \rar & P(S)\\
+ \mathrm{top}(P) & P \lar
+\end{tikzcd}$$
+and 
+$$\begin{tikzcd}[column sep=3em, row sep=1em]
+\left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{simple objects of $\C$ }}} \right\}  \ar[-,double line with arrow={-,-}]{r}  &     \left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{ indecomposable injective objects of $\C$}}} \right\} \\
+S \rar & I(S)\\
+ \mathrm{soc}(P) & I \lar
+\end{tikzcd}$$
+where $P(S)$ and $I(S)$ are the projective cover and injective hull of $S$.
+\end{proposition}
+
+
+
+
+
+For instance: in a finite tensor category, the socle of an indecomposable projective object is simple. For  if $P$ is indecomposable projective, in a finite tensor category it is also injective and indecomposable, ie there is a simple object (unique!) such that $P$ is its injective hull. So an indecomposable projective has a unique simple subobject , ie the socle is that precise object ie simple.
+
+
 
 \subsection{Semisimple category}
 This is the analogue of pre-fusion categories for abelian categories (instead of for linear categories).
@@ -1923,7 +2001,6 @@ If \( \mathcal{C} \) is in addition rigid:
 
 \subsection{The distinguished invertible object (take 1)}
 
-{\color{red} TO BE FINISHED }
 
 
 Let \( \mathcal{C} \) be a rigid monoidal category. An object \( X \in \mathcal{C} \) is \textbf{invertible} if the evaluation and coevaluation maps give isomorphisms
@@ -1931,6 +2008,16 @@ Let \( \mathcal{C} \) be a rigid monoidal category. An object \( X \in \mathcal{
 X^* \otimes X \cong 1 \quad \text{and} \quad 1 \cong X \otimes X^*.
 \]
 \textbf{Example:} In the category \( \mathrm{Rep}(G) \), the 1-dimensional representations are invertible.
+
+
+
+
+Let be a finite tensor category with (simple) unit $\mathbf{1}$. Define
+\begin{equation}
+\alpha:= \mathrm{soc}(P(\mathbf{1})),
+\end{equation}
+ie the socle of the projective cover of the unit. In other words: if $\nu$ denotes the Nakayama permutation, $$  \alpha = \nu (\mathbf{1}). $$
+
 
 \subsection{Unimodular finite tensor category}
 A finite tensor category is \textbf{unimodular} if its distinguished invertible object \( \alpha \) is the unit \( 1 \).
@@ -2104,6 +2191,144 @@ is injective for every projective module $P$.
 
 This proves that the right Nakayama functor takes projective objects to injective objects.
 \end{proof}
+
+
+
+
+\subsection{The Nakayama permutation}
+
+
+A natural question is under which conditions the right and left Nakayama functors  are equivalences.
+
+
+
+\begin{lemma}
+The following properties of a finite-dimensional $\Bbbk$-algebra $A$ are equivalent:
+\begin{enumerate}
+    \item[(i)] The right and left Nakayama functors are quasi-inverse of each other.
+    \item[(ii)] $A$ is injective as a left $A$-module,
+    \item[(iii)] $A$ is injective as a right $A$-module,
+    \item[(iv)] The class of (left or right) projective modules coincides with the class of (left or right) injective modules.
+\end{enumerate}
+\end{lemma}
+
+
+
+An algebra with any (and thus all) of these properties is called \emph{self-injective} or \textit{quasi-Frobenius}.
+
+
+ For self-injective $A$ the right and left Nakayama functors   are in particular exact and there are natural isomorphisms
+\begin{equation}
+    \mathsf{N}_A^{\mathrm r} \cong {}_A\langle {}_A\langle A^*, A\rangle, -\rangle
+    \qquad \text{and} \qquad
+    \mathsf{N}_A^{\mathrm l} \cong {}_A\langle A^*, A\rangle \otimes_A -,
+    \label{eq:3.75}
+\end{equation}
+(here ${}_A\langle A^*, A\rangle, -\rangle$ is seen as a bimodule).
+
+
+
+So if $A$ is self-injective aka quasi-Frobenius, injective and projective objects are the same. So the bijections between simple objects and indecomposable inj/proj can be composed:
+
+
+$$\begin{tikzcd}[column sep=3em, row sep=1em]
+\left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{simple objects of $\C$ }}} \right\}  \ar[-,double line with arrow={-,-}]{r}  &     \left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{ indecomposable projective  objects =  indecomposable 	injective  objects of $\C$}}} \right\}  \ar[-,double line with arrow={-,-}]{r}  &   \left\{ \parbox[c]{8em}{\centering     {\small  \textnormal{simple objects of $\C$ }}} \right\}  \\
+S \rar & P(S) \rar & \mathrm{soc}(P(S))
+\end{tikzcd}$$
+
+This definies a permutation on the set of simples of $\C$ called the \textit{Nakayama permutation} and denoted $\nu$.  Sometimes it is useful to write $\mathcal{S}(A)$ for the set of isoclasses of simple $A$-modules and $$\nu: \mathcal{S}(A) \to \mathcal{S}(A) \qquad  , \qquad S_i \mapsto S_{\nu (i)}$$, ie viewing $\nu$ as permuting the indices of the simple objects. In this language if $P_i =P(S_i)$ and $I_j =I(S_j)$
+
+$$ \mathrm{top}(P_i)= S_i    \qquad  , \qquad   \mathrm{soc}(P_i)= S_{\nu (i)}   $$ and 
+$$ \mathrm{top}(I_j)= S_{\nu^{-1} (j)}    \qquad  , \qquad   \mathrm{soc}(I_j)= S_j  . $$ 
+
+
+
+
+It interacts nicely with the right Nakayama functor :
+
+
+\begin{proposition}\label{prop:Naka}
+Let $A$ be a self-injective fin dim algebra. Then
+\begin{enumerate}
+\item $\mathsf{N}^r(P(S)) \cong I(S)$,
+\item $\mathsf{N}^r(S)\cong \nu^{-1}(S),$ ie, $\mathsf{N}^r(S_i)\cong S_{\nu^{-1}(i)}.$
+\end{enumerate}
+\end{proposition}
+
+
+
+\subsection{The Nakayama automorphism}
+
+
+Let $A$ be a Frobenius algebra with counit $\varepsilon$. Let $\kappa = \langle -, - \rangle : A \otimes A \to k$ be the non-degenerate associative bilinear form defining the Frobenius structure, ie $\langle x,y \rangle = \varepsilon (xy) $. This $\kappa$ is called the \textit{Frobenius form}.
+
+By non-degeneracy, there is a $k$-linear isomorphism
+\[
+\Psi : A \longrightarrow A^{*}, \qquad \Psi(z) = \langle -, z \rangle.
+\]
+
+Now for $a \in A$, we have $\langle a, - \rangle \in A^{*}$. Therefore there is a unique element
+\[
+a' := \Psi^{-1}\big( \langle a, - \rangle \big) \in A
+\]
+such that
+\[
+\langle a, - \rangle = \langle -, a' \rangle \qquad \text{as elements of } A^{*}.
+\]
+
+We define
+\[
+\nu : A \longrightarrow A, \qquad a \longmapsto a'.
+\]
+
+By linearity of $\langle -, - \rangle$, this defines a $k$-linear map, and by the associativity of $\langle -, - \rangle$, it is in fact an algebra map.
+
+To see that it is an automorphism, it suffices to check injectivity: if $\nu(a) = 0$, then
+\[
+\langle a, - \rangle = \langle -, \nu(a) \rangle = 0,
+\]
+and by non-degeneracy, $a = 0$. This is the \textit{Nakayama automorphism }of $A$. Note that it is actually measuring how far is the Frobenius structure from being symmetric.
+
+
+
+
+What is the relation between the Nakayama automorphism, the Nakayama functor and the Nakayama permutation? It turns out that the Nakayama functor, what is does it to twist the action of $A$ on a given module by the Nakayama automorphism.
+
+
+More precisely, if $\alpha: A \to A$ is an automorphism of $A$, and $M$ is an $A$-module, let ${}_{\alpha} M$ be $M$ as vector space but with $A$-module structure twisted by $\alpha$,
+$$ a * m := \alpha (a) \cdot m. $$
+
+
+Let $\nu$ be the Nakayama automorphism as before. It turns out that the right Nakayama functor of $A$ twists the $A$-action of the $A$-modules: for any $A$-module $M$ we have
+\begin{equation}
+\mathsf{N}^r (M) \cong {}_\nu M. 
+\end{equation}
+so in view of \cref{prop:Naka} we have
+
+$$ {}_\nu S_i \cong \mathsf{N}^r(S_i)\cong S_{\nu^{-1}(i)}.  $$
+
+
+In other words, for a simple $S$, 
+
+$$ \nu (S) \cong {}_{\nu^{-1}} S.  $$
+
+
+Same goes for the indecomposable projective / injective objects.
+
+\subsection{Comparison: quasi-Frobenius vs Frobenius algebras}
+
+
+Any Frob algebra is quasi-Frobenius, but the opposite is NOT true. What is true is that any quasi-Frob algebra is Morita equivalent to a Frob algebra, ie, for a finite category, being quasi-Frobenius = self injective, ie being equivalent to $A-mod$ for a quasi-Frobenius = self injective algebra, is the same as being equivalent to $A-mod$ for a Frobenius algebra.
+
+
+
+When is a quasi-Frobenius algebra actually Frobenius?
+
+
+
+\begin{theorem}
+A fin dim quasi-Frobenius algebra $A$ is Frobenius if and only of $$\dim_\Bbbk \nu(S) = \dim_\Bbbk S$$ for all simple $A$-modules $S$.
+\end{theorem}
 
 
 
