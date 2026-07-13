@@ -1999,40 +1999,6 @@ If \( \mathcal{C} \) is in addition rigid:
 
 
 
-\subsection{The distinguished invertible object (take 1)}
-
-
-
-Let \( \mathcal{C} \) be a rigid monoidal category. An object \( X \in \mathcal{C} \) is \textbf{invertible} if the evaluation and coevaluation maps give isomorphisms
-\[
-X^* \otimes X \cong 1 \quad \text{and} \quad 1 \cong X \otimes X^*.
-\]
-\textbf{Example:} In the category \( \mathrm{Rep}(G) \), the 1-dimensional representations are invertible.
-
-
-
-
-Let be a finite tensor category with (simple) unit $\mathbf{1}$. Define
-\begin{equation}
-\alpha:= \mathrm{soc}(P(\mathbf{1})),
-\end{equation}
-ie the socle of the projective cover of the unit. In other words: if $\nu$ denotes the Nakayama permutation, $$  \alpha = \nu (\mathbf{1}). $$
-
-
-\subsection{Unimodular finite tensor category}
-A finite tensor category is \textbf{unimodular} if its distinguished invertible object \( \alpha \) is the unit \( 1 \).
-
-\textbf{Example:} In the category \( \mathrm{Rep}(G) \), the 1-dimensional representations are invertible.
-
-
-
-
-\begin{theorem}[ENO04]
-For a finite tensor category, $$ semisimple \Rightarrow unimodular.$$
-\end{theorem}
-
-
-
 
 
 \subsection{Indecomposable projective objects in a finite tensor category}
@@ -2109,11 +2075,6 @@ m_k = [X_k \otimes Z^* : X_i]
 \]
 
 as desired.
-
-
-\subsection{The distinguished invertible object (take 2)}
-
-{\color{red} TO BE FINISHED }
 
 
 
@@ -2332,20 +2293,150 @@ A fin dim quasi-Frobenius algebra $A$ is Frobenius if and only of $$\dim_\Bbbk \
 
 
 
-\subsection{Nakayama functors: FSS setting}
+\subsection{Nakayama functors: Morita-independent version}
 
-{\color{red} TO BE FINISHED }
+Let $\mathcal{A}$ be a finite category and $X \in \mathcal{A}$. By \cref{lem:left_exact=right_adjoint}, the representable functor  $\mathsf{Hom}_\mathcal{A}(X,-): \mathcal{A} \longrightarrow \mathsf{vect}$  has a left adjoint that we denote $(-) \cdot X$. For $V \in \mathsf{vect}$, the object $V \cdot X$ is called the \emph{copower} and exhibits $\mathcal{A}$ as a category tensored over $\mathsf{vect}$ or, in the language of \cref{subsec:finite_mod_cats}, as a finite module category over $\mathsf{vect}$.
 
+
+The aim of this subsection is describe the so-called  Nakayama functors, that will play a major role in the sequel. To this end, we first recall the following 
+
+\begin{theorem}[{\cite[Theorem 3.2]{fss}}]\label{thm:fss_zig_zag}
+Let $\mathcal{A}, \mathcal{B}$ be finite categories. The functors
+$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow  \mathsf{Lex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (X,-) \cdot Y $$
+and
+$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow \mathsf{Rex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot Y $$
+define a zig-zag of adjoint equivalences,
+\begin{equation}\label{eq:fss_zig_zag}
+\mathsf{Lex}(\mathcal{A},\mathcal{B}) \overset{\simeq}{\longleftarrow} \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \overset{\simeq}{\longrightarrow}  \mathsf{Rex}(\mathcal{A},\mathcal{B}).
+\end{equation}
+The quasi-inverses of these functors can be described as follows: to every left exact functor $F$, we assign  the coend $\int^{X \in \mathcal{A}} X \boxtimes F(X)$, and to every right exact functor $G$, the end $\int_{X \in \mathcal{A}} X \boxtimes G(X)$.
+\end{theorem}
+
+The previous theorem can be viewed as a Morita invariant version of the classical Eilenberg-Watts theorem,
+$$  \mathsf{Lex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk) \simeq  B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq \mathsf{Rex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk)  $$ as $B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq  A\text{-}\mathsf{mod}_\Bbbk^\mathsf{op} \boxtimes B\text{-}\mathsf{mod}_\Bbbk$.
+
+Because the identity functor of $\mathcal{A}$ is both left and right exact, \cref{thm:fss_zig_zag} gives rise to two canonical functors: the \emph{left Nakayama functor} $\mathsf{N}^\ell \in \mathsf{Lex}(\mathcal{A}, \mathcal{A})$ and the \emph{right Nakayama functor} $\mathsf{N}^r \in \mathsf{Rex}(\mathcal{A}, \mathcal{A})$. Explicitly,
+\begin{equation}\label{eq:Nakayama_functors}
+\mathsf{N}^\ell= \int_{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (X,-) \cdot X \qquad , \qquad \mathsf{N}^r= \int^{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot X  .
+\end{equation}
+Here we have used that the Hom functor (resp. dual Hom functor) preserves ends (resp. coends) as it is left (resp. right) exact. It follows directly from the zig-zag \eqref{eq:fss_zig_zag} that we have the following isomorphisms in $\mathcal{A}^\mathsf{op} \boxtimes \mathcal{A}$:
+\begin{equation}
+\int^{X \in \mathcal{A}} X \boxtimes \mathsf{N}^\ell(X) \cong \int_{X \in \mathcal{A}}  X \boxtimes X \qquad ,  \qquad  \int_{X \in \mathcal{A}} X \boxtimes \mathsf{N}^r(X) \cong \int^{X \in \mathcal{A}}  X \boxtimes X.
+\end{equation}
+We remark that the left and right Nakayama functors of a finite category $\mathcal{A}$ are very closely related: the left (resp. right) Nakayama functor of $\mathcal{A}$ is precisely the right (resp. left) Nakayama functor of $\mathcal{A}^\mathsf{op}$, viewed as an endofunctor of $\mathcal{A}$. That is, $\mathsf{N}^\ell_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^r_{\mathcal{A}})^\mathsf{op}$ and $\mathsf{N}^r_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^\ell_{\mathcal{A}})^\mathsf{op}$.
+
+
+Another remarkable property is that the Nakayama functors of the Deligne product of two finite categories factor as the Deligne product of the Nakayama functors of the two categories,
+\begin{equation}
+\mathsf{N}^\ell_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^\ell_{\mathcal{A} } \boxtimes \mathsf{N}^\ell_{\mathcal{B}} \qquad , \qquad  \mathsf{N}^r_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^r_{\mathcal{A} } \boxtimes \mathsf{N}^r_{\mathcal{B}},
+\end{equation}
+see \cite[Proposition 3.20]{fss}.
 
 \subsection{The canonical coend $\Delta$}
-{\color{red} TO BE FINISHED }
+
+
+Let $\mathcal{A}$ be a a finite tensor category. An object $X \in \mathcal{A}$ is said to be \emph{invertible} if the evaluation $\mathrm{ev}_X: X^\vee \otimes X \longrightarrow \mathbbm{1} $ and the coevaluation $\mathrm{coev}_X: \mathbbm{1} \longrightarrow X \otimes X^\vee$ are isomorphisms. In that case, $X^\vee$ is often denoted as $X^{-1}$. The goal of this subsection is to introduce the so-called distinguished invertible element of a finite tensor category.
+
+
+If $\mathcal{A}$ is a finite tensor category, its \emph{envelope} is $\mathcal{A}^\mathsf{env} := \mathcal{A} \boxtimes \mathcal{A}^\mathsf{rev}$, which is a finite tensor category by  \cref{prop:Deligne_product_of_ftc}. Note that because of \eqref{eq:duality_functors}, this category is in fact equivalent to $\mathcal{A} \boxtimes \mathcal{A}^\mathsf{op}$. The category $\mathcal{A}$ can be viewed as a left $\mathcal{A}^\mathsf{env}$-module category with action functor determined by 
+$$ (X \boxtimes Y) \ogreaterthan Z = X \otimes Z \otimes Y.  $$
+By the discussion of \cref{subsec:internal_homs}, we have that $\Delta :=\underline{\mathsf{End}}(\mathbbm{1}) \in \mathcal{A}^\mathsf{env}$ is an algebra object, that is usually called the \emph{canonical algebra} of $\mathcal{A}$. By a result of Shimizu \cite[Lemma 4.4]{shimizuunimodular}, the canonical algebra can actually be expressed as the coend
+\begin{equation}\label{eq:Delta_coend}
+\Delta \cong \int^{X \in \mathcal{A}} X^\vee  \boxtimes X.   
+\end{equation}
+
+Moreover by a change of variables
 
 
 
 $$ \Delta \cong \int^{X \in \C} X^\vee \boxtimes X \cong \int^{X \in \C} X \boxtimes {}^\vee X$$
 
 
-\subsection{Self-duality of $\Delta$}
+
+
+\subsection{The distinguished invertible object (take 1)}
+
+
+
+Let \( \mathcal{C} \) be a rigid monoidal category. An object \( X \in \mathcal{C} \) is \textbf{invertible} if the evaluation and coevaluation maps give isomorphisms
+\[
+X^* \otimes X \cong 1 \quad \text{and} \quad 1 \cong X \otimes X^*.
+\]
+\textbf{Example:} In the category \( \mathrm{Rep}(G) \), the 1-dimensional representations are invertible.
+
+
+
+
+Let be a finite tensor category with (simple) unit $\mathbf{1}$. Define
+\begin{equation}
+\alpha:= \mathrm{soc}(P(\mathbf{1})),
+\end{equation}
+ie the socle of the projective cover of the unit. In other words: if $\nu$ denotes the Nakayama permutation, $$  \alpha = \nu (\mathbf{1}). $$
+
+In particular, this implies that 
+$$ \mathsf{N}^r(\alpha) \cong \mathbf{1}.  $$
+
+\subsection{Unimodular finite tensor category}
+A finite tensor category is \textbf{unimodular} if its distinguished invertible object \( \alpha \) is the unit \( 1 \).
+
+\textbf{Example:} In the category \( \mathrm{Rep}(G) \), the 1-dimensional representations are invertible.
+
+
+
+
+\begin{theorem}[ENO04]
+For a finite tensor category, $$ semisimple \Rightarrow unimodular.$$
+\end{theorem}
+
+
+
+
+\subsection{The distinguished invertible object (take 2)}
+
+
+The monoidal unit $\mathbbm{1} \in \mathcal{A}$ is well-known to be an $\mathcal{A}^\mathsf{env}$-progenerator: indeed by \eqref{eq:iso_2.15} we have $\underline{\mathsf{Hom}}(\mathbbm{1},-)\cong (- \boxtimes \mathbbm{1}) \otimes
+\underline{\mathsf{End}}(\mathbbm{1})$, which is right exact; and  since $\underline{\mathsf{End}}(\mathbbm{1})\neq 0$, the argument from \cite[Lemma~6.11]{reflection} tells us that  $\underline{\mathsf{Hom}}(\mathbbm{1},-)$ is also faithful.
+Therefore by \cref{thm:monadicity_thm} the functor $$ \underline{\mathsf{Hom}}(\mathbbm{1},-): \mathcal{A} \overset{\simeq}{\longrightarrow} \mathsf{mod}_{\mathcal{A}^\mathsf{env}}\text{-} \Delta $$
+is an equivalence of $\mathcal{A}^\mathsf{env}$-module categories. Furthermore \eqref{eq:iso_2.15} implies that this functor is naturally isomorphic to the functor $(- \boxtimes \mathbbm{1}) \otimes \Delta_{\Delta}$, where $\Delta_{\Delta}$ denotes $\Delta$ viewed as a right $\Delta$-module by the multiplication of $\Delta$. By means of the equivalence, there exists an object $\alpha$, unique up to isomorphism, such that
+\begin{equation}\label{eq:def_alpha}
+(\alpha \boxtimes \mathbbm{1}) \otimes \Delta_\Delta \cong ({}_{\Delta}\Delta)^\vee.
+\end{equation}
+ It can be shown that this object $\alpha$ is in fact invertible \cite[\S 7.18]{egno} (see also \cite[Lemma 4.3]{shimizuunimodular}), and will be called the \emph{distinguished invertible object} of  $\mathcal{A}$. When $\alpha \cong \mathbbm{1}$, we will say that $\mathcal{A}$ is \emph{unimodular}. This name comes from the theory of Hopf algebras: a finite-dimensional Hopf algebra $H$ is unimodular  (i.e., left- and right-integrals coincide) if and only if the category $H\text{-}\mathsf{mod}_\Bbbk$ is unimodular. We refer the reader to \cite[Theorem 4.10]{shimizuunimodular} for a list of different characterizations of unimodularity.  Note that when $\mathcal{A}$ is unimodular, \eqref{eq:def_alpha} implies the self-duality of $\Delta$.
+
+
+One of the main properties of the distinguished invertible object is that it implements the quadruple dual by conjugation \cite[Theorem 3.3]{eno-d}: we have a natural 
+isomorphism of monoidal functors
+\begin{equation}
+ (-)^{\vee \vee \vee \vee} \cong \alpha \otimes - \otimes \alpha^{-1}. 
+\end{equation} In particular, if $\mathcal{A}$ is unimodular, then $(-)^{\vee \vee \vee \vee} \cong \mathrm{id}_\mathcal{A}$.
+
+
+
+
+We have two different versions of the distinguished invertible object in a finite tensor category. Both coincide:
+
+
+\begin{proposition}[Shimizu's unimodular Lemma 5.5]
+Both definitions of $\alpha$ agree.
+\end{proposition}
+
+\begin{proof}
+Set $B(X,Y) = \operatorname{Hom}_{\mathcal{C}}(X,\mathbf{1}) \cdot Y$. We denote by $\pi \colon D \xrightarrow{\cdot\cdot} B$ the universal dinatural transformation of the end. For $X_1, X_2 \in \mathcal{C}$, we have
+\[
+\pi_{X_1 \oplus X_2} = B(\mathrm{id}_{X_1 \oplus X_2}, i_1 p_1) \circ \pi_{X_1 \oplus X_2} + B(\mathrm{id}_{X_1 \oplus X_2}, i_2 p_2) \circ \pi_{X_1 \oplus X_2}
+\]
+\[
+= B(p_1, i_1) \circ \pi_{X_1} + B(p_2, i_2) \circ \pi_{X_2},
+\]
+where $i_r \colon X_r \to X_1 \oplus X_2$ and $p_r \colon X_1 \oplus X_2 \to X_r$ $(r = 1,2)$ are the inclusion and the projection, respectively. Hence, if $\pi_{X_1} = 0$ and $\pi_{X_2} = 0$, then $\pi_{X_1 \oplus X_2} = 0$.
+
+Now let $V_0 = \mathbf{1}, V_1, \dots, V_n$ be a complete set of representatives of the isomorphism classes of simple objects of $\mathcal{C}$, and let $P_i$ be the projective cover of $V_i$. Suppose that $\pi_{P_i} = 0$ for all $i$. Then, by the above argument, $\pi_P = 0$ for all projective object $P \in \mathcal{C}$. For each $X \in \mathcal{C}$, there are a projective object $P \in \mathcal{C}$ and an epimorphism $f \colon P \to X$. Since $B(f,X)$ is monic and $B(f,\mathrm{id}_X) \circ \pi_X = B(\mathrm{id}_P, f) \circ \pi_P = 0$, we have $\pi_X = 0$. Hence $D = 0$ by the universal property. This contradicts the fact that $D$ is a simple object.
+
+By the above argument, $\pi_{P_i} \neq 0$ for some $i$. Since $B(P_i, P_i) = 0$ for $i \neq 0$, the morphism $\pi_{P_0}$ must be non-zero. Since $D$ is a simple object, the morphism $\pi_0$ induces a monomorphism from $D$ to the socle $S$ of $P_0$. On the other hand, it is known that $S$ is simple [EO]. Thus $D \cong S$.
+\end{proof}
+
+
+\subsection{Self-duality of $\Delta$ in a unimodular ftc}
 {\color{red} TO BE FINISHED }
 
 Three different ways to see that $\Delta $ is self-dual:
@@ -2358,10 +2449,6 @@ Three different ways to see that $\Delta $ is self-dual:
 $$ \int^{X \in \C} X^\vee \boxtimes X \cong  \int_{X \in \C} X^\vee \boxtimes X.$$
 We conclude as 
 $$  \Delta^\vee \cong \left( \int^{X \in \C} X^\vee \boxtimes X  \right)^\vee \cong   \int_{X \in \C} X^{\vee \vee} \boxtimes X^\vee \cong    \int_{X \in \C} X^\vee \boxtimes X \cong   \int^{X \in \C} X^\vee \boxtimes X \cong \Delta $$
-
-
-
-
 
 
 
@@ -2995,44 +3082,9 @@ isomorphism of monoidal functors
 
 
 
-\subsection{Nakayama functors}
-
-Let $\mathcal{A}$ be a finite category and $X \in \mathcal{A}$. By \cref{lem:left_exact=right_adjoint}, the representable functor  $\mathsf{Hom}_\mathcal{A}(X,-): \mathcal{A} \longrightarrow \mathsf{vect}$  has a left adjoint that we denote $(-) \cdot X$. For $V \in \mathsf{vect}$, the object $V \cdot X$ is called the \emph{copower} and exhibits $\mathcal{A}$ as a category tensored over $\mathsf{vect}$ or, in the language of \cref{subsec:finite_mod_cats}, as a finite module category over $\mathsf{vect}$.
+\subsection{stuff}
 
 
-The aim of this subsection is describe the so-called  Nakayama functors, that will play a major role in the sequel. To this end, we first recall the following 
-
-\begin{theorem}[{\cite[Theorem 3.2]{fss}}]\label{thm:fss_zig_zag}
-Let $\mathcal{A}, \mathcal{B}$ be finite categories. The functors
-$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow  \mathsf{Lex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (X,-) \cdot Y $$
-and
-$$ \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \longrightarrow \mathsf{Rex}(\mathcal{A},\mathcal{B})  \qquad , \qquad X \boxtimes Y \longmapsto \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot Y $$
-define a zig-zag of adjoint equivalences,
-\begin{equation}\label{eq:fss_zig_zag}
-\mathsf{Lex}(\mathcal{A},\mathcal{B}) \overset{\simeq}{\longleftarrow} \mathcal{A}^\mathsf{op} \boxtimes \mathcal{B} \overset{\simeq}{\longrightarrow}  \mathsf{Rex}(\mathcal{A},\mathcal{B}).
-\end{equation}
-The quasi-inverses of these functors can be described as follows: to every left exact functor $F$, we assign  the coend $\int^{X \in \mathcal{A}} X \boxtimes F(X)$, and to every right exact functor $G$, the end $\int_{X \in \mathcal{A}} X \boxtimes G(X)$.
-\end{theorem}
-
-The previous theorem can be viewed as a Morita invariant version of the classical Eilenberg-Watts theorem,
-$$  \mathsf{Lex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk) \simeq  B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq \mathsf{Rex}(A\text{-}\mathsf{mod}_\Bbbk, B\text{-}\mathsf{mod}_\Bbbk)  $$ as $B\text{-}\mathsf{bimod}_\Bbbk \text{-} A \simeq  A\text{-}\mathsf{mod}_\Bbbk^\mathsf{op} \boxtimes B\text{-}\mathsf{mod}_\Bbbk$.
-
-Because the identity functor of $\mathcal{A}$ is both left and right exact, \cref{thm:fss_zig_zag} gives rise to two canonical functors: the \emph{left Nakayama functor} $\mathsf{N}^\ell \in \mathsf{Lex}(\mathcal{A}, \mathcal{A})$ and the \emph{right Nakayama functor} $\mathsf{N}^r \in \mathsf{Rex}(\mathcal{A}, \mathcal{A})$. Explicitly,
-\begin{equation}\label{eq:Nakayama_functors}
-\mathsf{N}^\ell= \int_{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (X,-) \cdot X \qquad , \qquad \mathsf{N}^r= \int^{X\in \mathcal{A}} \mathsf{Hom}_\mathcal{A} (-,X)^* \cdot X  .
-\end{equation}
-Here we have used that the Hom functor (resp. dual Hom functor) preserves ends (resp. coends) as it is left (resp. right) exact. It follows directly from the zig-zag \eqref{eq:fss_zig_zag} that we have the following isomorphisms in $\mathcal{A}^\mathsf{op} \boxtimes \mathcal{A}$:
-\begin{equation}
-\int^{X \in \mathcal{A}} X \boxtimes \mathsf{N}^\ell(X) \cong \int_{X \in \mathcal{A}}  X \boxtimes X \qquad ,  \qquad  \int_{X \in \mathcal{A}} X \boxtimes \mathsf{N}^r(X) \cong \int^{X \in \mathcal{A}}  X \boxtimes X.
-\end{equation}
-We remark that the left and right Nakayama functors of a finite category $\mathcal{A}$ are very closely related: the left (resp. right) Nakayama functor of $\mathcal{A}$ is precisely the right (resp. left) Nakayama functor of $\mathcal{A}^\mathsf{op}$, viewed as an endofunctor of $\mathcal{A}$. That is, $\mathsf{N}^\ell_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^r_{\mathcal{A}})^\mathsf{op}$ and $\mathsf{N}^r_{\mathcal{A}^\mathsf{op}}\cong (\mathsf{N}^\ell_{\mathcal{A}})^\mathsf{op}$.
-
-
-Another remarkable property is that the Nakayama functors of the Deligne product of two finite categories factor as the Deligne product of the Nakayama functors of the two categories,
-\begin{equation}
-\mathsf{N}^\ell_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^\ell_{\mathcal{A} } \boxtimes \mathsf{N}^\ell_{\mathcal{B}} \qquad , \qquad  \mathsf{N}^r_{\mathcal{A} \boxtimes \mathcal{B}} \cong \mathsf{N}^r_{\mathcal{A} } \boxtimes \mathsf{N}^r_{\mathcal{B}},
-\end{equation}
-see \cite[Proposition 3.20]{fss}.
 
 %Moreover, for any finite category $\cA$ and objects $X,P \in \cA$ with $P$ projective, there is a natural isomorphism
 %\begin{equation}\label{eq:Nr-twisted_CY}
