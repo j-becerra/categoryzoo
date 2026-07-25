@@ -628,6 +628,12 @@ representable functor $\mathrm{Hom}_{\mathcal{C}}(A,-)$.
 given by $\eta \mapsto \eta_A(\mathrm{id}_A)$, with inverse sending $x \in FA$ to the
 natural transformation with components $\eta_X(f) = (Ff)(x)$ for $f \in \mathcal{C}(A,X)$.
 
+
+If $F : \mathcal{C}^{op} \to \mathbf{Set}$ , then
+
+\begin{align}
+\mathrm{Nat}\big(\mathcal{C}(-,A),\, F\big) \;\cong\; FA,
+\end{align}
 \subsection*{Natural transformations as an end}
 
 Recall that for functors $F,G : \mathcal{C} \to \mathcal{D}$, the set of natural
@@ -643,78 +649,44 @@ $f : X \to Y$ to the two maps
 i.e.\ a family $(\varphi_X)_{X}$ lies in the end iff $Gf \circ \varphi_X = \varphi_Y \circ Ff$
 for all $f$ --- exactly naturality.
 
-\subsection*{The ``ninja'' Yoneda lemma}
+
 
 Applying this to $\mathcal{C}(A,-)$ and $F$ gives the end-form of Yoneda:
 \begin{align}
 FA \;\cong\; \int_{X \in \mathcal{C}} \mathbf{Set}\big(\mathcal{C}(A,X),\, FX\big).
 \end{align}
 
-\begin{proof}
-By definition,
-\begin{align}
-\int_{X} \mathbf{Set}(\mathcal{C}(A,X), FX) = \mathrm{Nat}\big(\mathcal{C}(A,-), F\big),
-\end{align}
-so it suffices to reprove the classical statement, but it is instructive to see how the
-\emph{wedge condition itself} forces everything. A wedge is a family
-\begin{align}
-\varphi_X : \mathcal{C}(A,X) \longrightarrow FX, \qquad X \in \mathcal{C},
-\end{align}
-such that for every $f : X \to Y$ the square
-$$
-\begin{tikzcd}
-\mathcal{C}(A,X) \arrow[r, "\varphi_X"] \arrow[d, "f \circ -"'] & FX \arrow[d, "Ff"] \\
-\mathcal{C}(A,Y) \arrow[r, "\varphi_Y"'] & FY
-\end{tikzcd}
-$$
-commutes. Take $X = A$, $g \in \mathcal{C}(A,X)$ arbitrary, and apply the square to
-$f = g : A \to X$ evaluated at $\mathrm{id}_A$:
-\begin{align}
-\varphi_X(g) \;=\; \varphi_X\big(g \circ \mathrm{id}_A\big) \;=\; (Fg)\big(\varphi_A(\mathrm{id}_A)\big).
-\end{align}
-So \textbf{every component $\varphi_X$ is completely determined by the single value}
-$x := \varphi_A(\mathrm{id}_A) \in FA$, via
-\begin{align}
-\varphi_X(g) = (Fg)(x), \qquad g \in \mathcal{C}(A,X).
-\end{align}
-Conversely, given any $x \in FA$, this formula defines a wedge (functoriality of $F$ gives
-exactly the required commuting squares). This exhibits a bijection
-\begin{align}
-\int_{X} \mathbf{Set}(\mathcal{C}(A,X), FX) \;\xrightarrow{\ \cong\ }\; FA,
-\qquad \varphi \longmapsto \varphi_A(\mathrm{id}_A),
-\end{align}
-with the evaluation map $x \mapsto (g \mapsto (Fg)(x))$ as inverse. \hfill $\blacksquare$
-\end{proof}
 
-\subsection*{Remarks}
+For finite categories and $F: \C \to \mathsf{vect}$, this becomes $FA \;\cong\; \int_{X \in \mathcal{C}} \mathbf{Hom}_\Bbbk \big(\mathcal{C}(A,X),\, FX\big), $ ie
 
-\begin{itemize}
-\item This proof is the ``universal element'' argument in disguise: the wedge condition,
-applied at $X=A$ with $g = \mathrm{id}_A$, is nothing but the statement that
-$\mathcal{C}(A,-)$ is the \textbf{free/representing} functor on the ``generic element''
-$\mathrm{id}_A \in \mathcal{C}(A,A)$, and $x = \varphi_A(\mathrm{id}_A)$ is where that
-generic element must go.
-
-\item The contravariant version, for $F : \mathcal{C}^{\mathrm{op}} \to \mathbf{Set}$, reads
 \begin{align}
-FA \;\cong\; \int_{X\in\mathcal{C}} \mathbf{Set}\big(\mathcal{C}(X,A), FX\big).
+\boxed{
+FA \;\cong\; \int_{X \in \mathcal{C}} \mathcal{C}(A,X)^* \otimes_\Bbbk FX
+}
 \end{align}
 
-\item The end formula is the one that generalizes cleanly to \textbf{enriched} category
-theory: for a $\mathcal{V}$-category $\mathcal{C}$ and $F : \mathcal{C} \to \mathcal{V}$,
+
+
+
+
+\subsection{Yoneda for Functors Between Finite Abelian Categories}
+
+\textbf{Setup.} Let $k$ be a field, $\mathcal{C},\mathcal{D}$ finite abelian $k$-linear
+categories, and $F : \mathcal{C} \to \mathcal{D}$ a $k$-linear functor.
+
+
+
+Recall that any finite abelian category can be seen as a left $\mathsf{vect}$-module category. Or alternatively, a finite abelian category is copowered over $\mathsf{vect}$. This means that there is an action functor $\triangleright : \mathsf{vect} \times \C \to \C$ with natural isomorphisms $$ \C (V \triangleright X, Y) \cong   \mathrm{Hom}_\Bbbk (V, \C(X,Y)).$$ 
+
+
+In this context, the Yoneda lemma reads (see FSS)
+
+
 \begin{align}
-FA \;\cong\; \int_{X \in \mathcal{C}} \big[\mathcal{C}(A,X), FX\big],
+\boxed{
+FA \;\cong\; \int_{X \in \mathcal{C}} \mathcal{C}(A,X)^* \triangleright FX
+}
 \end{align}
-where $[-,-]$ is the internal hom of $\mathcal{V}$ --- this is the version used e.g.\ for
-$\mathrm{Vect}$-enriched or $\mathrm{Cat}$-enriched Yoneda, and it is the natural language
-for the \textbf{coend/density formula}
-\begin{align}
-F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,-) \cdot FX
-\end{align}
-(every functor is a colimit of representables), which is Yoneda's \emph{co}end dual and
-the starting point for Kan extension formulas via the \textbf{Fubini/ninja Yoneda}
-manipulations (co-Yoneda reduction).
-\end{itemize}
 
 
 
@@ -876,7 +848,9 @@ FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \cdot FX.
 
 If the categories are $\Bbbk$-linear, then this reads
 \begin{align}
-FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes FX
+\boxed{
+FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes_\Bbbk FX
+}
 \end{align}
 or in the contravariant case
 \begin{align}
@@ -892,89 +866,31 @@ or similarly taking the contravariant version
 \mathcal{C}(A,B)^* \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(B,X) \otimes \mathcal{C}(A,X)^*.}
 \end{align}
 
-\paragraph{Coends as colimits}
 
-Dually to the end description of naturality, the coend
-$\int^{X} \mathcal{C}(X,A) \times FX$
-is the \emph{coequalizer}
-$$
-\begin{tikzcd}[column sep=large]
-\displaystyle\coprod_{f : X \to Y} \mathcal{C}(Y,A) \times FX
-\arrow[r, shift left, "f^* \times \mathrm{id}"]
-\arrow[r, shift right, "\mathrm{id} \times Ff"']
-&
-\displaystyle\coprod_{X \in \mathcal{C}} \mathcal{C}(X,A) \times FX
-\arrow[r]
-& \int^{X} \mathcal{C}(X,A)\times FX
-\end{tikzcd}
-$$
-That is, elements are pairs $(g,x)$ with $g : X \to A$, $x \in FX$, modulo the relation
-\begin{align}
-(g \circ f,\, x) \;\sim\; (g,\, (Ff)(x)), \qquad \text{for } f : X \to Y,\ g : Y \to A,\ x \in FX.
-\end{align}
-We write $[g,x]$ for the equivalence class of $(g,x)$.
 
-\paragraph{Proof}
 
-\begin{proof}
-Define a map
-\begin{align}
-\Phi : \int^{X} \mathcal{C}(X,A) \times FX \longrightarrow FA, \qquad \Phi[g,x] = (Fg)(x).
-\end{align}
-This is well-defined on equivalence classes: for $f : X \to Y$,
-\begin{align}
-\Phi[g\circ f, x] = \big(F(g\circ f)\big)(x) = (Fg)\big((Ff)(x)\big) = \Phi[g, (Ff)(x)],
-\end{align}
-using functoriality of $F$, which is exactly the coequalizer relation.
 
-Conversely, define
+\section{Co-Yoneda for Functors Between Finite Abelian Categories}
+
+\textbf{Setup.} Let $k$ be a field and $\mathcal{C}, \mathcal{D}$ finite abelian
+$k$-linear categories (i.e.\ $k$-linear, finite length, with finite-dimensional
+Hom-spaces, enough projectives, and finitely many simple objects up to isomorphism).
+Let $F : \mathcal{C} \to \mathcal{D}$ be a $k$-linear functor (additive and
+$k$-linear on Hom-spaces; no exactness assumed).
+
+
+In this context the coYoneda lemma reads (see FSS)
+
+
+
 \begin{align}
-\Psi : FA \longrightarrow \int^{X} \mathcal{C}(X,A) \times FX, \qquad
-\Psi(a) = [\mathrm{id}_A,\, a].
+\boxed{
+FA \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,A) \triangleright FX
+}
 \end{align}
 
-\textbf{$\Phi \circ \Psi = \mathrm{id}$:} $\Phi\Psi(a) = \Phi[\mathrm{id}_A,a] = (F\mathrm{id}_A)(a) = a$.
 
-\textbf{$\Psi \circ \Phi = \mathrm{id}$:} for any representative $(g,x)$ with $g : X \to A$,
-\begin{align}
-\Psi\Phi[g,x] = \Psi\big((Fg)(x)\big) = [\mathrm{id}_A, (Fg)(x)] = [\mathrm{id}_A \circ g,\, x] = [g,x],
-\end{align}
-using the coequalizer relation with $f = g$. Hence $\Phi$ and $\Psi$ are mutually inverse
-bijections, natural in $A$ and $F$. \hfill $\blacksquare$
-\end{proof}
-
-\paragraph{Remarks}
-
-\begin{itemize}
-\item Every element of $\int^{X} \mathcal{C}(X,A) \times FX$ can be represented (non-uniquely)
-as $[g,x]$ with $g : X \to A$, $x \in FX$; the coend relation says exactly that ``pushing
-$f$ along $g$'' and ``pushing $f$ along $F$'' give the same class. The isomorphism above
-shows the \emph{canonical} representative of $a \in FA$ is $[\mathrm{id}_A, a]$.
-
-\item This is the coend/co-Yoneda dual of the end form of Yoneda,
-\begin{align}
-FA \;\cong\; \int_{X \in \mathcal{C}} \mathbf{Set}\big(\mathcal{C}(A,X), FX\big),
-\end{align}
-and the two are related by the general \textbf{Yoneda--density} philosophy: $F$ is
-simultaneously a limit of the diagram of hom-sets \emph{into} it (end form) and a colimit
-of representables glued along $F$'s values (coend form).
-
-\item The enriched version, for $F : \mathcal{C} \to \mathcal{V}$ with $\mathcal{C}$ a
-$\mathcal{V}$-category and $\mathcal{V}$ cocomplete closed symmetric monoidal, reads
-\begin{align}
-F \;\cong\; \int^{X \in \mathcal{C}} \mathcal{C}(X,-) \otimes FX,
-\end{align}
-with $\otimes$ the tensoring of $\mathcal{V}$-objects over $\mathcal{V}$-functors. This is
-the formula underlying the \textbf{density theorem} (every presheaf is a colimit of
-representables) and is the standard tool for \textbf{Fubini/ninja Yoneda} manipulations,
-e.g.\ rewriting coends of Hom functors such as
-\begin{align}
-\int^{X \in \mathcal{C}} \mathcal{C}(X,A) \otimes G(X) \;\cong\; G(A)
-\end{align}
-for any $G : \mathcal{C} \to \mathcal{V}$ --- the ``co-Yoneda reduction'' used constantly
-when simplifying coend expressions (e.g.\ in the canonical coend algebra
-$F = \int^{X} X^\vee \otimes X$ for a finite tensor category).
-\end{itemize}
+For a vector space $V$ and an object $X$, $V \triangleright X$ denotes the copower or action of vect on $\C$.
 
 
 
@@ -2291,6 +2207,14 @@ When is a quasi-Frobenius algebra actually Frobenius?
 A fin dim quasi-Frobenius algebra $A$ is Frobenius if and only of $$\dim_\Bbbk \nu(S) = \dim_\Bbbk S$$ for all simple $A$-modules $S$.
 \end{theorem}
 
+
+
+
+The condition of the theorem holds for instance if $A$ is a basic algebra, ie if $A \cong P_1 \oplus \cdots \oplus P_r$ with the $P_i$ pairwise non-isomorphic. So
+
+\begin{corollary}
+Any quasi-Frobenius, basic algebra is a Frobenius algebra.
+\end{corollary}
 
 
 \subsection{Nakayama functors: Morita-independent version}
